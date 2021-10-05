@@ -191,11 +191,12 @@ fieldset span {
 }
 
 .tableGame {
-  width: 300px;
-  height: 300px;
-  border: 10px solid var(--color);
-  border-top: none;
-  background-color: var(--color_bg2);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 455px;
+  height: 389px;
+  border: 2px solid black;
 }
 .tableGame__column {
   width: 15%;

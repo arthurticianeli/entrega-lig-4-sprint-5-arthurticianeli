@@ -4,14 +4,6 @@ body{
 }
 
 
-.tabuleiro{
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    width: 455px;
-    height: 389px;
-    border: 2px solid black;
-}
 .blocoFilho{
     /* border: 2px solid black; */
     width: 65px;
