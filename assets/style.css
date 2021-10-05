@@ -96,8 +96,8 @@ header {
 /******************************************************/
 
 .container__players {
-  /* display: none; */
-  display: flex;
+  display: none;
+  /* display: flex; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -191,34 +191,37 @@ fieldset span {
 }
 
 .tableGame {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   width: 300px;
-  height: 300px;
-  border: 10px solid var(--color);
+  height: 245px;
+  border: 10px solid var(--border);
   border-top: none;
-  background-color: var(--color_bg2);
-}
-.tableGame__column {
-  width: 15%;
-  height: 100%;
-  border-right: 5px solid var(--color);
-}
-.tableGame__column:hover {
-  cursor: pointer;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(98, 90, 103, 0),
+    rgba(98, 90, 103, 0.8)
+  );
 }
 
-.tableGame__row {
+.tableGame > * > * {
   display: flex;
-  align-items: flex-start;
-  background-color: var(--red);
-  height: 20px;
-  margin: 2px;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.tableGame > *:hover {
+  cursor: pointer;
+  background-color: var(--color);
 }
 
 .tableGame__jogador {
   width: 200px;
   height: 50px;
   border: none;
-  background-color: var(--color_bg2);
+  background-color: var(--color);
   color: var(--black);
   margin: 10px 0 20px;
   padding: 10px;
@@ -228,19 +231,41 @@ fieldset span {
 }
 
 .tableGame__jogador span {
-  color: var(--red);
 }
 
 .tableGame__reset {
   width: 200px;
   height: 50px;
-  background-color: var(--color_bg2);
+  background-color: var(--color_bg);
   color: var(--black);
   margin: 10px 0 20px;
   padding: 10px;
   border-radius: 5px;
   font-size: 1.2rem;
   text-align: center;
+}
+
+.blocoFilho {
+  border-right: 1px solid var(--color);
+  border-left: 1px solid var(--color);
+  width: 40px;
+  height: 40px;
+  background: none;
+}
+
+.red {
+  border-radius: 100%;
+  border: 2px solid var(--black);
+  width: 80%;
+  height: 80%;
+  background-color: var(--red);
+}
+.black {
+  border-radius: 100%;
+  border: 2px solid var(--black);
+  width: 40px;
+  height: 40px;
+  background-color: var(--black);
 }
 
 /******************************************************/
