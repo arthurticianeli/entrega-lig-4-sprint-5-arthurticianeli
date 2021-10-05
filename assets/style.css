@@ -86,7 +86,7 @@ header h1 {
 /*********************** JOGADOR **********************/
 /******************************************************/
 
-.players {
+.container__players {
   display: none;
   /* display: flex; */
   flex-direction: column;
