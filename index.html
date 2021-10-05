@@ -8,24 +8,65 @@
     <link rel="stylesheet" href="./assets/style.css" />
     <title>Lig-4</title>
   </head>
-  <body id="body">
-    <header><h1>Lig -4</h1></header>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logoBg">L</div>
+      <div class="logoSpacing"></div>
+      <div class="logoBg">I</div>
+      <div class="logoSpacing"></div>
+      <div class="logoBg">G</div>
+      <div class="logoSpacing"></div>
+      <div class="logoBg">4</div>
+    </header>
+    <!-- HEADER -->
 
-    <main class="tableGame">
-      <section></section>
-    </main>
-    <section class="players">
-      <form>
-        <fieldset class="players">
-          <label>Player 1</label>
-          <input type="text" name="player1" class="namesPlayersInput" />
+    <!-- MAIN -->
 
-          <label>Player 2</label>
-          <input type="text" name="player2" class="namesPlayersInput" />
-        </fieldset>
-      </form>
-      <button class="startButton">Start</button>
+    <!-- ESCOLHER JOGADOR -->
+    <form class="players">
+      <fieldset>
+        <span>Escreva o nome dos jogadores:</span>
+        <div class="jogadorRed"></div>
+        <input
+          type="text"
+          name="player1"
+          class="namesPlayersInput"
+          placeholder="Player1"
+        />
+
+        <div class="jogadorBlack"></div>
+        <input
+          type="text"
+          name="player2"
+          class="namesPlayersInput"
+          placeholder="Player2"
+        />
+
+        <button class="startButton">Start</button>
+      </fieldset>
+    </form>
+    <!-- ESCOLHER JOGADOR -->
+
+    <!-- TABLE -->
+    <section class="container__tableGame">
+      <div class="tableGame"></div>
+
+      <div class="tableGame__jogador">
+        É a vez do jogador <br /><span>[NOME DO JOGADOR]</span>
+      </div>
     </section>
+    <!-- TABLE -->
+
+    <!-- VITÓRIA -->
+    <section class="container__vitoria">
+      <div class="vencendorDiv"></div>
+      <div class="vencendorText">O vencedor foi <br /><span></span>[NOME DO JOGADOR]</span></div>
+      <button class="jogarNovamente">Jogar novamente</button>
+    </section>
+    <!-- VITÓRIA -->
+
+    <!-- MAIN -->
 
     <script src="script.js"></script>
   </body>

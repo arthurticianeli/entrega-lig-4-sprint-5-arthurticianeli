@@ -1,69 +1,70 @@
-// let board = document.createElement("table")
-// board.classList.add("board")
-
-// // Tabuleiro deve ter um tamanho de 7x6 e ser criado pelo DOM
-//     // criar 7 divs que vão ser as colunas .insertRow()
-//     // dentro dessas 7 divs terão 6 divs .insertCell()
-
-//     for (let i = 0; i < 6; i++){
-//         let tr = board.insertRow()
-//         for (let j = 0; j < 7; j++){
-//             tr.insertCell()
-//         }
-//     }
-
-//     document.body.appendChild(board)
-
-
-
-    // Ao clicar em uma célula, criar pelo DOM o disco e o encaixar no local apropriado.
-        //ao clicar numa célula a função deve achar qual o index da célula
-        //achado o index, ela deve percorrer todos os tds daquele index nas trs verificando se há discos
-        //
-const tableGame = document.querySelector(".tableGame");
-const body = document.getElementById("body");
-
-function createTable() {
-  for (let column = 0; column < 7; column++) {
-    const tableColumn = document.createElement("div");
-    tableColumn.classList.add("tableGame__column");
-
-    for (let row = 0; row < 6; row++) {
-      const tableRow = document.createElement("div");
-      tableRow.classList.add("tableGame__row");
-      tableColumn.appendChild(tableRow);
+function criaTabuleiro(col, lin){
+    let tabuleiro = []
+    for (let y = 0; y < lin; y++) {
+        tabuleiro.push([]);
+        for (let x = 0; x < col; x++) {
+            tabuleiro[y][x] = 0;
+        }
     }
 
-    tableGame.appendChild(tableColumn);
-  }
+    return tabuleiro;
 }
-createTable();
 
-// const sectionPlayers = document.createElement("section");
-// sectionPlayers.classList.add("players");
-// body.appendChild(sectionPlayers);
+let tabuleiro = [
+    [0, 0, 0, 0, 0, 0, 0,],
+    [0, 0, 0, 0, 0, 0, 0,],
+    [0, 0, 0, 0, 1, 0, 0,],
+    [0, 0, 0, 1, 0, 0, 0,],
+    [0, 0, 1, 0, 2, 0, 0,],
+    [0, 1, 2, 0, 0, 0, 0,],
+];
 
-// const player1Label = document.createElement("label");
-// player1Label.classList.add("namesPlayersLabel");
-// player1Label.innerText = "Player 1";
-// sectionPlayers.appendChild(player1Label);
 
-// const player1 = document.createElement("input");
-// player1.classList.add("namesPlayersInput");
-// player1.innerText = "";
-// sectionPlayers.appendChild(player1);
+function posicaoDiscos(corDisco){
+    let posicaoDiscos = []
+    let qtdDiscos = 0
 
-// const player2Label = document.createElement("label");
-// player2Label.classList.add("namesPlayersLabel");
-// player2Label.innerText = "Player 2";
-// sectionPlayers.appendChild(player2Label);
+    for (let y = 0; y < tabuleiro.length; y++) {
+        for (let x = 0; x < tabuleiro[0].length; x++) {
+            if(tabuleiro[y][x] === corDisco){
+                posicaoDiscos.push([y,x]) 
+                qtdDiscos++
+            }
+        }
+    }
+    
 
-// const player2 = document.createElement("input");
-// player2.classList.add("namesPlayersInput");
-// player2.innerText = "";
-// sectionPlayers.appendChild(player2);
+    return posicaoDiscos;
+}
 
-// const start = document.createElement("button");
-// start.innerText = "Start";
-// start.classList.add("startButton");
-// sectionPlayers.appendChild(start);
+function conteudo(posicao){
+    let l = posicao[0]
+    let c = posicao[1]
+    return tabuleiro[l][c]
+}
+
+//alert(posicaoDiscos(2,7,6))
+
+const condicaoVitoria = 4
+
+function verificaVitoria(posicaoDiscos, corDisco){
+    let verificacoes = 0;
+    let discoEncontrado = 0;
+
+    for(let y=0;y<posicaoDiscos.length;y++){
+        if(posicaoDiscos[y][y] === posicaoDiscos[y][y+1]){
+            discoEncontrado++
+        }
+    }
+    
+    /*while (verificacoes < posicaoDiscos.length) {
+        if(posicaoDiscos[0])
+        verificacoes++
+    }*/
+    return discoEncontrado
+
+}
+
+//alert(criaTabuleiro(7,6).join(" - "))
+// alert(verificaVitoria(posicaoDiscos(2)))
+//alert(imprimirConteudo(2,4))
