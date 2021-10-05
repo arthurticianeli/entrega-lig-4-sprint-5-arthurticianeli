@@ -1,0 +1,36 @@
+body{
+    display: flex;
+    justify-content: center;
+}
+
+
+.blocoFilho{
+    /* border: 2px solid black; */
+    width: 65px;
+    height: 65px;
+    background-color: rgb(255, 246, 127);
+}
+.red{
+    border-radius: 100%;
+    border: 2px solid black;
+    width: 61px;
+    height: 61px;
+    background-color: rgb(255, 0, 0);
+    animation: movimento 2.5s;
+}
+.black{
+    border-radius: 100%;
+    border: 2px solid rgb(0, 0, 0);
+    width: 61px;
+    height: 61px;
+    background-color: rgb(0, 0, 0);
+    animation: movimento 2.5s;
+}
+
+@keyframes movimento {
+    from{
+        position: absolute;
+        top: 8vh;
+        /* transform: translateY(-393px); */
+    }
+}
