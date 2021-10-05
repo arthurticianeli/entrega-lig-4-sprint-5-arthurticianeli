@@ -86,7 +86,7 @@ header h1 {
 /*********************** JOGADOR **********************/
 /******************************************************/
 
-.players {
+.container__players {
   display: none;
   /* display: flex; */
   flex-direction: column;
@@ -193,6 +193,18 @@ header h1 {
   color: var(--red);
 }
 
+.tableGame__reset {
+  width: 200px;
+  height: 50px;
+  background-color: var(--color_bg2);
+  color: var(--black);
+  margin: 10px 0 20px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
 /******************************************************/
 /*********************** VITÓRIA **********************/
 /******************************************************/
@@ -223,7 +235,7 @@ header h1 {
   text-align: center;
 }
 
-.jogarNovamente {
+.container__vitoria button {
   width: 200px;
   height: 50px;
   background-color: var(--color_bg2);
