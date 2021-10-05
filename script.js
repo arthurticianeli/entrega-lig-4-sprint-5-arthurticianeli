@@ -16,7 +16,6 @@ const criarTabuleiro = () =>{
         coluna.addEventListener("click",moverDiscos)
         for(let a = 0 ; a < tabuleiro.length ; a++){
             
-            
             let bloco = document.createElement("div")
             if(tabuleiro[a][i] === "0"){
                 bloco.classList.add("blocoFilho")
@@ -77,8 +76,6 @@ const verificaVitoria = (player) =>{
     }
     // return console.log("empatou!!")
 }
-
-
 
 
 let arrJogadas = []
