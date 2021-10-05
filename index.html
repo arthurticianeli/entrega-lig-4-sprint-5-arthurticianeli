@@ -11,7 +11,7 @@
   <body>
     <!-- HEADER -->
     <header>
-      <div class="logoBg">L</div>
+      <div class="logoBg"><span>L</span></div>
       <div class="logoSpacing"></div>
       <div class="logoBg">I</div>
       <div class="logoSpacing"></div>
@@ -26,22 +26,27 @@
     <!-- ESCOLHER JOGADOR -->
     <form class="container__players">
       <fieldset>
-        <span>Escreva o nome dos jogadores:</span>
+        <span>Escreva o nome dos jogadores</span>
+        
+        <div class="containerJogador">
         <div class="jogadorRed"></div>
         <input
           type="text"
           name="player1"
           class="namesPlayersInput"
-          placeholder="Player1"
+          placeholder="Jogador"
         />
+      </div>
 
+      <div class="containerJogador">
         <div class="jogadorBlack"></div>
         <input
           type="text"
           name="player2"
           class="namesPlayersInput"
-          placeholder="Player2"
+          placeholder="Jogador"
         />
+      </div>        
 
         <button class="startButton">Start</button>
       </fieldset>
