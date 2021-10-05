@@ -12,10 +12,13 @@ let arrJogadas = []
 function moverDiscos(event){
     let colunaClicada = event.currentTarget
     let classeColunaClicada = colunaClicada.className
+    let posicaoArr = Number(classeColunaClicada[classeColunaClicada.length-1])
+    console.log(classeColunaClicada)
+    console.log(posicaoArr)
     arrJogadas.push(classeColunaClicada)
     let disco = document.createElement("div")
     if(arrJogadas.length === 2 && arrJogadas[0] === arrJogadas[1]){
-        if(arrJogadas[1] === "coluna0"){
+        if(tabuleiro[posicaoArr] === "0"){
 
         }
         console.log(arrJogadas)
