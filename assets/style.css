@@ -147,7 +147,7 @@ header h1 {
 
 .container__tableGame {
   display: none;
-  /* display: flex; */
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
@@ -211,7 +211,7 @@ header h1 {
 
 .container__vitoria {
   display: none;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   align-items: center;
 }
