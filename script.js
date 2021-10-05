@@ -1,35 +1,53 @@
 
 const divPai = document.querySelector(".tabuleiro")
 let tabuleiro = [
-    // "0000000",
-    // "0000000",
-    // "0000000",
-    // "0000000",
-    // "0212200",
-    // "1111210"
     "0000000",
-    "0120000",
-    "0112100",
-    "2211220",
-    "2212211",
-    "1112211"
+    "0000000",
+    "0000000",
+    "0000000",
+    "0000000",
+    "0000000"
 ]
+let arrJogadas = []
+function moverDiscos(event){
+    let colunaClicada = event.currentTarget
+    let classeColunaClicada = colunaClicada.className
+    arrJogadas.push(classeColunaClicada)
+    let disco = document.createElement("div")
+    if(arrJogadas.length === 2 && arrJogadas[0] === arrJogadas[1]){
+        if(arrJogadas[1] === "coluna0"){
+
+        }
+        console.log(arrJogadas)
+        arrJogadas = []
+    }else if(arrJogadas[0] !== arrJogadas [1]){
+        let ultimaJogada = arrJogadas[1]
+        arrJogadas = []
+        arrJogadas.push(ultimaJogada)
+    }
+    console.log(event.currentTarget)
+}
 const criarTabuleiro = () =>{
-    for(let i = 0 ; i < tabuleiro.length; i++){
-        for(let a = 0 ; a < tabuleiro[i].length ; a++){
+    for(let i = 0 ; i < tabuleiro[0].length; i++){
+        let coluna = document.createElement("div")
+        coluna.classList.add(`coluna${i}`)
+        coluna.addEventListener("click",moverDiscos)
+        for(let a = 0 ; a < tabuleiro.length ; a++){
+            
+            
             let bloco = document.createElement("div")
-            if(tabuleiro[i][a] === "0"){
+            if(tabuleiro[a][i] === "0"){
                 bloco.classList.add("blocoFilho")
-            }else if(tabuleiro[i][a] === "1"){
+            }else if(tabuleiro[a][i] === "1"){
                 bloco.classList.add("red")
-            }else if(tabuleiro[i][a] === "2"){
+            }else if(tabuleiro[a][i] === "2"){
                 bloco.classList.add("black")
             }
-            // bloco.textContent = tabuleiro[i][a]
-            bloco.id = `${i}0${a}`
-            divPai.appendChild(bloco)
+            bloco.textContent = tabuleiro[a][i]
+            coluna.appendChild(bloco)
+            
         }
-
+        divPai.appendChild(coluna)
     }
 }
 criarTabuleiro()
@@ -48,7 +66,7 @@ const verificaVitoria = (jogador) =>{
         for(let a = 0 ; a < tabuleiro[i].length ; a++){
             if(i <= 2){
                 palavraVertical = tabuleiro[i][a] + tabuleiro[i+1][a] + tabuleiro[i+2][a] + tabuleiro[i+3][a]
-                console.log(palavraVertical+" vertical") 
+                // console.log(palavraVertical+" vertical") 
             }
             if(a <= 3){
                 if(i <= 2){
@@ -68,4 +86,5 @@ const verificaVitoria = (jogador) =>{
     }
 }
 
-verificaVitoria("red")
+verificaVitoria("black")
+

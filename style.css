@@ -8,21 +8,21 @@ body{
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    width: 483px;
-    height: 415px;
+    width: 455px;
+    height: 389px;
     border: 2px solid black;
 }
 .blocoFilho{
     /* border: 2px solid black; */
     width: 65px;
     height: 65px;
-    /* background-color: rgb(255, 246, 127); */
+    background-color: rgb(255, 246, 127);
 }
 .red{
     border-radius: 100%;
     border: 2px solid black;
-    width: 65px;
-    height: 65px;
+    width: 61px;
+    height: 61px;
     background-color: rgb(255, 0, 0);
 }
 .black{
