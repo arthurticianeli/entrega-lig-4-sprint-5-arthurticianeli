@@ -1,3 +1,7 @@
+let player = {
+    Cor : 'red',
+    Numero : '1'
+};
 
 const divPai = document.querySelector(".tableGame")
 let tabuleiro = [
@@ -36,12 +40,12 @@ const criarTabuleiro = () =>{
 criarTabuleiro()
 let jogadas = 0
 let maximoJogadas = (tabuleiro.length * tabuleiro[0].length)
-let player = true
+
 const verificaVitoria = (player) =>{
     jogadas++
     console.log(jogadas)
     let condicao = ""
-    if(player === false){//ficar alternando entre red e black
+    if(player === '1'){
         condicao = "1111"
     }else{
         condicao = "2222"
@@ -63,11 +67,11 @@ const verificaVitoria = (player) =>{
                         // console.log(palavraCruzada,palavraCruzadaD)
                     }
                     if(tabuleiro[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
-                        return console.log(`${jogador} Ganhou`)
+                        return console.log(`${player} Ganhou`)
                     }
                 }
                 if(palavraVertical === condicao){
-                    return console.log(`${jogador} Ganhou`)
+                    return console.log(`${player} Ganhou`)
                 }
                 
             }
@@ -80,14 +84,13 @@ const verificaVitoria = (player) =>{
 
 
 
-
 let arrJogadas = []
 function moverDiscos(event){
     let colunaClicada = event.currentTarget
     let classeColunaClicada = colunaClicada.className
     arrJogadas.push(classeColunaClicada)
-    let disco = document.createElement("div")
-    disco.classList.add("red")// ficar alternando cores
+    let disco = document.createElement("div");
+    disco.classList.add(player.Cor);
     if(arrJogadas.length === 2 && arrJogadas[0] === arrJogadas[1]){
         let posicaoArr = Number(classeColunaClicada[classeColunaClicada.length-1])
         // console.log(posicaoArr)
@@ -97,9 +100,11 @@ function moverDiscos(event){
         for(let i = tabuleiro.length-1 ; i >= 0 ;i--){
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
             if(tabuleiro[i][posicaoArr] === "0"){
-                tabuleiro[i] = tabuleiro[i].replaceAt(posicaoArr,"1")// ficar alternando cores
+                tabuleiro[i] = tabuleiro[i].replaceAt(posicaoArr, player.Numero) // ficar alternando cores
                 blocoPai.appendChild(disco)
-                verificaVitoria("red")
+                verificaVitoria(player.Numero)
+                TrocarPlayer();
+
                 // console.log(tabuleiro)
                 // console.log("esta vazio")
                 // console.log(i)
@@ -161,3 +166,18 @@ buttonEscolherJogadores.addEventListener("click", function(e){
     document.location.reload(true)
 
 })
+
+
+// ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
+
+function TrocarPlayer() {
+    console.log('trocando player ' + player.Numero);
+    if (player.Numero === '1') {
+        player.Cor = 'black';
+        player.Numero = '2';
+    }else{
+        player.Cor = 'red';
+        player.Numero = '1';
+        
+    }
+}
