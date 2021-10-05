@@ -185,7 +185,7 @@ fieldset span {
 
 .container__tableGame {
   display: none;
-  /* display: flex; */
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
