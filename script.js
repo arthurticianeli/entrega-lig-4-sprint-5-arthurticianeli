@@ -36,11 +36,12 @@ const criarTabuleiro = () =>{
 criarTabuleiro()
 let jogadas = 0
 let maximoJogadas = (tabuleiro.length * tabuleiro[0].length)
-const verificaVitoria = (jogador) =>{
+let player = true
+const verificaVitoria = (player) =>{
     jogadas++
     console.log(jogadas)
     let condicao = ""
-    if(jogador === "red"){
+    if(player === false){//ficar alternando entre red e black
         condicao = "1111"
     }else{
         condicao = "2222"
@@ -86,7 +87,7 @@ function moverDiscos(event){
     let classeColunaClicada = colunaClicada.className
     arrJogadas.push(classeColunaClicada)
     let disco = document.createElement("div")
-    disco.classList.add("red")
+    disco.classList.add("red")// ficar alternando cores
     if(arrJogadas.length === 2 && arrJogadas[0] === arrJogadas[1]){
         let posicaoArr = Number(classeColunaClicada[classeColunaClicada.length-1])
         // console.log(posicaoArr)
@@ -96,7 +97,7 @@ function moverDiscos(event){
         for(let i = tabuleiro.length-1 ; i >= 0 ;i--){
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
             if(tabuleiro[i][posicaoArr] === "0"){
-                tabuleiro[i] = tabuleiro[i].replaceAt(posicaoArr,"1")
+                tabuleiro[i] = tabuleiro[i].replaceAt(posicaoArr,"1")// ficar alternando cores
                 blocoPai.appendChild(disco)
                 verificaVitoria("red")
                 // console.log(tabuleiro)

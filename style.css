@@ -28,7 +28,7 @@ body{
 .black{
     border-radius: 100%;
     border: 2px solid rgb(0, 0, 0);
-    width: 65px;
-    height: 65px;
+    width: 61px;
+    height: 61px;
     background-color: rgb(0, 0, 0);
 }
