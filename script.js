@@ -1,3 +1,8 @@
+let player = {
+    Cor : 'red',
+    Numero : '1'
+};
+
 const divPai = document.querySelector(".tableGame")
 let tableGame = [
     "0000000",
@@ -7,7 +12,7 @@ let tableGame = [
     "0000000",
     "0000000"
 ]
-// **************************** CRIAR tableGame **************************** //
+// **************************** CRIAR TABLE **************************** //
 
 const criartableGame = () =>{
     for(let i = 0 ; i < tableGame[0].length; i++){
@@ -19,8 +24,7 @@ const criartableGame = () =>{
         coluna.addEventListener("click", moverDiscos) // Ouvindo todas as colunas para o evento de mover disco
 
         for(let a = 0 ; a < tableGame.length ; a++){
-            
-            
+                        
             let bloco = document.createElement("div")
             if(tableGame[a][i] === "0"){
                 bloco.classList.add("blocoFilho")
@@ -29,7 +33,6 @@ const criartableGame = () =>{
             }else if(tableGame[a][i] === "2"){
                 bloco.classList.add("black")
             }
-            // bloco.textContent = tableGame[a][i]
             bloco.id = `${a}0${i}`
             coluna.appendChild(bloco)
             
@@ -45,13 +48,12 @@ criartableGame()
 
 let jogadas = 0
 let maximoJogadas = (tableGame.length * tableGame[0].length)
-let player = true
 
 const verificaVitoria = (player) =>{
     jogadas++
     console.log(jogadas)
     let condicao = ""
-    if(player === false){//ficar alternando entre red e black
+    if(player === '1'){
         condicao = "1111"
     }else{
         condicao = "2222"
@@ -73,11 +75,11 @@ const verificaVitoria = (player) =>{
                         // console.log(palavraCruzada,palavraCruzadaD)
                     }
                     if(tableGame[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
-                        return console.log(`${jogador} Ganhou`)
+                        return console.log(`${player} Ganhou`)
                     }
                 }
                 if(palavraVertical === condicao){
-                    return console.log(`${jogador} Ganhou`)
+                    return console.log(`${player} Ganhou`)
                 }
                 
             }
@@ -85,7 +87,7 @@ const verificaVitoria = (player) =>{
     }else{
         console.log("empatou!")
     }
-    // return console.log("empatou!!")
+
 }
 
 
@@ -101,7 +103,7 @@ function moverDiscos(event){
     arrJogadas.push(classeColunaClicada)
 
     let disco = document.createElement("div")
-    disco.classList.add("red") // ficar alternando cores
+    disco.classList.add(player.Cor);
 
         let posicaoArr = Number(classeColunaClicada[classeColunaClicada.length-1])
 
@@ -114,11 +116,11 @@ function moverDiscos(event){
         for(let i = tableGame.length-1 ; i >= 0 ;i--){
 
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
-
             if(tableGame[i][posicaoArr] === "0"){
-                tableGame[i] = tableGame[i].replaceAt(posicaoArr,"1")// ficar alternando cores
+                tableGame[i] = tableGame[i].replaceAt(posicaoArr, player.Numero) // ficar alternando cores
                 blocoPai.appendChild(disco)
-                verificaVitoria("red")
+                verificaVitoria(player.Numero)
+                TrocarPlayer();
                 i=0
             }else{
                 console.log("nao esta vazio")
@@ -183,3 +185,18 @@ buttonEscolherJogadores.addEventListener("click", function(e){
     document.location.reload(true)
 
 })
+
+
+// ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
+
+function TrocarPlayer() {
+    console.log('trocando player ' + player.Numero);
+    if (player.Numero === '1') {
+        player.Cor = 'black';
+        player.Numero = '2';
+    }else{
+        player.Cor = 'red';
+        player.Numero = '1';
+        
+    }
+}
