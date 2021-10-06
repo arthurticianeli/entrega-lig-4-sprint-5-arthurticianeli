@@ -36,6 +36,7 @@ const criarTabuleiro = () =>{
         divPai.appendChild(coluna)
     }
 }
+
 criarTabuleiro()
 let jogadas = 0
 let maximoJogadas = (tabuleiro.length * tabuleiro[0].length)
@@ -95,6 +96,7 @@ function moverDiscos(event){
         String.prototype.replaceAt=function(index, replacement) {
             return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
         }
+        //VARIAVEL PARA ANIMAÇÃO
         let valAnimate = 400;
         for(let i = tabuleiro.length-1 ; i >= 0 ;i--){
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
@@ -152,6 +154,17 @@ let buttonReset = document.querySelector(".tableGame__reset")
 
 buttonReset.addEventListener("click", function(e){
 
+    divPai.querySelectorAll("div.blocoFilho").forEach(e => e.remove());
+    for(let i = 0 ; i < tabuleiro[0].length; i++){
+        for(let a = 0 ; a < tabuleiro.length ; a++){
+            let coluna = divPai.querySelector("div.coluna"+i)
+            let bloco = document.createElement("div")
+            bloco.classList.add("blocoFilho")
+            bloco.id = `${a}0${i}`
+            coluna.appendChild(bloco)
+            
+        }
+    }
         // CARREGAR O TABULEIRO DO ZERO
 
 })
