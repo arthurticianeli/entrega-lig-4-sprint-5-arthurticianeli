@@ -21,10 +21,11 @@ const criartableGame = () =>{
 
         coluna.classList.add(`coluna${i}`)
 
+
         coluna.addEventListener("click", moverDiscos) // Ouvindo todas as colunas para o evento de mover disco
 
         for(let a = 0 ; a < tableGame.length ; a++){
-                        
+
             let bloco = document.createElement("div")
             if(tableGame[a][i] === "0"){
                 bloco.classList.add("blocoFilho")
@@ -45,6 +46,7 @@ criartableGame()
 
 
 // **************************** VERIFICAR VITÓRIA ***************************//
+
 
 let jogadas = 0
 let maximoJogadas = (tableGame.length * tableGame[0].length)
@@ -91,6 +93,7 @@ const verificaVitoria = (player) =>{
 }
 
 
+
 // *************************** MOVER DISCOS **********************************//
 
 let arrJogadas = []
@@ -113,11 +116,23 @@ function moverDiscos(event){
 
         }
 
+        //VARIAVEL PARA ANIMAÇÃO
+        let valAnimate = 400;
         for(let i = tableGame.length-1 ; i >= 0 ;i--){
-
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
             if(tableGame[i][posicaoArr] === "0"){
                 tableGame[i] = tableGame[i].replaceAt(posicaoArr, player.Numero) // ficar alternando cores
+                //ANIMAÇÃO NO DISCO =========
+                disco.animate([
+                    // movimento
+                    { transform: 'translateY(-'+valAnimate+'px)' },
+                    { transform: 'translateY(0px)' }
+                ], {
+                    // tempo
+                    duration: 1000,
+                });
+                // ==========================
+
                 blocoPai.appendChild(disco)
                 verificaVitoria(player.Numero)
                 TrocarPlayer();
@@ -125,6 +140,8 @@ function moverDiscos(event){
             }else{
                 console.log("nao esta vazio")
             }
+            //VARIAVEL PARA ANIMAÇÃO
+            valAnimate = valAnimate - 65
         }
 
         if(tableGame[posicaoArr] === "0"){
@@ -159,9 +176,6 @@ let buttonReset = document.querySelector(".tableGame__reset")
 
 
 buttonReset.addEventListener("click", function(e){
-
-        // CARREGAR O tableGame DO ZERO
-
 })
 
 
