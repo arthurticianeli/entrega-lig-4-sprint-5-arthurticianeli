@@ -95,10 +95,21 @@ function moverDiscos(event){
         String.prototype.replaceAt=function(index, replacement) {
             return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
         }
+        let valAnimate = 400;
         for(let i = tabuleiro.length-1 ; i >= 0 ;i--){
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
             if(tabuleiro[i][posicaoArr] === "0"){
                 tabuleiro[i] = tabuleiro[i].replaceAt(posicaoArr, player.Numero) // ficar alternando cores
+                //ANIMAÇÃO NO DISCO =========
+                disco.animate([
+                    // movimento
+                    { transform: 'translateY(-'+valAnimate+'px)' },
+                    { transform: 'translateY(0px)' }
+                ], {
+                    // tempo
+                    duration: 1000,
+                });
+                // ==========================
                 blocoPai.appendChild(disco)
                 verificaVitoria(player.Numero)
                 TrocarPlayer();
@@ -110,6 +121,8 @@ function moverDiscos(event){
             }else{
                 console.log("nao esta vazio")
             }
+            //VARIAVEL PARA ANIMAÇÃO
+            valAnimate = valAnimate - 65
         }
         if(tabuleiro[posicaoArr] === "0"){
 
