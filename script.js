@@ -8,9 +8,12 @@ const buttonJogarNovamente = document.querySelector(".jogarNovamente")
 const buttonEscolherJogadores = document.querySelector(".escolherJogadores")
 const buttonReset = document.querySelector(".tableGame__reset")
 const tabuleiro = document.querySelector(".tableGame")
-
+let jogadorRed = document.querySelector(".jogadorRed").value
+let jogadorBlack = document.querySelector(".jogadorBlack").value
+let tableGameJogador = document.querySelector(".tableGame__jogador")
 
 let player = {
+    nome: "red",
     Cor : 'red',
     Numero : '1'
 };
@@ -29,7 +32,6 @@ let tableGame = [
 // **************************** CRIAR TABLE **************************** //
 
 function criartableGame() {
-
     for(let i = 0 ; i < tableGame[0].length; i++){
 
         let coluna = document.createElement("div")
@@ -54,9 +56,10 @@ function criartableGame() {
         }
         tabuleiro.appendChild(coluna)
     }
+    tableGameJogador.textContent = `Agora é a vez do jogador ${jogadorRed}`
 }
 
-criartableGame()
+
 
 
 
@@ -69,7 +72,7 @@ let maximoJogadas = (tableGame.length * tableGame[0].length)
 const verificaVitoria = (player) =>{
     jogadas++
     let condicao = ""
-    if(player === '1'){
+    if(player.Numero === '1'){
         condicao = "1111"
     }else{
         condicao = "2222"
@@ -89,11 +92,11 @@ const verificaVitoria = (player) =>{
                         palavraCruzadaD = tableGame[i][a+3] + tableGame[i+1][a+2] + tableGame[i+2][a+1] + tableGame[i+3][a]
                     }
                     if(tableGame[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
-                        return console.log(`${player} Ganhou`)
+                        return console.log(`${player.nome} Ganhou`)
                     }
                 }
                 if(palavraVertical === condicao){
-                    return console.log(`${player} Ganhou`)
+                    return console.log(`${player.nome} Ganhou`)
                 }
                 
             }
@@ -111,25 +114,24 @@ const verificaVitoria = (player) =>{
 let arrJogadas = []
 
 function moverDiscos(event){
+    let disco = document.createElement("div")
+    disco.classList.add(player.Cor);
 
     let colunaClicada = event.currentTarget
     let classeColunaClicada = colunaClicada.className
 
     arrJogadas.push(classeColunaClicada)
 
-    let disco = document.createElement("div")
-    disco.classList.add(player.Cor);
+    let posicaoArr = Number(classeColunaClicada[classeColunaClicada.length-1])
 
-        let posicaoArr = Number(classeColunaClicada[classeColunaClicada.length-1])
+    String.prototype.replaceAt=function(index, replacement) {
 
-        String.prototype.replaceAt=function(index, replacement) {
+        return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 
-            return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
-
-        }
+    }
 
         //VARIAVEL PARA ANIMAÇÃO
-        let valAnimate = 400;
+        let valAnimate = 260;
         for(let i = tableGame.length-1 ; i >= 0 ;i--){
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
             if(tableGame[i][posicaoArr] === "0"){
@@ -146,57 +148,49 @@ function moverDiscos(event){
                 // ==========================
 
                 blocoPai.appendChild(disco)
-                verificaVitoria(player.Numero)
+                verificaVitoria(player)
                 TrocarPlayer();
                 i=0
-            }else{
             }
             //VARIAVEL PARA ANIMAÇÃO
-            valAnimate = valAnimate - 65
+            valAnimate -= 40
         }
-
-        if(tableGame[posicaoArr] === "0"){
-
-        }
-
-        arrJogadas = []
-    
-    if (arrJogadas.length >= 2 && arrJogadas[0] !== arrJogadas [1]){
-
-        let ultimaJogada = arrJogadas[1]
-
-        arrJogadas = []
-        arrJogadas.push(ultimaJogada)
-    }
 
 }
-
+//vou fazer jogada 1 clickei viro 2
+// vou clicar denovo vai virar 1 ai ela virou 2
+// ai atribui no botao start como se fosse 1 novamente
 
 // ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
 
 function TrocarPlayer() {
-
     if (player.Numero === '1') {
+        tableGameJogador.textContent = `Agora é a vez do jogador ${jogadorBlack}`
+        player.nome = jogadorBlack
         player.Cor = 'black';
         player.Numero = '2';
     }else{
+        tableGameJogador.textContent = `Agora é a vez do jogador ${jogadorRed}`
+        player.nome = jogadorRed
         player.Cor = 'red';
         player.Numero = '1';
         
     }
 }
-
 // ***************************** LISTENER: BOTÃO START **************************** //
 
 
 buttonStart.addEventListener("click", function(e){
-
+    jogadorRed = document.querySelector(".jogadorRed").value
+    jogadorBlack = document.querySelector(".jogadorBlack").value
     e.preventDefault()
-
+    player.Numero = '1'
+    player.Cor = 'red'
     container__players.style.display = "none"
     container__tableGame.style.display = "flex"
-
-
+    tabuleiro.innerHTML = ""
+    criartableGame()
+    
 })
 
 // ***************************** LISTENER: BOTÃO RESET **************************** //
