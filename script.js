@@ -1,9 +1,21 @@
+// ********************************* DECLARAÇÃO DE VARIÁVEIS ****************************** //
+
+const container__players = document.querySelector(".container__players")
+const container__tableGame = document.querySelector(".container__tableGame")
+const container__vitoria = document.querySelector(".container__vitoria")
+const buttonStart = document.querySelector(".startButton")
+const buttonJogarNovamente = document.querySelector(".jogarNovamente")
+const buttonEscolherJogadores = document.querySelector(".escolherJogadores")
+const buttonReset = document.querySelector(".tableGame__reset")
+const tabuleiro = document.querySelector(".tableGame")
+
+
 let player = {
     Cor : 'red',
     Numero : '1'
 };
 
-const divPai = document.querySelector(".tableGame")
+
 let tableGame = [
     "0000000",
     "0000000",
@@ -12,15 +24,17 @@ let tableGame = [
     "0000000",
     "0000000"
 ]
+
+
 // **************************** CRIAR TABLE **************************** //
 
-const criartableGame = () =>{
+function criartableGame() {
+
     for(let i = 0 ; i < tableGame[0].length; i++){
 
         let coluna = document.createElement("div")
 
         coluna.classList.add(`coluna${i}`)
-
 
         coluna.addEventListener("click", moverDiscos) // Ouvindo todas as colunas para o evento de mover disco
 
@@ -38,11 +52,12 @@ const criartableGame = () =>{
             coluna.appendChild(bloco)
             
         }
-        divPai.appendChild(coluna)
+        tabuleiro.appendChild(coluna)
     }
 }
 
 criartableGame()
+
 
 
 // **************************** VERIFICAR VITÓRIA ***************************//
@@ -53,7 +68,6 @@ let maximoJogadas = (tableGame.length * tableGame[0].length)
 
 const verificaVitoria = (player) =>{
     jogadas++
-    console.log(jogadas)
     let condicao = ""
     if(player === '1'){
         condicao = "1111"
@@ -68,13 +82,11 @@ const verificaVitoria = (player) =>{
             for(let a = 0 ; a < tableGame[i].length ; a++){
                 if(i <= 2){
                     palavraVertical = tableGame[i][a] + tableGame[i+1][a] + tableGame[i+2][a] + tableGame[i+3][a]
-                    // console.log(palavraVertical+" vertical") 
                 }
                 if(a <= 3){
                     if(i <= 2){
                         palavraCruzada = tableGame[i][a] + tableGame[i+1][a+1] + tableGame[i+2][a+2] + tableGame[i+3][a+3] 
                         palavraCruzadaD = tableGame[i][a+3] + tableGame[i+1][a+2] + tableGame[i+2][a+1] + tableGame[i+3][a]
-                        // console.log(palavraCruzada,palavraCruzadaD)
                     }
                     if(tableGame[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
                         return console.log(`${player} Ganhou`)
@@ -138,7 +150,6 @@ function moverDiscos(event){
                 TrocarPlayer();
                 i=0
             }else{
-                console.log("nao esta vazio")
             }
             //VARIAVEL PARA ANIMAÇÃO
             valAnimate = valAnimate - 65
@@ -161,22 +172,53 @@ function moverDiscos(event){
 }
 
 
-// ********************************* DECLARAÇÃO DE VARIÁVEIS ****************************** //
+// ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
 
-let container__players = document.querySelector(".container__players")
-let container__tableGame = document.querySelector(".container__tableGame")
-let container__vitoria = document.querySelector(".container__vitoria")
-let buttonJogarNovamente = document.querySelector(".jogarNovamente")
-let buttonEscolherJogadores = document.querySelector(".escolherJogadores")
-let buttonReset = document.querySelector(".tableGame__reset")
+function TrocarPlayer() {
+
+    if (player.Numero === '1') {
+        player.Cor = 'black';
+        player.Numero = '2';
+    }else{
+        player.Cor = 'red';
+        player.Numero = '1';
+        
+    }
+}
+
+// ***************************** LISTENER: BOTÃO START **************************** //
 
 
+buttonStart.addEventListener("click", function(e){
+
+    e.preventDefault()
+
+    container__players.style.display = "none"
+    container__tableGame.style.display = "flex"
+
+
+})
 
 // ***************************** LISTENER: BOTÃO RESET **************************** //
 
 
-buttonReset.addEventListener("click", function(e){
-})
+function reset(){
+    
+    tabuleiro.innerHTML = ""
+    jogadas = 0
+    tableGame = [
+        "0000000",
+        "0000000",
+        "0000000",
+        "0000000",
+        "0000000",
+        "0000000"
+    ]
+    criartableGame()
+
+}
+
+buttonReset.addEventListener("click", reset)
 
 
 // ***************************** LISTENER: BOTÃO JOGAR DE NOVO **************************** //
@@ -187,7 +229,7 @@ buttonJogarNovamente.addEventListener("click", function(e){
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "flex"
 
-    // CARREGAR O tableGame DO ZERO
+    reset()
 
 })
 
@@ -196,21 +238,13 @@ buttonJogarNovamente.addEventListener("click", function(e){
 
 buttonEscolherJogadores.addEventListener("click", function(e){
     
-    document.location.reload(true)
+    // RESETAR O NOME DOS JOGADORES
+
+    container__vitoria.style.display = "none"
+    container__tableGame.style.display = "none"
+    container__players.style.display = "flex"
+    
+
+    reset()
 
 })
-
-
-// ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
-
-function TrocarPlayer() {
-    console.log('trocando player ' + player.Numero);
-    if (player.Numero === '1') {
-        player.Cor = 'black';
-        player.Numero = '2';
-    }else{
-        player.Cor = 'red';
-        player.Numero = '1';
-        
-    }
-}

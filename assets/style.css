@@ -1,6 +1,6 @@
 :root {
   --black: #302b31;
-  --red: #df1024;
+  --red: #be1022;
   --color_bg: #625a67;
   --border: #b8b6b6;
   --color: #dcd6d7;
@@ -34,6 +34,22 @@ body {
   100% {
     background-position: 0% 50%;
   }
+}
+
+button {
+  background: none;
+  color: var(--color);
+  border: var(--border) 8px solid;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 100px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: rgb(184, 182, 182, 0.2);
+  border: var(--color) 8px solid;
 }
 
 /******************************************************/
@@ -92,8 +108,8 @@ header {
 /******************************************************/
 
 .container__players {
-  display: none;
-  /* display: flex; */
+  /* display: none; */
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -158,30 +174,13 @@ fieldset span {
   margin-bottom: 20px;
 }
 
-.startButton {
-  background: none;
-  color: var(--color);
-  border: var(--border) 8px solid;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 100px;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.startButton:hover {
-  background-color: var(--border);
-  border: var(--color) 8px solid;
-  color: var(--black);
-}
-
 /******************************************************/
 /************************ TABLE ***********************/
 /******************************************************/
 
 .container__tableGame {
   display: none;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   align-items: center;
 }
@@ -210,15 +209,18 @@ fieldset span {
 
 .tableGame > *:hover {
   cursor: pointer;
-  background-color: var(--color);
+  background-image: linear-gradient(
+    to bottom,
+    rgb(98, 90, 103, 0),
+    rgb(109, 107, 110)
+  );
 }
 
 .tableGame__jogador {
-  width: 200px;
-  height: 50px;
+  max-width: 300px;
   border: none;
-  background-color: var(--color);
-  color: var(--black);
+  background-color: rgb(184, 182, 182, 0.2);
+  color: var(--color);
   margin: 10px 0 20px;
   padding: 10px;
   border-radius: 5px;
@@ -227,15 +229,22 @@ fieldset span {
 }
 
 .tableGame__reset {
-  width: 200px;
-  height: 50px;
-  background-color: var(--color_bg);
-  color: var(--black);
-  margin: 10px 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  color: var(--color);
+  border: var(--border) 8px solid;
+  margin: 10px;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 100px;
   font-size: 1.2rem;
-  text-align: center;
+  font-weight: 600;
+}
+
+.tableGame__reset:hover {
+  background-color: rgb(184, 182, 182, 0.2);
+  border: var(--color) 8px solid;
 }
 
 .blocoFilho {
@@ -283,18 +292,6 @@ fieldset span {
   width: 200px;
   height: 50px;
   background-color: var(--color_bg);
-  color: var(--black);
-  margin: 10px 0 20px;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  text-align: center;
-}
-
-.container__vitoria button {
-  width: 200px;
-  height: 50px;
-  background-color: var(--color_bg2);
   color: var(--black);
   margin: 10px 0 20px;
   padding: 10px;
