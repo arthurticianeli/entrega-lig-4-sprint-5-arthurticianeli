@@ -12,6 +12,7 @@ let jogadorRed = document.querySelector(".jogadorRed").value
 let jogadorBlack = document.querySelector(".jogadorBlack").value
 let tableGameJogador = document.querySelector(".tableGame__jogador")
 
+
 let player = {
     nome: "red",
     Cor : 'red',
@@ -56,7 +57,9 @@ function criartableGame() {
         }
         tabuleiro.appendChild(coluna)
     }
-    tableGameJogador.textContent = `Agora é a vez do jogador ${jogadorRed}`
+    verificarNomes()
+    tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
+
 }
 
 
@@ -114,6 +117,7 @@ const verificaVitoria = (player) =>{
 let arrJogadas = []
 
 function moverDiscos(event){
+
     let disco = document.createElement("div")
     disco.classList.add(player.Cor);
 
@@ -157,47 +161,52 @@ function moverDiscos(event){
         }
 
 }
-//vou fazer jogada 1 clickei viro 2
-// vou clicar denovo vai virar 1 ai ela virou 2
-// ai atribui no botao start como se fosse 1 novamente
+
 
 // ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
 
 function TrocarPlayer() {
     if (player.Numero === '1') {
-        tableGameJogador.textContent = `Agora é a vez do jogador ${jogadorBlack}`
+        tableGameJogador.textContent = `Turno do jogador ${jogadorBlack}`
         player.nome = jogadorBlack
         player.Cor = 'black';
         player.Numero = '2';
-    }else{
-        tableGameJogador.textContent = `Agora é a vez do jogador ${jogadorRed}`
+        tableGameJogador.style.background = "var(--black)"
+    } else {
+
+        tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
         player.nome = jogadorRed
         player.Cor = 'red';
         player.Numero = '1';
+        tableGameJogador.style.background = "var(--red)"
         
     }
 }
-// ***************************** LISTENER: BOTÃO START **************************** //
 
 
-buttonStart.addEventListener("click", function(e){
-    jogadorRed = document.querySelector(".jogadorRed").value
-    jogadorBlack = document.querySelector(".jogadorBlack").value
-    e.preventDefault()
-    player.Numero = '1'
-    player.Cor = 'red'
-    container__players.style.display = "none"
-    container__tableGame.style.display = "flex"
-    tabuleiro.innerHTML = ""
-    criartableGame()
-    
-})
+// ***************************** VERIFICA O CAMPO COM OS NOMES **************************** //
+
+function verificarNomes(){
+
+    if (jogadorBlack === "") {
+        jogadorBlack = "Preto"
+    }
+    if (jogadorRed === "") {
+        jogadorRed = "Vermelho"
+    } 
+}
+
+
+
 
 // ***************************** LISTENER: BOTÃO RESET **************************** //
 
 
 function reset(){
     
+    player.Numero = '1'
+    player.Cor = 'red'
+    tableGameJogador.style.background = "var(--red)"
     tabuleiro.innerHTML = ""
     jogadas = 0
     tableGame = [
@@ -209,12 +218,32 @@ function reset(){
         "0000000"
     ]
     criartableGame()
-
+    
 }
 
 buttonReset.addEventListener("click", reset)
 
 
+// ***************************** LISTENER: BOTÃO START **************************** //
+
+
+buttonStart.addEventListener("click", function(e){
+
+    jogadorRed = document.querySelector(".jogadorRed").value
+    jogadorBlack = document.querySelector(".jogadorBlack").value
+
+    container__players.style.display = "none"
+    container__tableGame.style.display = "flex"
+
+    e.preventDefault()
+
+    player.Numero = '1'
+    player.Cor = 'red'
+    tabuleiro.innerHTML = ""
+    
+    criartableGame()
+    
+})
 // ***************************** LISTENER: BOTÃO JOGAR DE NOVO **************************** //
 
 

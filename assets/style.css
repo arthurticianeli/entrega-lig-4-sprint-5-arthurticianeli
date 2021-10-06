@@ -108,7 +108,6 @@ header {
 /******************************************************/
 
 .container__players {
-  /* display: none; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -135,8 +134,7 @@ header {
   width: 150px;
   height: 30px;
   border: none;
-  background-color: var(--color);
-  color: var(--black);
+  color: var(--color);
   padding: 10px;
   border-radius: 10px;
   font-size: 1.2rem;
@@ -144,8 +142,11 @@ header {
   margin-left: 10px;
 }
 
-.containerJogador:hover .namesPlayersInput {
-  background-color: var(--border);
+.jogadorBlack {
+  background-color: var(--black);
+}
+.jogadorRed {
+  background-color: var(--red);
 }
 
 .bolaRed {
@@ -166,6 +167,22 @@ header {
 
 ::placeholder {
   text-align: center;
+}
+
+.jogadorRed:-webkit-autofill,
+.jogadorRed:-webkit-autofill:hover,
+.jogadorRed:-webkit-autofill:focus,
+.jogadorRed:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--red) inset;
+  -webkit-text-fill-color: var(--color);
+}
+
+.jogadorBlack:-webkit-autofill,
+.jogadorBlack:-webkit-autofill:hover,
+.jogadorBlack:-webkit-autofill:focus,
+.jogadorBlack:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--black) inset;
+  -webkit-text-fill-color: var(--color);
 }
 
 fieldset span {
@@ -219,7 +236,7 @@ fieldset span {
 .tableGame__jogador {
   max-width: 300px;
   border: none;
-  background-color: rgb(184, 182, 182, 0.2);
+  background-color: var(--red);
   color: var(--color);
   margin: 10px 0 20px;
   padding: 10px;
