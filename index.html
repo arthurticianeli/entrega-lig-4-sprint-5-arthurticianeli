@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/reset.css" />
     <link rel="stylesheet" href="./assets/style.css" />
-    <link rel="stylesheet" href="style1.css">
     <title>Lig-4</title>
   </head>
   <body>
     <!-- HEADER -->
     <header>
-      <div class="logoBg">L</div>
+      <div class="logoBg"><span>L</span></div>
       <div class="logoSpacing"></div>
       <div class="logoBg">I</div>
       <div class="logoSpacing"></div>
@@ -22,32 +21,35 @@
     </header>
     <!-- HEADER -->
 
-    <!-- MAIN -->
-
-    <!-- ESCOLHER JOGADOR -->
+    <!-- JOGADOR -->
     <form class="container__players">
       <fieldset>
-        <span>Escreva o nome dos jogadores:</span>
+        <span>Escreva o nome dos jogadores</span>
+        
+        <div class="containerJogador">
         <div class="jogadorRed"></div>
         <input
           type="text"
           name="player1"
           class="namesPlayersInput"
-          placeholder="Player1"
+          placeholder="Jogador"
         />
+      </div>
 
+      <div class="containerJogador">
         <div class="jogadorBlack"></div>
         <input
           type="text"
           name="player2"
           class="namesPlayersInput"
-          placeholder="Player2"
+          placeholder="Jogador"
         />
+      </div>        
 
         <button class="startButton">Start</button>
       </fieldset>
     </form>
-    <!-- ESCOLHER JOGADOR -->
+    <!-- JOGADOR -->
 
     <!-- TABLE -->
     <section class="container__tableGame">
@@ -69,8 +71,6 @@
       <button class="escolherJogadores">Escolher jogadores</button>
     </section>
     <!-- VITÓRIA -->
-
-    <!-- MAIN -->
 
     <script src="script.js"></script>
   </body>
