@@ -114,8 +114,6 @@ main {
 /*********************** SEÇÃO JOGADOR **********************/
 
 section.container__players {
-  display: none;
-  /* display: flex; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -202,8 +200,6 @@ fieldset span {
 /************************ SEÇÃO TABULEIRO ***********************/
 
 section.container__tableGame {
-  display: none;
-  /* display: flex; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -348,8 +344,6 @@ div.cxDiscos {
 /*********************** SEÇÃO VITÓRIA **********************/
 
 section.container__vitoria {
-  /* display: none; */
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;

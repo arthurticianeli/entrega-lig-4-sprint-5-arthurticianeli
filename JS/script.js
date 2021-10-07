@@ -15,6 +15,10 @@ let jogadorRed = document.querySelector(".jogadorRed").value
 let jogadorBlack = document.querySelector(".jogadorBlack").value
 let tableGameJogador = document.querySelector(".tableGame__jogador")
 
+container__players.style.display = "flex"
+container__tableGame.style.display = "none"
+container__vitoria.style.display = "none"
+
 
 let player = {
     nome: "red",
@@ -95,8 +99,6 @@ const verificaVitoria = (player) =>{
 
             for(let a = 0 ; a < tableGame[i].length ; a++){
 
-                disableClick()
-
                 if(i <= 2){
                     palavraVertical = tableGame[i][a] + tableGame[i+1][a] + tableGame[i+2][a] + tableGame[i+3][a]
                 }
@@ -111,34 +113,30 @@ const verificaVitoria = (player) =>{
                     if(tableGame[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
                         console.log("passou horizontal ou diagonal")
                         // horizontal e diagonal
-                        setTimeout(function(){
-                            nomeJogador.textContent = player.nome
-                            container__tableGame.style.display = "none"
-                            container__vitoria.style.display = "flex"
-                        }, 1000)
+                        mostrarVitoria()
+                        nomeJogador.textContent = player.nome
                     }
                         // vertical
                     if(palavraVertical === condicao){
                         console.log("passou vertical")
 
-                        setTimeout(function(){
-                            nomeJogador.textContent = player.nome
-                            container__tableGame.style.display = "none"
-                            container__vitoria.style.display = "flex"
-                        }, 1000)
+                        mostrarVitoria()
+                        nomeJogador.textContent = player.nome
                     } 
                 }
             }
     }
 } else {
-    setTimeout(function(){
-        vencedorText.textContent = "O jogo terminou empatado!"
-        container__tableGame.style.display = "none"
-        container__vitoria.style.display = "flex"
-    }, 1000)
+    mostrarVitoria()
+    vencedorText.textContent = "O jogo terminou empatado!"
 }
 }
 
+
+function mostrarVitoria(){
+    container__tableGame.style.display = "none"
+    container__vitoria.style.display = "flex"
+}
 
 
 
@@ -148,6 +146,8 @@ const verificaVitoria = (player) =>{
 let arrJogadas = []
 
 function moverDiscos(event){
+
+    disableClick()
 
     let disco = document.createElement("div")
     disco.classList.add(player.Cor);
@@ -183,7 +183,7 @@ function moverDiscos(event){
                 // ==========================
 
                 blocoPai.appendChild(disco)
-                verificaVitoria(player)
+                // verificaVitoria(player)
                 TrocarPlayer()
                 i=0
             }
@@ -208,7 +208,10 @@ function disableClick(){
             coluna = document.querySelector(`.coluna${a}`)
             coluna.addEventListener("click", moverDiscos)
         }
+        verificaVitoria(player)
     }, 1000);
+
+
 }
 
 // ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
@@ -234,7 +237,7 @@ function TrocarPlayer() {
         tableGameJogador.style.background = "var(--red)"
         
     }
-    
+
 }, 1000)
 
 }
