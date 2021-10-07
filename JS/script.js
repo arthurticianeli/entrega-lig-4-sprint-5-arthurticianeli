@@ -82,11 +82,11 @@ let maximoJogadas = (tableGame.length * tableGame[0].length)
 const verificaVitoria = (player) =>{
 
     jogadas++
-    let condicao = ""
-    let palavraCruzada = ""
-    let palavraCruzadaD = ""
-    let palavraVertical = ""
-    let horizontal = ""
+    let condicao = "" //codiçao e o codigo necessario para validar a vitoria
+    let palavraCruzada = "" //verificaçao na diagonal esquerda
+    let palavraCruzadaD = ""//verificaçao na diagonal direita
+    let palavraVertical = ""//verificar vertical
+    let horizontal = ""//verifica horizontal
     
         if (player.Numero === '1') {
             condicao = "1111"
