@@ -86,6 +86,7 @@ const verificaVitoria = (player) =>{
     let palavraCruzada = ""
     let palavraCruzadaD = ""
     let palavraVertical = ""
+    let horizontal = ""
     
         if (player.Numero === '1') {
             condicao = "1111"
@@ -99,15 +100,17 @@ const verificaVitoria = (player) =>{
             for(let a = 0 ; a < tableGame[0].length ; a++){
                 
                 if(a <= 3){
+                    horizontal = tableGame[i][a] + tableGame[i][a+1] + tableGame[i][a+2] + tableGame[i][a+3]
                     if(i <= 2){
                         palavraCruzada = tableGame[i][a] + tableGame[i+1][a+1] + tableGame[i+2][a+2] + tableGame[i+3][a+3] 
                         palavraCruzadaD = tableGame[i][a+3] + tableGame[i+1][a+2] + tableGame[i+2][a+1] + tableGame[i+3][a]
                     }
-                    if(tableGame[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
+                    if(horizontal === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
                         mostrarVitoria()
                         nomeJogador.textContent = player.nome
-                    }             
+                    }       
                 }
+
                
             }
         }
@@ -121,13 +124,14 @@ const verificaVitoria = (player) =>{
                 } 
             }
         }
-    } else {
+    }
+ else {
     
     mostrarVitoria()
     vencedorText.textContent = "O jogo terminou empatado!"
-    }
-}
 
+}
+}
 
 
 function mostrarVitoria(){
