@@ -92,41 +92,37 @@ const verificaVitoria = (player) =>{
         } else {
             condicao = "2222"
         }
-
+    
     if(jogadas < maximoJogadas){
-
+        /*Verifica Horizontais e diagonais*/
         for(let i = 0 ; i < tableGame.length; i++){
-
-            for(let a = 0 ; a < tableGame[i].length ; a++){
-
-                if(i <= 2){
-                    palavraVertical = tableGame[i][a] + tableGame[i+1][a] + tableGame[i+2][a] + tableGame[i+3][a]
-                }
-
+            for(let a = 0 ; a < tableGame[0].length ; a++){
+                
                 if(a <= 3){
-
                     if(i <= 2){
                         palavraCruzada = tableGame[i][a] + tableGame[i+1][a+1] + tableGame[i+2][a+2] + tableGame[i+3][a+3] 
                         palavraCruzadaD = tableGame[i][a+3] + tableGame[i+1][a+2] + tableGame[i+2][a+1] + tableGame[i+3][a]
                     }
-
                     if(tableGame[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
-                        console.log("passou horizontal ou diagonal")
-                        // horizontal e diagonal
                         mostrarVitoria()
                         nomeJogador.textContent = player.nome
-                    }
-                        // vertical
-                    if(palavraVertical === condicao){
-                        console.log("passou vertical")
-
-                        mostrarVitoria()
-                        nomeJogador.textContent = player.nome
-                    } 
+                    }             
                 }
+               
             }
+        //Verificaçao Vertical
+        for(let i = 0 ; i < 3 ; i++){
+            for(let a = 0 ; a < tableGame[0].length ; a++){
+                palavraVertical = tableGame[i][a] + tableGame[i+1][a] + tableGame[i+2][a] + tableGame[i+3][a]
+                if(palavraVertical === condicao){
+                    mostrarVitoria()
+                    nomeJogador.textContent = player.nome
+                } 
+            }
+        }
     }
 } else {
+    
     mostrarVitoria()
     vencedorText.textContent = "O jogo terminou empatado!"
 }
@@ -190,7 +186,6 @@ function moverDiscos(event){
             //VARIAVEL PARA ANIMAÇÃO
             valAnimate -= 40
         }
-
 }
 
 // ****************************** DESABILITAR CLICK ***********************************//
