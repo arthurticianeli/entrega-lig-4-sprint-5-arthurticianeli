@@ -1,166 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/reset.css" />
-    <link rel="stylesheet" href="./assets/style.css" />
-    <title>Lig-4</title>
-  </head>
-  <body>
-    <div id="jogo">
-      <!-- HEADER -->
-      <header>
-        <!-- LOGO -->
-        <div class="logo">
-          <img src="./assets/img/logo.svg" alt="Logo Lig-4 Copa do Mundo" />
-        </div>
-      </header>
-      <!-- HEADER -->
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="./assets/reset.css" />
+<link rel="stylesheet" href="./assets/style.css" />
+<title>Lig-4</title>
+</head>
+<body>
+<div id="jogo">
+<!-- HEADER -->
+<header>
+<!-- LOGO -->
+<div class="logo">
+<img src="./assets/img/logo.svg" alt="Logo Lig-4 Copa do Mundo" />
+</div>
+</header>
+<!-- HEADER -->
 
-      <!-- MAIN -->
-      <main>
-        <!-- TELA JOGADOR (Tela 1) -->
-        <section class="container__players">
-          <!-- Formulário de cadastro de jogadores -->
-          <form>
-            <fieldset>
-              <span>Escreva o nome dos jogadores</span>
+<!-- MAIN -->
+<main>
+<!-- TELA JOGADOR (Tela 1) -->
+<section class="container__players">
 
-              <!-- Input para Cadastrar Jogador 1 -->
-              <div class="containerJogador">
-                <div class="bolaRed"></div>
-                <input
-                  type="text"
-                  name="player1"
-                  class="namesPlayersInput jogadorRed"
-                  placeholder="Jogador"
-                />
-              </div>
+<div class="escolheTime">
+<span class="jogador1">O primeiro jogador escolhe um time:</span>
+<div class="times">
+<div class="discoBrasil"></div>
+<div class="discoArgentina"></div>
+<div class="discoAlemanha"></div>
+<div class="discoPortugal"></div>
+<div class="discoItalia"></div>
+</div>
 
-              <!-- Input para Cadastrar Jogador 2 -->
-              <div class="containerJogador">
-                <div class="bolaBlack"></div>
-                <input
-                  type="text"
-                  name="player2"
-                  class="namesPlayersInput jogadorBlack"
-                  placeholder="Jogador"
-                />
-              </div>
+<!-- Botão iniciar jogo -->
+<button class="startButton">Start</button>
+</div>
 
-              <!-- Botão iniciar jogo -->
-              <button class="startButton">Start</button>
-            </fieldset>
-          </form>
-        </section>
-        <!-- JOGADOR -->
+<!-- JOGADOR -->
 
-        <!-- TELA TABULEIRO (Tela 2) -->
-        <section class="container__tableGame">
-          <!-- Div para alinhamento das caixas direita, esquerda e o tabuleiro -->
-          <div class="tabuleiros">
-            <!-- Caixa de discos da esquerda -->
-            <div class="cxDiscos cxLeft"></div>
-            <!-- Tabuleiro -->
-            <div class="containerTabuleiro">
-              <div class="containerTargerts">
-                <div class="targetColuna1">
-                  <div class="bola"></div>
-                </div>
-                <div class="targetColuna2">
-                  <div class="bola"></div>
-                </div>
-                <div class="targetColuna3">
-                  <div class="bola"></div>
-                </div>
-                <div class="targetColuna4">
-                  <div class="bola"></div>
-                </div>
-                <div class="targetColuna5">
-                  <div class="bola"></div>
-                </div>
-                <div class="targetColuna6">
-                  <div class="bola"></div>
-                </div>
-                <div class="targetColuna7">
-                  <div class="bola"></div>
-                </div>
-              </div>
-              <div class="tableGame"></div>
-            </div>
-            <!-- Caixa de discos da direita -->
-            <div class="cxDiscos cxRigth"></div>
-          </div>
+<!-- TELA TABULEIRO (Tela 2) -->
+<section class="container__tableGame">
+<!-- Div para alinhamento das caixas direita, esquerda e o tabuleiro -->
+<div class="tabuleiros">
+<!-- Caixa de discos da esquerda -->
+<div class="cxDiscos cxLeft"></div>
+<!-- Tabuleiro -->
+<div class="containerTabuleiro">
+<div class="containerTargerts">
+<div class="targetColuna1">
+<div class="bola"></div>
+</div>
+<div class="targetColuna2">
+<div class="bola"></div>
+</div>
+<div class="targetColuna3">
+<div class="bola"></div>
+</div>
+<div class="targetColuna4">
+<div class="bola"></div>
+</div>
+<div class="targetColuna5">
+<div class="bola"></div>
+</div>
+<div class="targetColuna6">
+<div class="bola"></div>
+</div>
+<div class="targetColuna7">
+<div class="bola"></div>
+</div>
+</div>
+<div class="tableGame"></div>
+</div>
+<!-- Caixa de discos da direita -->
+<div class="cxDiscos cxRigth"></div>
+</div>
 
-          <!-- Div de informação do atual Jogado -->
-          <div class="tableGame__jogador"></div>
+<!-- Div de informação do atual Jogado -->
+<div class="tableGame__jogador"></div>
 
-          <!-- Botão para resetar o jogo -->
-          <button class="tableGame__reset">Reset</button>
-          <!-- Botão para voltar e escolher outros jogadores -->
-          <button class="escolherJogadores">Escolher jogadores</button>
-        </section>
-        <!-- TELA TABULEIRO -->
+<!-- Botão para resetar o jogo -->
+<button class="tableGame__reset">Reset</button>
+<!-- Botão para voltar e escolher outros jogadores -->
+<button class="escolherJogadores">Escolher jogadores</button>
+</section>
+<!-- TELA TABULEIRO -->
 
-        <!-- TELA VITÓRIA (Tela 3) -->
-        <section class="container__vitoria">
-          <div class="vencendorDiv">
-            <img src="./assets/img/trofeu.svg" alt="" />
-          </div>
-          <!-- IMAGEM VITÓRIA SVG -->
-          <!-- <svg
-            class="vencendorDiv"
-            version="1.0"
-            viewBox="0 0 1280.000000 1142.000000"
-            preserveAspectRatio="xMidYMid meet"
-          > -->
-            <!-- Imagem SVG da bola de vitória -->
-            <g
-              transform="translate(0.000000,1142.000000) scale(0.100000,-0.100000)"
-              fill="#000000"
-              stroke="none"
-            >
-              <path
-                d="M6121 10892 c-61 -122 -117 -224 -124 -226 -6 -2 -66 -9 -132 -16 -427 -42 -886 -175 -1300 -375 -823 -396 -1501 -1073 -1887 -1885 -43 -91 -82 -172 -87 -180 -6 -10 -74 -25 -242 -50 l-234 -36 -6 -35 c-3 -19 -13 -46 -22 -59 l-17 -24 170 -166 170 -165 -20 -80 c-131 -524 -151 -1130 -54 -1680 42 -238 139 -574 234 -810 213 -530 601 -1085 1023 -1465 65 -57 117 -105 117 -106 0 -2 -14 -87 -30 -190 -31 -189 -31 -203 4 -204 6 0 23 -12 39 -27 l28 -28 166 85 c161 82 166 84 192 68 14 -9 80 -48 146 -88 151 -92 440 -233 610 -298 719 -276 1493 -342 2250 -191 484 96 945 280 1371 548 l52 33 150 -76 c82 -42 154 -76 159 -76 5 0 19 11 31 25 12 13 33 27 47 31 22 5 25 10 20 38 -3 17 -17 94 -30 171 l-24 140 77 70 c431 388 734 780 975 1260 278 554 427 1184 427 1806 0 304 -47 685 -119 964 l-28 110 150 152 c149 150 150 152 134 176 -8 13 -17 39 -19 58 l-3 33 -180 28 c-99 15 -194 30 -212 33 -30 5 -37 15 -117 181 -105 216 -164 320 -279 494 -305 460 -690 845 -1147 1147 -522 345 -1132 570 -1730 638 -80 9 -165 19 -190 23 l-45 7 -111 220 -112 219 -65 1 -64 0 -112 -223z"
-              />
-            </g>
-          </svg>
-          <!-- Div informaçōes -->
-          <div class="vencendorText">
-            <!-- Span Nome do jogador -->
-            <span class="nomeJogador">JOGADOR RED</span>
-            <!-- Span texto vencedor -->
-            <span class="textoVencedor">VENCEDOR</span>
-          </div>
+<!-- TELA VITÓRIA (Tela 3) -->
+<section class="container__vitoria">
+<div class="vencendorDiv">
+<img src="./assets/img/trofeu.svg" alt="" />
+</div>
+<!-- IMAGEM VITÓRIA SVG -->
+<!-- <svg
+class="vencendorDiv"
+version="1.0"
+viewBox="0 0 1280.000000 1142.000000"
+preserveAspectRatio="xMidYMid meet"
+> -->
+<!-- Imagem SVG da bola de vitória -->
+<g
+transform="translate(0.000000,1142.000000) scale(0.100000,-0.100000)"
+fill="#000000"
+stroke="none"
+>
+<path
+d="M6121 10892 c-61 -122 -117 -224 -124 -226 -6 -2 -66 -9 -132 -16 -427 -42 -886 -175 -1300 -375 -823 -396 -1501 -1073 -1887 -1885 -43 -91 -82 -172 -87 -180 -6 -10 -74 -25 -242 -50 l-234 -36 -6 -35 c-3 -19 -13 -46 -22 -59 l-17 -24 170 -166 170 -165 -20 -80 c-131 -524 -151 -1130 -54 -1680 42 -238 139 -574 234 -810 213 -530 601 -1085 1023 -1465 65 -57 117 -105 117 -106 0 -2 -14 -87 -30 -190 -31 -189 -31 -203 4 -204 6 0 23 -12 39 -27 l28 -28 166 85 c161 82 166 84 192 68 14 -9 80 -48 146 -88 151 -92 440 -233 610 -298 719 -276 1493 -342 2250 -191 484 96 945 280 1371 548 l52 33 150 -76 c82 -42 154 -76 159 -76 5 0 19 11 31 25 12 13 33 27 47 31 22 5 25 10 20 38 -3 17 -17 94 -30 171 l-24 140 77 70 c431 388 734 780 975 1260 278 554 427 1184 427 1806 0 304 -47 685 -119 964 l-28 110 150 152 c149 150 150 152 134 176 -8 13 -17 39 -19 58 l-3 33 -180 28 c-99 15 -194 30 -212 33 -30 5 -37 15 -117 181 -105 216 -164 320 -279 494 -305 460 -690 845 -1147 1147 -522 345 -1132 570 -1730 638 -80 9 -165 19 -190 23 l-45 7 -111 220 -112 219 -65 1 -64 0 -112 -223z"
+/>
+</g>
+</svg>
+<!-- Div informaçōes -->
+<div class="vencendorText">
+<!-- Span Nome do jogador -->
+<span class="nomeJogador">JOGADOR RED</span>
+<!-- Span texto vencedor -->
+<span class="textoVencedor">VENCEDOR</span>
+</div>
 
-          <!-- Botōes jogar novamente e escolher jogadores -->
-          <div class="btn">
-            <!-- Botão Jogar novamente -->
-            <button class="jogarNovamente btnVitoria">Jogar novamente</button>
-            <!-- Botão Escolher jogadores -->
-            <button class="escolherJogadoresVitoria btnVitoria">
-              Escolher jogadores
-            </button>
-          </div>
-        </section>
+<!-- Botōes jogar novamente e escolher jogadores -->
+<div class="btn">
+<!-- Botão Jogar novamente -->
+<button class="jogarNovamente btnVitoria">Jogar novamente</button>
+<!-- Botão Escolher jogadores -->
+<button class="escolherJogadoresVitoria btnVitoria">
+Escolher jogadores
+</button>
+</div>
+</section>
 
-        <!-- VITÓRIA -->
-      </main>
-      <!-- MAIN -->
+<!-- VITÓRIA -->
+</main>
+<!-- MAIN -->
 
-      <!-- FOOTER -->
-      <footer>
-        <!-- Direito Autorais -->
-        <h3>
-          Projeto criado por Júlio Pereira, Erick Paiva, Arthur Ticianeli e
-          Luciana Nunes
-        </h3>
-      </footer>
-      <!-- FOOTER -->
-    </div>
+<!-- FOOTER -->
+<footer>
+<!-- Direito Autorais -->
+<h3>
+Projeto criado por Júlio Pereira, Erick Paiva, Arthur Ticianeli e
+Luciana Nunes
+</h3>
+</footer>
+<!-- FOOTER -->
+</div>
 
-    <script src="/JS/script.js"></script>
-  </body>
+<script src="/JS/script.js"></script>
+</body>
 </html>
+
