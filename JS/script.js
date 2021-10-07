@@ -6,8 +6,11 @@ const container__vitoria = document.querySelector(".container__vitoria")
 const buttonStart = document.querySelector(".startButton")
 const buttonJogarNovamente = document.querySelector(".jogarNovamente")
 const buttonEscolherJogadores = document.querySelector(".escolherJogadores")
+const buttonEscolherJogadoresVitoria = document.querySelector(".escolherJogadoresVitoria")
 const buttonReset = document.querySelector(".tableGame__reset")
 const tabuleiro = document.querySelector(".tableGame")
+const nomeJogador = document.querySelector(".nomeJogador")
+const vencedorText = document.querySelector(".vencedorText")
 let jogadorRed = document.querySelector(".jogadorRed").value
 let jogadorBlack = document.querySelector(".jogadorBlack").value
 let tableGameJogador = document.querySelector(".tableGame__jogador")
@@ -38,7 +41,7 @@ function criartableGame() {
         let coluna = document.createElement("div")
 
         coluna.classList.add(`coluna${i}`)
-
+        
         coluna.addEventListener("click", moverDiscos) // Ouvindo todas as colunas para o evento de mover disco
 
         for(let a = 0 ; a < tableGame.length ; a++){
@@ -73,42 +76,70 @@ let jogadas = 0
 let maximoJogadas = (tableGame.length * tableGame[0].length)
 
 const verificaVitoria = (player) =>{
+
     jogadas++
     let condicao = ""
-    if(player.Numero === '1'){
-        condicao = "1111"
-    }else{
-        condicao = "2222"
-    }
     let palavraCruzada = ""
     let palavraCruzadaD = ""
     let palavraVertical = ""
+    
+        if (player.Numero === '1') {
+            condicao = "1111"
+        } else {
+            condicao = "2222"
+        }
+
     if(jogadas < maximoJogadas){
+
         for(let i = 0 ; i < tableGame.length; i++){
+
             for(let a = 0 ; a < tableGame[i].length ; a++){
+
+                disableClick()
+
                 if(i <= 2){
                     palavraVertical = tableGame[i][a] + tableGame[i+1][a] + tableGame[i+2][a] + tableGame[i+3][a]
                 }
+
                 if(a <= 3){
+
                     if(i <= 2){
                         palavraCruzada = tableGame[i][a] + tableGame[i+1][a+1] + tableGame[i+2][a+2] + tableGame[i+3][a+3] 
                         palavraCruzadaD = tableGame[i][a+3] + tableGame[i+1][a+2] + tableGame[i+2][a+1] + tableGame[i+3][a]
                     }
-                    if(tableGame[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
-                        return console.log(`${player.nome} Ganhou`)
-                    }
-                }
-                if(palavraVertical === condicao){
-                    return console.log(`${player.nome} Ganhou`)
-                }
-                
-            }
-        }
-    }else{
-        console.log("empatou!")
-    }
 
+                    if(tableGame[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
+                        console.log("passou horizontal ou diagonal")
+                        // horizontal e diagonal
+                        setTimeout(function(){
+                            nomeJogador.textContent = player.nome
+                            container__tableGame.style.display = "none"
+                            container__vitoria.style.display = "flex"
+                        }, 1000)
+                    }
+                        // vertical
+                    if(palavraVertical === condicao){
+                        console.log("passou vertical")
+
+                        setTimeout(function(){
+                            nomeJogador.textContent = player.nome
+                            container__tableGame.style.display = "none"
+                            container__vitoria.style.display = "flex"
+                        }, 1000)
+                    } 
+                }
+            }
+    }
+} else {
+    setTimeout(function(){
+        vencedorText.textContent = "O jogo terminou empatado!"
+        container__tableGame.style.display = "none"
+        container__vitoria.style.display = "flex"
+    }, 1000)
 }
+}
+
+
 
 
 
@@ -134,7 +165,7 @@ function moverDiscos(event){
 
     }
 
-        //VARIAVEL PARA ANIMAÇÃO
+    //VARIAVEL PARA ANIMAÇÃO
         let valAnimate = 260;
         for(let i = tableGame.length-1 ; i >= 0 ;i--){
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
@@ -153,7 +184,7 @@ function moverDiscos(event){
 
                 blocoPai.appendChild(disco)
                 verificaVitoria(player)
-                TrocarPlayer();
+                TrocarPlayer()
                 i=0
             }
             //VARIAVEL PARA ANIMAÇÃO
@@ -162,16 +193,38 @@ function moverDiscos(event){
 
 }
 
+// ****************************** DESABILITAR CLICK ***********************************//
+function disableClick(){
+
+    let coluna = document.querySelector(".coluna0")
+    
+    for(let a = 0 ; a <= tableGame.length ; a++){
+        coluna = document.querySelector(`.coluna${a}`)
+        coluna.removeEventListener("click", moverDiscos)
+    }
+
+    setTimeout(() => {
+        for(let a = 0 ; a <= tableGame.length ; a++){
+            coluna = document.querySelector(`.coluna${a}`)
+            coluna.addEventListener("click", moverDiscos)
+        }
+    }, 1000);
+}
 
 // ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
 
 function TrocarPlayer() {
-    if (player.Numero === '1') {
+
+    setTimeout(function(){
+
+    if (player.Numero === '1') {      
+
         tableGameJogador.textContent = `Turno do jogador ${jogadorBlack}`
         player.nome = jogadorBlack
         player.Cor = 'black';
         player.Numero = '2';
         tableGameJogador.style.background = "var(--black)"
+
     } else {
 
         tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
@@ -181,6 +234,9 @@ function TrocarPlayer() {
         tableGameJogador.style.background = "var(--red)"
         
     }
+    
+}, 1000)
+
 }
 
 
@@ -259,15 +315,25 @@ buttonJogarNovamente.addEventListener("click", function(e){
 // ***************************** LISTENER: ESCOLHER NOVOS JOGADORES **************************** //
 
 
-buttonEscolherJogadores.addEventListener("click", function(e){
-    
-    // RESETAR O NOME DOS JOGADORES
+
+buttonEscolherJogadores.addEventListener("click", function(){
 
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
     container__players.style.display = "flex"
     
-
     reset()
-
 })
+
+buttonEscolherJogadoresVitoria.addEventListener("click", function(){
+
+    container__vitoria.style.display = "none"
+    container__tableGame.style.display = "none"
+    container__players.style.display = "flex"
+    
+    reset()
+})
+
+
+
+
