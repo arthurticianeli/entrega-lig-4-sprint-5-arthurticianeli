@@ -11,18 +11,32 @@ const buttonReset = document.querySelector(".tableGame__reset")
 const tabuleiro = document.querySelector(".tableGame")
 const nomeJogador = document.querySelector(".nomeJogador")
 const vencedorText = document.querySelector(".vencedorText")
-let jogadorRed = document.querySelector(".jogadorRed").value
-let jogadorBlack = document.querySelector(".jogadorBlack").value
+// let jogadorRed = document.querySelector(".jogadorRed").value
+// let jogadorBlack = document.querySelector(".jogadorBlack").value
 let tableGameJogador = document.querySelector(".tableGame__jogador")
 
-container__players.style.display = "flex"
-container__tableGame.style.display = "none"
-container__vitoria.style.display = "none"
+// tela do jogador
+
+// 1 - jogador 1 escolhe o time
+    // eventlisterner por bubbling na div pai dos times
+
+// 2 - a escolha é armazenada
+    // let player1 = time.id
+
+// 3 - armazena o click numa variável
+    // let click = 1
+
+// 4 - jogador 2 escolhe outro time
+    // eventlisterner por bubbling na div pai dos times
+
+// 5 - a escolha é armazenada
+    // let player2 = time.id
+
 
 
 let player = {
-    nome: "red",
-    Cor : 'red',
+    nome: `${player1}`,
+    time : `${player1}`,
     Numero : '1'
 };
 
@@ -147,7 +161,7 @@ function moverDiscos(event){
     disableClick()
 
     let disco = document.createElement("div")
-    disco.classList.add(player.Cor);
+    disco.classList.add(player.time);
 
     let colunaClicada = event.currentTarget
     let classeColunaClicada = colunaClicada.className
@@ -167,7 +181,7 @@ function moverDiscos(event){
         for(let i = tableGame.length-1 ; i >= 0 ;i--){
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
             if(tableGame[i][posicaoArr] === "0"){
-                tableGame[i] = tableGame[i].replaceAt(posicaoArr, player.Numero) // ficar alternando cores
+                tableGame[i] = tableGame[i].replaceAt(posicaoArr, player.Numero) // ficar alternando timees
                 //ANIMAÇÃO NO DISCO =========
                 disco.animate([
                     // movimento
@@ -210,7 +224,7 @@ function disableClick(){
 
 }
 
-// ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
+// ***************************** ALTERNANDO AS timeES DO PLAYER **************************** //
 
 function TrocarPlayer() {
 
@@ -220,7 +234,7 @@ function TrocarPlayer() {
 
         tableGameJogador.textContent = `Turno do jogador ${jogadorBlack}`
         player.nome = jogadorBlack
-        player.Cor = 'black';
+        player.time = 'black';
         player.Numero = '2';
         tableGameJogador.style.background = "var(--black)"
 
@@ -228,7 +242,7 @@ function TrocarPlayer() {
 
         tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
         player.nome = jogadorRed
-        player.Cor = 'red';
+        player.time = 'red';
         player.Numero = '1';
         tableGameJogador.style.background = "var(--red)"
         
@@ -260,7 +274,7 @@ function verificarNomes(){
 function reset(){
     
     player.Numero = '1'
-    player.Cor = 'red'
+    player.time = 'red'
     tableGameJogador.style.background = "var(--red)"
     tabuleiro.innerHTML = ""
     jogadas = 0
@@ -293,7 +307,7 @@ buttonStart.addEventListener("click", function(e){
     e.preventDefault()
 
     player.Numero = '1'
-    player.Cor = 'red'
+    player.time = 'red'
     tabuleiro.innerHTML = ""
     
     criartableGame()

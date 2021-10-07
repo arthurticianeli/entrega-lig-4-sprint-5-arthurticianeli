@@ -9,10 +9,15 @@
 .escolheTime {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .times {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .times > * {
@@ -20,6 +25,10 @@
   width: 50px;
   height: 50px;
   margin: 5px;
+}
+
+.jogador1 {
+  text-align: center;
 }
 
 body {
@@ -53,7 +62,7 @@ button {
   background: none;
   color: var(--color);
   border: var(--color) 4px solid;
-  margin: 0 10px 20px;
+  margin: 20px;
   padding: 10px 20px;
   border-radius: 20px;
   font-size: 1rem;
@@ -130,6 +139,7 @@ main {
 /*********************** SEÇÃO JOGADOR **********************/
 
 section.container__players {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -187,26 +197,6 @@ section.container__players {
   border-radius: 100px;
 }
 
-::placeholder {
-  text-align: center;
-}
-
-.jogadorRed:-webkit-autofill,
-.jogadorRed:-webkit-autofill:hover,
-.jogadorRed:-webkit-autofill:focus,
-.jogadorRed:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px var(--red) inset;
-  -webkit-text-fill-color: var(--color);
-}
-
-.jogadorBlack:-webkit-autofill,
-.jogadorBlack:-webkit-autofill:hover,
-.jogadorBlack:-webkit-autofill:focus,
-.jogadorBlack:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px var(--black) inset;
-  -webkit-text-fill-color: var(--color);
-}
-
 fieldset span {
   font-size: 1.2rem;
   font-weight: 900;
@@ -216,6 +206,7 @@ fieldset span {
 /************************ SEÇÃO TABULEIRO ***********************/
 
 section.container__tableGame {
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -360,6 +351,7 @@ div.cxDiscos {
 /*********************** SEÇÃO VITÓRIA **********************/
 
 section.container__vitoria {
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
