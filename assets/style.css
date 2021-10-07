@@ -6,6 +6,27 @@
   --color: #dcd6d7;
 }
 
+.containerTabuleiro {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerTargerts {
+  display: flex;
+  justify-content: space-around;
+}
+.bola {
+  width: 33px;
+  height: 33px;
+  border: 2px solid var(--red);
+  border-radius: 100%;
+}
+
+.containerTargerts > * {
+  width: 40px;
+  height: 40px;
+}
+
 body {
   /*
   display: flex;
@@ -15,7 +36,6 @@ body {
   */
   width: 100vw;
   height: 100vh;
-
 
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 
@@ -59,7 +79,7 @@ button:hover {
 /******************************************************/
 
 /* adcionado */
-div#jogo{
+div#jogo {
   width: 100vw;
   height: 100vh;
   margin: 0px;
@@ -75,7 +95,8 @@ div#jogo{
 /*********************** HEADER AND FOOTER ***********************/
 /******************************************************/
 
-header, footer {
+header,
+footer {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -85,12 +106,13 @@ header, footer {
   background-color: var(--color_bg);
 }
 
-header{
+header {
   z-index: 1;
 }
-footer{}
+footer {
+}
 
-header div.logo{
+header div.logo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -134,12 +156,11 @@ header div.logo{
   }
 }
 
-
 /******************************************************/
 /*********************** MAIN ***********************/
 /******************************************************/
 /* adcionado */
-main{
+main {
   width: 45vw;
   height: 100%;
   border-left: 2px solid var(--color_bg);
@@ -244,17 +265,16 @@ section.container__tableGame {
   justify-content: center;
   height: 100%;
 }
-div.tabuleiros{
+div.tabuleiros {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-evenly;
   width: 100vw;
-  height: 100%
-
+  height: 100%;
 }
 
-div.cxDiscos{
+div.cxDiscos {
   position: relative;
   top: 100px;
   width: 150px;
@@ -267,8 +287,10 @@ div.cxDiscos{
     rgba(98, 90, 103, 0.8)
   );
 }
-.cxLeft{}
-.cxRigth{}
+.cxLeft {
+}
+.cxRigth {
+}
 
 .tableGame {
   display: flex;
@@ -355,9 +377,7 @@ div.cxDiscos{
   background-color: var(--black);
 }
 
-
 /*********************** SEÇÃO VITÓRIA **********************/
-
 
 section.container__vitoria {
   display: none;
@@ -384,13 +404,26 @@ g {
 }
 
 .vencendorDiv {
-  -webkit-animation:moeda 4s linear infinite;
-  -moz-animation:moeda 4s linear infinite;
-  animation:moeda 4s linear infinite;
+  -webkit-animation: moeda 4s linear infinite;
+  -moz-animation: moeda 4s linear infinite;
+  animation: moeda 4s linear infinite;
 }
-@-moz-keyframes moeda { 100% { -moz-transform: rotateY(360deg); } }
-@-webkit-keyframes moeda { 100% { -webkit-transform: rotateY(360deg); } }
-@keyframes moeda { 100% { -webkit-transform: rotateY(360deg); transform:rotateY(360deg); } }
+@-moz-keyframes moeda {
+  100% {
+    -moz-transform: rotateY(360deg);
+  }
+}
+@-webkit-keyframes moeda {
+  100% {
+    -webkit-transform: rotateY(360deg);
+  }
+}
+@keyframes moeda {
+  100% {
+    -webkit-transform: rotateY(360deg);
+    transform: rotateY(360deg);
+  }
+}
 
 .vencendorText {
   display: flex;
@@ -402,19 +435,19 @@ g {
   box-sizing: border-box;
 }
 
-span.nomeJogador{
+span.nomeJogador {
   width: 100%;
   font-size: 2.5rem;
   text-align: center;
 }
 
-span.textoVencedor{
+span.textoVencedor {
   width: 100%;
   font-size: 0.8rem;
   text-align: center;
 }
 
-div.btn{
+div.btn {
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
@@ -422,7 +455,7 @@ div.btn{
   justify-content: center;
 }
 
-.btnVitoria{
+.btnVitoria {
   background: none;
   color: var(--color);
   border: var(--border) 4px solid;
