@@ -7,13 +7,15 @@
 }
 
 body {
+  /*
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-
+  */
   width: 100vw;
   height: 100vh;
+
 
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 
@@ -53,16 +55,45 @@ button:hover {
 }
 
 /******************************************************/
-/*********************** HEADER ***********************/
+/*********************** TELA JOGO ***********************/
 /******************************************************/
 
-header {
+/* adcionado */
+div#jogo{
+  width: 100vw;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: blockquote;
+}
+
+/******************************************************/
+/*********************** HEADER AND FOOTER ***********************/
+/******************************************************/
+
+header, footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 17vh;
+  background-color: var(--color_bg);
+}
+
+header{
+  z-index: 1;
+}
+footer{}
+
+header div.logo{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 80px;
-  margin: 20px auto 0 auto;
 }
 
 .logoBg {
@@ -103,15 +134,27 @@ header {
   }
 }
 
-/******************************************************/
-/*********************** JOGADOR **********************/
-/******************************************************/
 
-.container__players {
-  display: flex;
+/******************************************************/
+/*********************** MAIN ***********************/
+/******************************************************/
+/* adcionado */
+main{
+  width: 45vw;
+  height: 100%;
+  border-left: 2px solid var(--color_bg);
+  border-right: 2px solid var(--color_bg);
+}
+
+/*********************** SEÇÃO JOGADOR **********************/
+
+section.container__players {
+  display: none;
+  /* display: flex; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 .container__players fieldset {
@@ -191,16 +234,41 @@ fieldset span {
   margin-bottom: 20px;
 }
 
-/******************************************************/
-/************************ TABLE ***********************/
-/******************************************************/
+/************************ SEÇÃO TABULEIRO ***********************/
 
-.container__tableGame {
-  display: none;
-  /* display: flex; */
+section.container__tableGame {
+  /* display: none; */
+  display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100%;
 }
+div.tabuleiros{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100vw;
+  height: 100%
+
+}
+
+div.cxDiscos{
+  position: relative;
+  top: 100px;
+  width: 150px;
+  height: 110px;
+  border: 10px solid var(--border);
+  border-top: none;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(98, 90, 103, 0),
+    rgba(98, 90, 103, 0.8)
+  );
+}
+.cxLeft{}
+.cxRigth{}
 
 .tableGame {
   display: flex;
@@ -287,32 +355,81 @@ fieldset span {
   background-color: var(--black);
 }
 
-/******************************************************/
-/*********************** VITÓRIA **********************/
-/******************************************************/
 
-.container__vitoria {
+/*********************** SEÇÃO VITÓRIA **********************/
+
+
+section.container__vitoria {
   display: none;
   /* display: flex; */
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+svg {
+  filter: drop-shadow(1px 1px 5px var(--border));
+  width: 200px;
+  height: 200px;
+}
+
+g {
+  fill: var(--red);
+  stroke: var(--border);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .vencendorDiv {
-  width: 200px;
-  height: 200px;
-  border-radius: 100px;
-  background-color: var(--red);
+  -webkit-animation:moeda 4s linear infinite;
+  -moz-animation:moeda 4s linear infinite;
+  animation:moeda 4s linear infinite;
 }
+@-moz-keyframes moeda { 100% { -moz-transform: rotateY(360deg); } }
+@-webkit-keyframes moeda { 100% { -webkit-transform: rotateY(360deg); } }
+@keyframes moeda { 100% { -webkit-transform: rotateY(360deg); transform:rotateY(360deg); } }
 
 .vencendorText {
-  width: 200px;
-  height: 50px;
-  background-color: var(--color_bg);
-  color: var(--black);
-  margin: 10px 0 20px;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1.2rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  color: var(--border);
+  box-sizing: border-box;
+}
+
+span.nomeJogador{
+  width: 100%;
+  font-size: 2.5rem;
   text-align: center;
+}
+
+span.textoVencedor{
+  width: 100%;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+div.btn{
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnVitoria{
+  background: none;
+  color: var(--color);
+  border: var(--border) 4px solid;
+  margin: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 600;
 }
