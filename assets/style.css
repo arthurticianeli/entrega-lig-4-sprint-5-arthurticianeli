@@ -255,10 +255,13 @@ div.tabuleiros{
 }
 
 div.cxDiscos{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   position: relative;
   top: 100px;
-  width: 150px;
-  height: 110px;
+  width: 204px;
+  height: 244px;
   border: 10px solid var(--border);
   border-top: none;
   background-image: linear-gradient(

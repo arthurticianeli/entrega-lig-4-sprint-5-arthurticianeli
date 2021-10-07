@@ -59,9 +59,32 @@ function criartableGame() {
     }
     verificarNomes()
     tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
-
+    criarBolinhasCaixas ()
 }
-
+function criarBolinhasCaixas (){
+    let caixas = document.querySelectorAll(".cxDiscos")
+    let caixaEsquerda = document.querySelector(".cxLeft")
+    // caixaEsquerda.style.dragGable = true
+    let caixaDireita = document.querySelector(".cxRigth")
+    caixaEsquerda.id = "left"
+    caixas.forEach(function a(e){
+        if(e.id === "left"){
+            for(let i = 0 ; i < 21 ; i++){
+                let bolinhaVermelha = document.createElement("div")
+                bolinhaVermelha.classList.add("red")
+                bolinhaVermelha.style.draggable = true
+                caixaEsquerda.prepend(bolinhaVermelha)
+            }
+        }else{
+            for(let i = 0 ; i < 21 ; i++){
+                let bolinhaBlack = document.createElement("div")
+                bolinhaBlack.classList.add("black")
+                bolinhaBlack.style.draggable = true
+                caixaDireita.prepend(bolinhaBlack)
+            }
+        }
+    })
+}
 
 
 
@@ -101,7 +124,7 @@ const verificaVitoria = (player) =>{
                 if(palavraVertical === condicao){
                     return console.log(`${player.nome} Ganhou`)
                 }
-                
+
             }
         }
     }else{
