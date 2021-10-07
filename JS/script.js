@@ -110,6 +110,7 @@ const verificaVitoria = (player) =>{
                 }
                
             }
+        }
         //Verificaçao Vertical
         for(let i = 0 ; i < 3 ; i++){
             for(let a = 0 ; a < tableGame[0].length ; a++){
@@ -120,13 +121,13 @@ const verificaVitoria = (player) =>{
                 } 
             }
         }
-    }
-} else {
+    } else {
     
     mostrarVitoria()
     vencedorText.textContent = "O jogo terminou empatado!"
+    }
 }
-}
+
 
 
 function mostrarVitoria(){
