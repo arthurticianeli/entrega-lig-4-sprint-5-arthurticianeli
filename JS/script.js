@@ -64,7 +64,7 @@ function criartableGame() {
 function criarBolinhasCaixas (){
     let caixas = document.querySelectorAll(".cxDiscos")
     let caixaEsquerda = document.querySelector(".cxLeft")
-    // caixaEsquerda.style.dragGable = true
+
     let caixaDireita = document.querySelector(".cxRigth")
     caixaEsquerda.id = "left"
     caixas.forEach(function a(e){
