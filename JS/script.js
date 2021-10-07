@@ -59,12 +59,101 @@ function criartableGame() {
     }
     verificarNomes()
     tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
+    criarBolinhasCaixas()
 
 }
 
+function criarBolinhasCaixas (){
+    let caixas = document.querySelectorAll(".cxDiscos")
+    let caixaEsquerda = document.querySelector(".cxLeft")
+    // caixaEsquerda.style.dragGable = true
+    let caixaDireita = document.querySelector(".cxRigth")
+    caixaEsquerda.id = "left"
+    caixas.forEach(function a(e){
+        if(e.id === "left"){
+            for(let i = 0 ; i < 21 ; i++){
+                let bolinhaVermelha = document.createElement("div")
+                bolinhaVermelha.classList.add("red", "movendo", "bolinha")
+                bolinhaVermelha.style.cursor = 'pointer'
+                bolinhaVermelha.style.draggable = false
+                caixaEsquerda.prepend(bolinhaVermelha)
+            }
+        }else{
+            for(let i = 0 ; i < 21 ; i++){
+                let bolinhaBlack = document.createElement("div")
+                bolinhaBlack.classList.add("black", "movendo", "bolinha")
+                bolinhaBlack.style.cursor = 'pointer'
+                bolinhaBlack.style.draggable = false
+                caixaDireita.prepend(bolinhaBlack)
+            }
+        }
+    })
+}
 
+// MOVIMENTO DAS criarBolinhasCaixas
 
+const divsPegar = document.querySelectorAll(".targetColuna") //pegar todas as div de Pegar bolinhas
+divsPegar.forEach(divPegar =>{
+    divPegar.addEventListener("dragenter", dragenter);
+    divPegar.addEventListener("dragover", dragover);
+    divPegar.addEventListener("dragleave", dragleave);
+    divPegar.addEventListener("drop", drop);
+});
 
+//Pegar movimento dbolinhas
+const bolas = document.querySelectorAll(".bolinha") //pegar todas as torres
+bolas.forEach(bola => {
+    bola.addEventListener("dragstart", dragStart) //quando comeca a mover
+    bola.addEventListener("dragend", dragEnd) //quando termina
+  });
+  
+  //=> dragStart(Iniciando o movimento do disco)
+  function dragStart(e){
+    e.target.classList.add('moving');
+  }
+  function dragEnd(e){
+    // e.currentTarget.classList.remove('moving');
+  }
+
+  //=> dragenter(Quando ENTRAR na torre)
+function dragenter(e){
+    //Define uma variavel com elemento da torre que o item esta em cima
+    e.currentTarget.style.background = "#000";
+    
+  }
+  
+  //=> dragover(Quando ESTIVER dentro da torre)
+  function dragover(e){
+    //Define uma variavel com elemento da torre que o item esta em cima
+    let torreID = (e).currentTarget;
+    //Define uma variavel com a tag do item que esta em movimento
+    let itemID = document.querySelector('.moving');
+    //variavel que seleciona o ultimo elemento que estiver na coluna
+    const idg = e.currentTarget.lastChild;
+    //validação para permitir o drop nas colunas
+    if((e.currentTarget.querySelector('.disc') === null) || (idg.id >= itemID.id)){
+      e.preventDefault(itemID); 
+    }
+    // e.currentTarget.classList.add('yes');
+  }
+  
+  //=> dragleave(Quando SAIR da torre)
+  function dragleave(e){
+    e.currentTarget.style.background = "none";
+  }
+  
+  //=> drop(Quando SOLTA NA torre)
+  function drop(e){
+    let itemID = document.querySelector('.moving');
+    //validação para permitir o drop nas colunas
+    if((e.currentTarget.querySelector('.disc') === null) || (e.currentTarget.lastChild.id >= itemID.id)){
+        e.target.appendChild(itemID);
+        itemID.classList.remove('moving');
+        e.target.classList.remove('unselectable');
+        e.currentTarget.classList.remove('yes');
+    }
+  }
+  
 
 // **************************** VERIFICAR VITÓRIA ***************************//
 
