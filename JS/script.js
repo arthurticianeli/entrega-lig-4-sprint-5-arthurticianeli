@@ -6,11 +6,18 @@ const container__vitoria = document.querySelector(".container__vitoria")
 const buttonStart = document.querySelector(".startButton")
 const buttonJogarNovamente = document.querySelector(".jogarNovamente")
 const buttonEscolherJogadores = document.querySelector(".escolherJogadores")
+const buttonEscolherJogadoresVitoria = document.querySelector(".escolherJogadoresVitoria")
 const buttonReset = document.querySelector(".tableGame__reset")
 const tabuleiro = document.querySelector(".tableGame")
+const nomeJogador = document.querySelector(".nomeJogador")
+const vencedorText = document.querySelector(".vencedorText")
 let jogadorRed = document.querySelector(".jogadorRed").value
 let jogadorBlack = document.querySelector(".jogadorBlack").value
 let tableGameJogador = document.querySelector(".tableGame__jogador")
+
+container__players.style.display = "flex"
+container__tableGame.style.display = "none"
+container__vitoria.style.display = "none"
 
 
 let player = {
@@ -38,7 +45,7 @@ function criartableGame() {
         let coluna = document.createElement("div")
 
         coluna.classList.add(`coluna${i}`)
-
+        
         coluna.addEventListener("click", moverDiscos) // Ouvindo todas as colunas para o evento de mover disco
 
         for(let a = 0 ; a < tableGame.length ; a++){
@@ -124,18 +131,9 @@ function dragenter(e){
   
   //=> dragover(Quando ESTIVER dentro da torre)
   function dragover(e){
-    //Define uma variavel com elemento da torre que o item esta em cima
-    let torreID = (e).currentTarget;
-    //Define uma variavel com a tag do item que esta em movimento
-    let itemID = document.querySelector('.moving');
-    //variavel que seleciona o ultimo elemento que estiver na coluna
-    const idg = e.currentTarget.lastChild;
-    //validação para permitir o drop nas colunas
-    if((e.currentTarget.querySelector('.disc') === null) || (idg.id >= itemID.id)){
-      e.preventDefault(itemID); 
+      
     }
     // e.currentTarget.classList.add('yes');
-  }
   
   //=> dragleave(Quando SAIR da torre)
   function dragleave(e){
@@ -162,42 +160,65 @@ let jogadas = 0
 let maximoJogadas = (tableGame.length * tableGame[0].length)
 
 const verificaVitoria = (player) =>{
+
     jogadas++
-    let condicao = ""
-    if(player.Numero === '1'){
-        condicao = "1111"
-    }else{
-        condicao = "2222"
-    }
-    let palavraCruzada = ""
-    let palavraCruzadaD = ""
-    let palavraVertical = ""
+    let condicao = "" //codiçao e o codigo necessario para validar a vitoria
+    let palavraCruzada = "" //verificaçao na diagonal esquerda
+    let palavraCruzadaD = ""//verificaçao na diagonal direita
+    let palavraVertical = ""//verificar vertical
+    let horizontal = ""//verifica horizontal
+    
+        if (player.Numero === '1') {
+            condicao = "1111"
+        } else {
+            condicao = "2222"
+        }
+    
     if(jogadas < maximoJogadas){
+        /*Verifica Horizontais e diagonais*/
         for(let i = 0 ; i < tableGame.length; i++){
-            for(let a = 0 ; a < tableGame[i].length ; a++){
-                if(i <= 2){
-                    palavraVertical = tableGame[i][a] + tableGame[i+1][a] + tableGame[i+2][a] + tableGame[i+3][a]
-                }
+            for(let a = 0 ; a < tableGame[0].length ; a++){
+                
                 if(a <= 3){
+                    horizontal = tableGame[i][a] + tableGame[i][a+1] + tableGame[i][a+2] + tableGame[i][a+3]
                     if(i <= 2){
                         palavraCruzada = tableGame[i][a] + tableGame[i+1][a+1] + tableGame[i+2][a+2] + tableGame[i+3][a+3] 
                         palavraCruzadaD = tableGame[i][a+3] + tableGame[i+1][a+2] + tableGame[i+2][a+1] + tableGame[i+3][a]
                     }
-                    if(tableGame[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
-                        return console.log(`${player.nome} Ganhou`)
-                    }
+                    if(horizontal === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
+                        mostrarVitoria()
+                        nomeJogador.textContent = player.nome
+                    }       
                 }
-                if(palavraVertical === condicao){
-                    return console.log(`${player.nome} Ganhou`)
-                }
-                
+
+               
             }
         }
-    }else{
-        console.log("empatou!")
+        //Verificaçao Vertical
+        for(let i = 0 ; i < 3 ; i++){
+            for(let a = 0 ; a < tableGame[0].length ; a++){
+                palavraVertical = tableGame[i][a] + tableGame[i+1][a] + tableGame[i+2][a] + tableGame[i+3][a]
+                if(palavraVertical === condicao){
+                    mostrarVitoria()
+                    nomeJogador.textContent = player.nome
+                } 
+            }
+        }
     }
+ else {
+    
+    mostrarVitoria()
+    vencedorText.textContent = "O jogo terminou empatado!"
 
 }
+}
+
+
+function mostrarVitoria(){
+    container__tableGame.style.display = "none"
+    container__vitoria.style.display = "flex"
+}
+
 
 
 
@@ -206,6 +227,8 @@ const verificaVitoria = (player) =>{
 let arrJogadas = []
 
 function moverDiscos(event){
+
+    disableClick()
 
     let disco = document.createElement("div")
     disco.classList.add(player.Cor);
@@ -223,7 +246,7 @@ function moverDiscos(event){
 
     }
 
-        //VARIAVEL PARA ANIMAÇÃO
+    //VARIAVEL PARA ANIMAÇÃO
         let valAnimate = 260;
         for(let i = tableGame.length-1 ; i >= 0 ;i--){
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
@@ -241,26 +264,50 @@ function moverDiscos(event){
                 // ==========================
 
                 blocoPai.appendChild(disco)
-                verificaVitoria(player)
-                TrocarPlayer();
+                // verificaVitoria(player)
+                TrocarPlayer()
                 i=0
             }
             //VARIAVEL PARA ANIMAÇÃO
             valAnimate -= 40
         }
-
 }
 
+// ****************************** DESABILITAR CLICK ***********************************//
+function disableClick(){
+
+    let coluna = document.querySelector(".coluna0")
+    
+    for(let a = 0 ; a <= tableGame.length ; a++){
+        coluna = document.querySelector(`.coluna${a}`)
+        coluna.removeEventListener("click", moverDiscos)
+    }
+
+    setTimeout(() => {
+        for(let a = 0 ; a <= tableGame.length ; a++){
+            coluna = document.querySelector(`.coluna${a}`)
+            coluna.addEventListener("click", moverDiscos)
+        }
+        verificaVitoria(player)
+    }, 1000);
+
+
+}
 
 // ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
 
 function TrocarPlayer() {
-    if (player.Numero === '1') {
+
+    setTimeout(function(){
+
+    if (player.Numero === '1') {      
+
         tableGameJogador.textContent = `Turno do jogador ${jogadorBlack}`
         player.nome = jogadorBlack
         player.Cor = 'black';
         player.Numero = '2';
         tableGameJogador.style.background = "var(--black)"
+
     } else {
 
         tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
@@ -270,6 +317,9 @@ function TrocarPlayer() {
         tableGameJogador.style.background = "var(--red)"
         
     }
+
+}, 1000)
+
 }
 
 
@@ -348,15 +398,25 @@ buttonJogarNovamente.addEventListener("click", function(e){
 // ***************************** LISTENER: ESCOLHER NOVOS JOGADORES **************************** //
 
 
-buttonEscolherJogadores.addEventListener("click", function(e){
-    
-    // RESETAR O NOME DOS JOGADORES
+
+buttonEscolherJogadores.addEventListener("click", function(){
 
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
     container__players.style.display = "flex"
     
-
     reset()
-
 })
+
+buttonEscolherJogadoresVitoria.addEventListener("click", function(){
+
+    container__vitoria.style.display = "none"
+    container__tableGame.style.display = "none"
+    container__players.style.display = "flex"
+    
+    reset()
+})
+
+
+
+
