@@ -29,24 +29,29 @@ let player1Id= ""
 let player2Id= ""
 let player1Nome= ""
 let player2Nome= ""
-
-
+let stylePlayer1Selecionado = ""
+let stylePlayer2Selecionado = ""
 times.addEventListener("click", function(e){
+    if(e.target.id !== "times"){
+        if (countClick === 0){
+            stylePlayer1Selecionado = e.target
+            stylePlayer1Selecionado.style.border = "2px solid black"//trocar estilo do botao selecionado
+            player.nome = e.target.textContent
+            player1Nome = e.target.textContent
+            player.time = e.target.id
+            player1Id = e.target.id
+            countClick++
 
-    if (countClick === 0){
-        player.nome = e.target.textContent
-        player1Nome = e.target.textContent
-        player.time = e.target.id
-        player1Id = e.target.id
-        countClick++
+            jogadorDiv.textContent = "O segundo jogador escolhe:"
 
-        jogadorDiv.textContent = "O segundo jogador escolhe:"
-
-    } else if (countClick === 1 && e.target.textContent  !== player.nome){
-        player2Id = e.target.id
-        player2Nome = e.target.textContent
-        countClick++
-        jogadorDiv.textContent = "Que comece a partida!"
+        } else if (countClick === 1 && e.target.textContent  !== player.nome){
+            stylePlayer2Selecionado = e.target
+            stylePlayer2Selecionado.style.border = "2px solid red"//trocar estilo do botao selecionado
+            player2Id = e.target.id
+            player2Nome = e.target.textContent
+            countClick++
+            jogadorDiv.textContent = "Que comece a partida!"
+        }
     }
 })
 
@@ -311,7 +316,8 @@ buttonStart.addEventListener("click", function(e){
 
 
 buttonJogarNovamente.addEventListener("click", function(e){
-    
+    // stylePlayer1Selecionado.style.border = "none"
+    // stylePlayer2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "flex"
 
@@ -324,7 +330,8 @@ buttonJogarNovamente.addEventListener("click", function(e){
 
 
 buttonEscolherJogadores.addEventListener("click", function(){
-
+    stylePlayer1Selecionado.style.border = "none"//resetar estilo
+    stylePlayer2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
     container__players.style.display = "flex"
@@ -333,7 +340,8 @@ buttonEscolherJogadores.addEventListener("click", function(){
 })
 
 buttonEscolherJogadoresVitoria.addEventListener("click", function(){
-
+    stylePlayer1Selecionado.style.border = "none"//resetar estilo
+    stylePlayer2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
     container__players.style.display = "flex"
