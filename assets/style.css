@@ -8,6 +8,7 @@
 
 body {
   height: 100vh;
+  overflow: hidden;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   background-image: url(../assets/img/campo_de_futebol-min.png);
   background-repeat: no-repeat;
@@ -28,6 +29,22 @@ body {
   }
 }
 
+button {
+  background: none;
+  width: 200px;
+  color: var(--color);
+  border: var(--color) 4px solid;
+  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+button:hover {
+  box-shadow: inset 0 0 1em rgb(255, 255, 255), 0 0 1em rgb(82, 79, 79);
+}
+
 /******************************************************/
 /*********************** TELA JOGO ***********************/
 /******************************************************/
@@ -41,7 +58,7 @@ header {
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 10vh;
+  height: 15vh;
   background-color: rgba(93, 93, 94, 0.438);
 }
 
@@ -90,7 +107,6 @@ main {
   align-items: center;
   border: none;
   padding: 5px;
-  margin-bottom: 10px;
   background-color: rgba(39, 38, 38, 0.247);
 }
 
@@ -98,6 +114,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 15px;
 }
 
 #Alemanha {
@@ -164,6 +181,7 @@ main {
 }
 
 #cxDiscos {
+  display: none;
   width: 150px;
   height: 110px;
   border: 10px solid var(--border);
@@ -173,6 +191,29 @@ main {
     rgb(98, 90, 103, 0),
     rgba(98, 90, 103, 0.8)
   );
+}
+
+.containerTabuleiro {
+  display: flex;
+  flex-direction: column;
+  margin: 50px 20px 0 20px;
+}
+
+.containerTargerts {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bola {
+  width: 33px;
+  height: 33px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 31px 7px rgba(255, 255, 255, 0.85);
+}
+
+.containerTargerts > * {
+  width: 40px;
+  height: 40px;
 }
 
 .tableGame {
@@ -226,30 +267,6 @@ main {
   background: none;
 }
 
-.containerTabuleiro {
-  display: flex;
-  flex-direction: column;
-}
-
-.containerTargerts {
-  display: flex;
-  justify-content: space-around;
-}
-
-.bola {
-  width: 33px;
-  height: 33px;
-  border-radius: 100%;
-  -webkit-box-shadow: 0px 0px 31px 7px rgba(255, 255, 255, 0.85);
-  -moz-box-shadow: 0px 0px 31px 7px rgba(255, 255, 255, 0.85);
-  box-shadow: 0px 0px 31px 7px rgba(255, 255, 255, 0.85);
-}
-
-.containerTargerts > * {
-  width: 40px;
-  height: 40px;
-}
-
 /*********************** SEÇÃO VITÓRIA **********************/
 
 #container__vitoria {
@@ -261,6 +278,19 @@ main {
   height: 100%;
 }
 
+.vencendorDiv {
+  display: flex;
+  justify-content: center;
+  -webkit-animation: giro 4s linear infinite;
+  -moz-animation: giro 4s linear infinite;
+  animation: giro 4s linear infinite;
+}
+
+.vencendorDiv img {
+  width: 100px;
+  margin: 20px;
+}
+
 g {
   fill: var(--green);
   stroke: var(--border);
@@ -269,29 +299,17 @@ g {
   stroke-linejoin: round;
 }
 
-.vencendorDiv {
-  display: flex;
-  justify-content: center;
-  -webkit-animation: moeda 4s linear infinite;
-  -moz-animation: moeda 4s linear infinite;
-  animation: moeda 4s linear infinite;
-}
-
-.vencendorDiv img {
-  width: 100px;
-  margin: 20px;
-}
-@-moz-keyframes moeda {
+@-moz-keyframes giro {
   100% {
     -moz-transform: rotateY(360deg);
   }
 }
-@-webkit-keyframes moeda {
+@-webkit-keyframes giro {
   100% {
     -webkit-transform: rotateY(360deg);
   }
 }
-@keyframes moeda {
+@keyframes giro {
   100% {
     -webkit-transform: rotateY(360deg);
     transform: rotateY(360deg);
@@ -308,21 +326,13 @@ g {
 }
 
 span.nomeJogador {
-  font-size: 2rem;
+  font-size: 4rem;
   text-align: center;
 }
 
 span.textoVencedor {
   font-size: 0.8rem;
   text-align: center;
-}
-
-div.btn {
-  width: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
 }
 
 /******************************************************/
@@ -334,7 +344,7 @@ footer {
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 10vh;
+  height: 5vh;
   background-color: rgba(93, 93, 94, 0.438);
 }
 
@@ -349,10 +359,6 @@ h3 {
 @media screen and (min-width: 768px) {
   .logo {
     width: 350px;
-  }
-
-  h3 {
-    font-size: 1.5rem;
   }
 
   /*********************** SEÇÃO JOGADOR **********************/
@@ -383,7 +389,7 @@ h3 {
   /*********************** SEÇÃO VITÓRIA **********************/
 
   .vencendorDiv img {
-    width: 150px;
+    width: 80px;
     margin: 40px;
   }
 
@@ -394,29 +400,4 @@ h3 {
   span.textoVencedor {
     font-size: 1rem;
   }
-}
-
-.containerTargerts {
-  display: flex;
-  justify-content: space-around;
-}
-
-.containerTargerts > * {
-  width: 40px;
-  height: 40px;
-}
-
-button {
-  background: none;
-  color: var(--color);
-  border: var(--color) 4px solid;
-  margin: 20px;
-  padding: 10px 20px;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-button:hover {
-  box-shadow: inset 0 0 1em rgb(255, 255, 255), 0 0 1em rgb(82, 79, 79);
 }

@@ -85,7 +85,7 @@ function criartableGame() {
         tabuleiro.appendChild(coluna)
     }
 
-    tableGameJogador.textContent = `Turno: ${player.nome}`
+    tableGameJogador.textContent = `Posse de bola: ${player.nome}`
 
 }
 
@@ -242,14 +242,14 @@ function TrocarPlayer() {
         player.nome = player2Nome;
         player.time = player2Id;
         player.Numero = '2';
-        tableGameJogador.textContent = `Turno: ${player.nome}`
+        tableGameJogador.textContent = `Posse de bola: ${player.nome}`
 
     } else {
 
         player.nome = player1Nome;
         player.time = player1Id;
         player.Numero = '1';
-        tableGameJogador.textContent = `Turno: ${player.nome}`
+        tableGameJogador.textContent = `Posse de bola: ${player.nome}`
         
     }
 
@@ -265,7 +265,7 @@ function TrocarPlayer() {
 function reset(){
     
     jogadorDiv.textContent = "O primeiro jogador escolhe:"
-    tableGameJogador.textContent = `Turno do jogador ${player.nome}`
+    tableGameJogador.textContent = `Posse de bola do jogador ${player.nome}`
     player.time = player1Id;
     player.Numero = '1';
     player.nome = player1Nome
