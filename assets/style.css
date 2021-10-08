@@ -183,6 +183,7 @@ section.container__players {
   width: 30px;
   height: 30px;
   border-radius: 100px;
+  cursor: pointer;
 }
 
 .bolaBlack {
@@ -191,6 +192,7 @@ section.container__players {
   width: 30px;
   height: 30px;
   border-radius: 100px;
+  cursor: pointer;
 }
 
 ::placeholder {

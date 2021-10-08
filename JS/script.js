@@ -82,15 +82,15 @@ function criarBolinhasCaixas (){
                 let bolinhaVermelha = document.createElement("div")
                 bolinhaVermelha.classList.add("red", "movendo", "bolinha")
                 bolinhaVermelha.style.cursor = 'pointer'
-                bolinhaVermelha.style.draggable = false
+                bolinhaVermelha.draggable = true
                 caixaEsquerda.prepend(bolinhaVermelha)
             }
         }else{
             for(let i = 0 ; i < 21 ; i++){
                 let bolinhaBlack = document.createElement("div")
                 bolinhaBlack.classList.add("black", "movendo", "bolinha")
-                bolinhaBlack.style.cursor = 'pointer'
-                bolinhaBlack.style.draggable = false
+                bolinhaBlack.cursor = 'pointer'
+                bolinhaBlack.draggable = true
                 caixaDireita.prepend(bolinhaBlack)
             }
         }
@@ -107,7 +107,7 @@ divsPegar.forEach(divPegar =>{
     divPegar.addEventListener("drop", drop);
 });
 
-//Pegar movimento dbolinhas
+//Pegar as bolinhas
 const bolas = document.querySelectorAll(".bolinha") //pegar todas as torres
 bolas.forEach(bola => {
     bola.addEventListener("dragstart", dragStart) //quando comeca a mover
@@ -117,39 +117,33 @@ bolas.forEach(bola => {
   //=> dragStart(Iniciando o movimento do disco)
   function dragStart(e){
     e.target.classList.add('moving');
+    e.cursor = 'pointer'
+    console.log("PEGOU A BOLINHA!!!")
   }
   function dragEnd(e){
-    // e.currentTarget.classList.remove('moving');
   }
 
-  //=> dragenter(Quando ENTRAR na torre)
+  //=> dragenter(Quando ENTRAR na DivPegar)
 function dragenter(e){
-    //Define uma variavel com elemento da torre que o item esta em cima
-    e.currentTarget.style.background = "#000";
-    
+    console.log("ENTROU NA DIV targetColuna!!!")
   }
   
-  //=> dragover(Quando ESTIVER dentro da torre)
+  //=> dragover(Quando ESTIVER dentro da divPega)
   function dragover(e){
-      
+      //ENQUANTO ESTIVER NA DIV CurrentTarget pinta de ROSA
+      e.currentTarget.style.background = "pink";
+
     }
-    // e.currentTarget.classList.add('yes');
   
-  //=> dragleave(Quando SAIR da torre)
+  //=> dragleave(Quando SAIR da divPega)
   function dragleave(e){
-    e.currentTarget.style.background = "none";
+      console.log("SAIR DA DIV targetColuna!!!")
+      e.currentTarget.style.background = "none";
   }
   
-  //=> drop(Quando SOLTA NA torre)
+  //=> drop(Quando SOLTA NA divPega)
   function drop(e){
-    let itemID = document.querySelector('.moving');
-    //validação para permitir o drop nas colunas
-    if((e.currentTarget.querySelector('.disc') === null) || (e.currentTarget.lastChild.id >= itemID.id)){
-        e.target.appendChild(itemID);
-        itemID.classList.remove('moving');
-        e.target.classList.remove('unselectable');
-        e.currentTarget.classList.remove('yes');
-    }
+      console.log("SOLTOU NA DIV targetColuna!!!")
   }
   
 
