@@ -79,12 +79,15 @@ function criartableGame() {
 
     for(let i = 0; i < tableGame[0].length; i++){
         // let bolinhaAcima = document.createElement("div")
+        
+
         let coluna = document.createElement("div")
 
         coluna.classList.add(`coluna${i}`)
         // bolinhaAcima.classList.add(`bolinha`)
-        coluna.addEventListener("click", moverDiscos) // Ouvindo todas as colunas para o evento de mover disco
-
+        if(DesativarClick === false){
+            coluna.addEventListener("click", moverDiscos) // Ouvindo todas as colunas para o evento de mover disco
+        }
         for(let a = 0 ; a < tableGame.length ; a++){
 
             let bloco = document.createElement("div")
@@ -122,10 +125,10 @@ function criarBolinhasCaixas(){
             bolinhaBlack.draggable = true
             caixaDireita.prepend(bolinhaBlack)
 
-            // bolinhaVermelha.addEventListener("dragstart", dragStart)
-            // bolinhaVermelha.addEventListener("dragstart", dragStart)
-            // bolinhaBlack.addEventListener("dragend", dragEnd) 
-            // bolinhaBlack.addEventListener("dragend", dragEnd) 
+            bolinhaVermelha.addEventListener("dragstart", dragStart)
+            bolinhaVermelha.addEventListener("dragend", dragEnd)
+            bolinhaBlack.addEventListener("dragstart", dragStart) 
+            bolinhaBlack.addEventListener("dragend", dragEnd) 
         }
 
 
@@ -133,20 +136,21 @@ function criarBolinhasCaixas(){
 
 // MOVIMENTO DAS criarBolinhasCaixas
 
-containerTargets.forEach
-    containerTargets.addEventListener("dragenter", dragenter);
-    containerTargets.addEventListener("dragover", dragover);
-    containerTargets.addEventListener("dragleave", dragleave);
-    containerTargets.addEventListener("drop", drop);
-
+containerTargets.forEach((a) =>{
+    // a.addEventListener("dragstart", dragStart);
+    a.addEventListener("dragenter", dragenterColuna);
+    a.addEventListener("dragover", dragover);
+    a.addEventListener("dragleave", dragleave);
+    a.addEventListener("drop", drop);
+});
 
   
   //=> dragStart(Iniciando o movimento do disco)
-  function dragStart(e){
+let bolaJogada
+function dragStart(e){
+    bolaJogada = e.target.id
     e.target.classList.add('moving');
     e.cursor = 'pointer'
-    // console.log(e.target)
-    // console.log("PEGOU A BOLINHA!!!")
   }
 
   function dragEnd(e){
@@ -156,31 +160,34 @@ containerTargets.forEach
  // => dragenter(Quando ENTRAR na containerTargets)
 function dragenter(e){
     // console.log(e.target)
-
-    // console.log("ENTROU NA DIV targetColuna!!!")
+    
   }
-  
+let resetStyleDiv
+function dragenterColuna (e){
+    resetStyleDiv = e.currentTarget
+    e.currentTarget.style.background = "pink";
+}
   //=> dragover(Quando ESTIVER dentro da divPega)
   function dragover(e){
+      e.preventDefault();
       //ENQUANTO ESTIVER NA DIV CurrentTarget pinta de ROSA
-      e.currentTarget.style.background = "pink";
-    //   console.log(e.target)
     }
   
  // => dragleave(Quando SAIR da divPega)
   function dragleave(e){
-      console.log("SAIR DA DIV targetColuna!!!")
-      e.currentTarget.style.background = "none";
-    //   console.log(e.target)
+    //   console.log("SAIR DA DIV targetColuna!!!")
+      e.currentTarget.style.background = "";
   }
-  
-  //=> drop(Quando SOLTA NA divPega)
+  let bolaFilha
+  let colunaClick
   function drop(e){
-    // e.preventDefault();
-    if (e.target.className == "targetColuna1") {
-    
-    console.log("dropou")
+    if(player.time === bolaJogada){
+        
+        bolaFilha = e.currentTarget.id
+        colunaClick = document.querySelector(`.coluna${bolaFilha}`)
+        moverDiscos(colunaClick)
     }
+    resetStyleDiv.style.background = ""
   }
 
 
@@ -261,7 +268,14 @@ function mostrarVitoria(){
 let arrJogadas = []
 
 function moverDiscos(event){
-
+    let colunaClicada
+    if (window.matchMedia("(max-width: 767px)").matches) {
+        colunaClicada = event.currentTarget
+      } else {
+        
+        colunaClicada = event
+      }
+    console.log(event)
     disableClick()
 
     const cxLeft = document.querySelector("#cxLeft")
@@ -273,8 +287,8 @@ function moverDiscos(event){
     
     let disco = document.createElement("div")
     disco.setAttribute("id", `${player.time}`)
-   
-    let colunaClicada = event.currentTarget
+    
+    
     let classeColunaClicada = colunaClicada.className
     let tamanhoColunaClicada = colunaClicada.querySelectorAll("div")
 
@@ -327,22 +341,26 @@ function moverDiscos(event){
 
 // ****************************** DESABILITAR CLICK ***********************************//
 function disableClick(){
-
-    let coluna = document.querySelector(".coluna0")
-    
-    for(let a = 0 ; a <= tableGame.length ; a++){
-        coluna = document.querySelector(`.coluna${a}`)
-        coluna.removeEventListener("click", moverDiscos)
-    }
-
-    setTimeout(() => {
+    if(DesativarClick === false){
+        let coluna = document.querySelector(".coluna0")
+        
         for(let a = 0 ; a <= tableGame.length ; a++){
             coluna = document.querySelector(`.coluna${a}`)
-            coluna.addEventListener("click", moverDiscos)
+            coluna.removeEventListener("click", moverDiscos)
         }
-        verificaVitoria(player)
-    }, 1000);
 
+        setTimeout(() => {
+            for(let a = 0 ; a <= tableGame.length ; a++){
+                coluna = document.querySelector(`.coluna${a}`)
+                coluna.addEventListener("click", moverDiscos)
+            }
+            verificaVitoria(player)
+        }, 1000);
+    }else{
+        setTimeout(() => {
+            verificaVitoria(player)
+        },1000)
+    }
 
 }
 
@@ -415,9 +433,11 @@ buttonReset.addEventListener("click", function(){
 
 // ***************************** LISTENER: BOTÃO START **************************** //
 
-
+let DesativarClick = false
 buttonStart.addEventListener("click", function(e){
-
+    if (window.matchMedia("(min-width: 767px)").matches) {
+        DesativarClick = true
+      }
     if (countClick === 2) {
     container__players.style.display = "none"
     container__tableGame.style.display = "flex"
