@@ -389,6 +389,8 @@ function reset(){
     stylePlayer1Selecionado.style.boxShadow = "none"
     stylePlayer2Selecionado.style.boxShadow = "none"
 
+    vencedorDiv.style.visibility = "visible"
+
     jogadas = 0
 
     tableGame = [
