@@ -1,9 +1,9 @@
 // ********************************* DECLARAÇÃO DE VARIÁVEIS ****************************** //
 
-const container__players = document.querySelector(".container__players")
-const container__tableGame = document.querySelector(".container__tableGame")
-const container__vitoria = document.querySelector(".container__vitoria")
-const buttonStart = document.querySelector(".startButton")
+const container__players = document.querySelector("#container__players")
+const container__tableGame = document.querySelector("#container__tableGame")
+const container__vitoria = document.querySelector("#container__vitoria")
+const buttonStart = document.querySelector("#startButton")
 const buttonJogarNovamente = document.querySelector(".jogarNovamente")
 const buttonEscolherJogadores = document.querySelector(".escolherJogadores")
 const buttonEscolherJogadoresVitoria = document.querySelector(".escolherJogadoresVitoria")
@@ -11,21 +11,53 @@ const buttonReset = document.querySelector(".tableGame__reset")
 const tabuleiro = document.querySelector(".tableGame")
 const nomeJogador = document.querySelector(".nomeJogador")
 const vencedorText = document.querySelector(".vencedorText")
-let jogadorRed = document.querySelector(".jogadorRed").value
-let jogadorBlack = document.querySelector(".jogadorBlack").value
-let tableGameJogador = document.querySelector(".tableGame__jogador")
+const times = document.querySelector("#times")
+const jogadorDiv = document.querySelector("#jogadorDiv")
 
-container__players.style.display = "flex"
-container__tableGame.style.display = "none"
-container__vitoria.style.display = "none"
+let tableGameJogador = document.querySelector(".tableGame__jogador")
 
 
 let player = {
-    nome: "red",
-    Cor : 'red',
-    Numero : '1'
+    nome: "",
+    time: "",
+    Numero: '1'
 };
 
+// ******************* PEGAR JOGADORES ********************//
+let countClick = 0
+let player1Id= ""
+let player2Id= ""
+let player1Nome= ""
+let player2Nome= ""
+let stylePlayer1Selecionado = ""
+let stylePlayer2Selecionado = ""
+times.addEventListener("click", function(e){
+    if(e.target.id !== "times"){
+        if (countClick === 0){
+            stylePlayer1Selecionado = e.target
+            stylePlayer1Selecionado.style.border = "2px solid black"//trocar estilo do botao selecionado
+            player.nome = e.target.textContent
+            player1Nome = e.target.textContent
+            player.time = e.target.id
+            player1Id = e.target.id
+            countClick++
+
+            jogadorDiv.textContent = "O segundo jogador escolhe:"
+
+        } else if (countClick === 1 && e.target.textContent  !== player.nome){
+            stylePlayer2Selecionado = e.target
+            stylePlayer2Selecionado.style.border = "2px solid red"//trocar estilo do botao selecionado
+            player2Id = e.target.id
+            player2Nome = e.target.textContent
+            countClick++
+            jogadorDiv.textContent = "Que comece a partida!"
+        }
+    }
+})
+
+
+
+// **************************** CRIAR TABLE **************************** //
 
 let tableGame = [
     "0000000",
@@ -36,11 +68,9 @@ let tableGame = [
     "0000000"
 ]
 
-
-// **************************** CRIAR TABLE **************************** //
-
 function criartableGame() {
-    for(let i = 0 ; i < tableGame[0].length; i++){
+
+    for(let i = 0; i < tableGame[0].length; i++){
 
         let coluna = document.createElement("div")
 
@@ -51,26 +81,18 @@ function criartableGame() {
         for(let a = 0 ; a < tableGame.length ; a++){
 
             let bloco = document.createElement("div")
-            if(tableGame[a][i] === "0"){
-                bloco.classList.add("blocoFilho")
-            }else if(tableGame[a][i] === "1"){
-                bloco.classList.add("red")
-            }else if(tableGame[a][i] === "2"){
-                bloco.classList.add("black")
-            }
+            bloco.classList.add("blocoFilho")
             bloco.id = `${a}0${i}`
+
             coluna.appendChild(bloco)
             
         }
         tabuleiro.appendChild(coluna)
     }
-    verificarNomes()
-    tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
+
+    tableGameJogador.textContent = `Turno: ${player.nome}`
 
 }
-
-
-
 
 
 // **************************** VERIFICAR VITÓRIA ***************************//
@@ -107,7 +129,7 @@ const verificaVitoria = (player) =>{
                     }
                     if(horizontal === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
                         mostrarVitoria()
-                        nomeJogador.textContent = player.nome
+                        nomeJogador.textContent = player.time
                     }       
                 }
 
@@ -120,7 +142,7 @@ const verificaVitoria = (player) =>{
                 palavraVertical = tableGame[i][a] + tableGame[i+1][a] + tableGame[i+2][a] + tableGame[i+3][a]
                 if(palavraVertical === condicao){
                     mostrarVitoria()
-                    nomeJogador.textContent = player.nome
+                    nomeJogador.textContent = player.time
                 } 
             }
         }
@@ -149,10 +171,10 @@ let arrJogadas = []
 function moverDiscos(event){
 
     disableClick()
-
+    
     let disco = document.createElement("div")
-    disco.classList.add(player.Cor);
-
+    disco.setAttribute("id", `${player.time}`)
+   
     let colunaClicada = event.currentTarget
     let classeColunaClicada = colunaClicada.className
 
@@ -171,7 +193,7 @@ function moverDiscos(event){
         for(let i = tableGame.length-1 ; i >= 0 ;i--){
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
             if(tableGame[i][posicaoArr] === "0"){
-                tableGame[i] = tableGame[i].replaceAt(posicaoArr, player.Numero) // ficar alternando cores
+                tableGame[i] = tableGame[i].replaceAt(posicaoArr, player.Numero) // ficar alternando timees
                 //ANIMAÇÃO NO DISCO =========
                 disco.animate([
                     // movimento
@@ -214,7 +236,7 @@ function disableClick(){
 
 }
 
-// ***************************** ALTERNANDO AS CORES DO PLAYER **************************** //
+// ***************************** ALTERNANDO O PLAYER **************************** //
 
 function TrocarPlayer() {
 
@@ -222,19 +244,17 @@ function TrocarPlayer() {
 
     if (player.Numero === '1') {      
 
-        tableGameJogador.textContent = `Turno do jogador ${jogadorBlack}`
-        player.nome = jogadorBlack
-        player.Cor = 'black';
+        player.nome = player2Nome;
+        player.time = player2Id;
         player.Numero = '2';
-        tableGameJogador.style.background = "var(--black)"
+        tableGameJogador.textContent = `Turno: ${player.nome}`
 
     } else {
 
-        tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
-        player.nome = jogadorRed
-        player.Cor = 'red';
+        player.nome = player1Nome;
+        player.time = player1Id;
         player.Numero = '1';
-        tableGameJogador.style.background = "var(--red)"
+        tableGameJogador.textContent = `Turno: ${player.nome}`
         
     }
 
@@ -243,31 +263,23 @@ function TrocarPlayer() {
 }
 
 
-// ***************************** VERIFICA O CAMPO COM OS NOMES **************************** //
-
-function verificarNomes(){
-
-    if (jogadorBlack === "") {
-        jogadorBlack = "Preto"
-    }
-    if (jogadorRed === "") {
-        jogadorRed = "Vermelho"
-    } 
-}
-
-
-
 
 // ***************************** LISTENER: BOTÃO RESET **************************** //
 
 
 function reset(){
     
-    player.Numero = '1'
-    player.Cor = 'red'
-    tableGameJogador.style.background = "var(--red)"
+    jogadorDiv.textContent = "O primeiro jogador escolhe:"
+    tableGameJogador.textContent = `Turno do jogador ${player.nome}`
+    player.time = player1Id;
+    player.Numero = '1';
+    player.nome = player1Nome
+    countClick = 0
+
     tabuleiro.innerHTML = ""
+
     jogadas = 0
+
     tableGame = [
         "0000000",
         "0000000",
@@ -276,11 +288,13 @@ function reset(){
         "0000000",
         "0000000"
     ]
-    criartableGame()
-    
+   
 }
 
-buttonReset.addEventListener("click", reset)
+buttonReset.addEventListener("click", function(){
+    reset()
+    criartableGame()
+})
 
 
 // ***************************** LISTENER: BOTÃO START **************************** //
@@ -288,31 +302,27 @@ buttonReset.addEventListener("click", reset)
 
 buttonStart.addEventListener("click", function(e){
 
-    jogadorRed = document.querySelector(".jogadorRed").value
-    jogadorBlack = document.querySelector(".jogadorBlack").value
-
+    if (countClick === 2) {
     container__players.style.display = "none"
     container__tableGame.style.display = "flex"
-
-    e.preventDefault()
-
-    player.Numero = '1'
-    player.Cor = 'red'
-    tabuleiro.innerHTML = ""
     
     criartableGame()
     
+    } else {
+        jogadorDiv.textContent = "Por favor! Escolha um time:"
+    }
 })
 // ***************************** LISTENER: BOTÃO JOGAR DE NOVO **************************** //
 
 
 buttonJogarNovamente.addEventListener("click", function(e){
-    
+    // stylePlayer1Selecionado.style.border = "none"
+    // stylePlayer2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "flex"
 
     reset()
-
+    criartableGame()
 })
 
 // ***************************** LISTENER: ESCOLHER NOVOS JOGADORES **************************** //
@@ -320,7 +330,8 @@ buttonJogarNovamente.addEventListener("click", function(e){
 
 
 buttonEscolherJogadores.addEventListener("click", function(){
-
+    stylePlayer1Selecionado.style.border = "none"//resetar estilo
+    stylePlayer2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
     container__players.style.display = "flex"
@@ -329,7 +340,8 @@ buttonEscolherJogadores.addEventListener("click", function(){
 })
 
 buttonEscolherJogadoresVitoria.addEventListener("click", function(){
-
+    stylePlayer1Selecionado.style.border = "none"//resetar estilo
+    stylePlayer2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
     container__players.style.display = "flex"

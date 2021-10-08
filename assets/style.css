@@ -1,45 +1,21 @@
 :root {
-  --black: #1039be;
-  --red: #086308;
+  --blue: #1039be;
+  --green: #086308;
   --color_bg: #625a67;
   --border: #b8b6b6;
   --color: #ffffff;
 }
 
-.containerTabuleiro {
-  display: flex;
-  flex-direction: column;
-}
-
-.containerTargerts {
-  display: flex;
-  justify-content: space-around;
-}
-.bola {
-  width: 33px;
-  height: 33px;
-  border: 2px solid var(--color);
-  border-radius: 100%;
-}
-
-.containerTargerts > * {
-  width: 40px;
-  height: 40px;
-}
-
 body {
-  width: 100vw;
   height: 100vh;
-
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-
   background-image: url(../assets/img/campo_de_futebol-min.png);
   background-repeat: no-repeat;
   background-size: cover;
   animation: gradient 25s ease infinite;
-
   color: var(--color);
 }
+
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -52,99 +28,56 @@ body {
   }
 }
 
-button {
-  background: none;
-  color: var(--color);
-  border: var(--color) 4px solid;
-  margin: 10px;
-  padding: 10px 20px;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 600;
-  width: 180px;
-}
-
-button:hover {
-  box-shadow: inset 0 0 1em rgb(255, 255, 255), 0 0 1em rgb(82, 79, 79);
-}
-
 /******************************************************/
 /*********************** TELA JOGO ***********************/
 /******************************************************/
 
-/* adcionado */
-div#jogo {
-  width: 100vw;
-  height: 100vh;
-  margin: 0px;
-  padding: 0px;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgba(39, 38, 38, 0.247);
-}
-
 /******************************************************/
-/*********************** HEADER AND FOOTER ***********************/
+/************************ HEADER **********************/
 /******************************************************/
 
-header,
-footer {
+header {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 10vh;
   background-color: rgba(93, 93, 94, 0.438);
-  z-index: 1;
 }
 
 .logo {
   width: 250px;
 }
 
-h3 {
-  font-size: 0.8rem;
-  text-align: center;
-  padding: 20px 50px;
-  line-height: 1.2rem;
-}
-
 @keyframes logoBg {
   0% {
-    background-color: var(--red);
+    background-color: var(--green);
   }
   50% {
-    background-color: var(--black);
+    background-color: var(--blue);
   }
 
   100% {
-    background-color: var(--red);
+    background-color: var(--green);
   }
 }
 
 /******************************************************/
 /*********************** MAIN ***********************/
 /******************************************************/
-/* adcionado */
+
 main {
-  width: 60vw;
-  height: 100%;
+  display: flex;
+  width: 100vw;
+  height: 80vh;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(39, 38, 38, 0.247);
 }
 
 /*********************** SEÇÃO JOGADOR **********************/
 
-section.container__players {
-  display: none;
-  /* display: flex; */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.container__players fieldset {
+#container__players {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,75 +85,61 @@ section.container__players {
   height: 100%;
 }
 
-.containerJogador {
+#jogadorDiv {
   display: flex;
   align-items: center;
   border: none;
   padding: 5px;
   margin-bottom: 10px;
+  background-color: rgba(39, 38, 38, 0.247);
 }
 
-.namesPlayersInput {
-  width: 150px;
-  height: 30px;
-  border: none;
-  color: var(--color);
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  text-align: center;
-  margin-left: 10px;
+#times {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.jogadorBlack {
-  background-color: var(--black);
-}
-.jogadorRed {
-  background-color: var(--red);
-}
-
-.bolaRed {
-  background-image: url(./img/brasil.svg);
-  border: var(--color) 2px solid;
+#Alemanha {
   width: 30px;
   height: 30px;
-  border-radius: 100px;
+  background-image: url(./img/alemanha.svg);
 }
-
-.bolaBlack {
+#Argentina {
+  width: 30px;
+  height: 30px;
   background-image: url(./img/argentina.svg);
-  border: var(--color) 2px solid;
+}
+
+#Brasil {
   width: 30px;
   height: 30px;
-  border-radius: 100px;
+  background-image: url(./img/brasil.svg);
 }
 
-::placeholder {
-  text-align: center;
-  color: var(--border);
+#França {
+  width: 30px;
+  height: 30px;
+  background-image: url(./img/franca.svg);
 }
 
-.jogadorRed:-webkit-autofill,
-.jogadorRed:-webkit-autofill:hover,
-.jogadorRed:-webkit-autofill:focus,
-.jogadorRed:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px var(--red) inset;
-  -webkit-text-fill-color: var(--color);
+#Portugal {
+  width: 30px;
+  height: 30px;
+  background-image: url(./img/portugal.svg);
 }
 
-.jogadorBlack:-webkit-autofill,
-.jogadorBlack:-webkit-autofill:hover,
-.jogadorBlack:-webkit-autofill:focus,
-.jogadorBlack:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px var(--black) inset;
-  -webkit-text-fill-color: var(--color);
+#Reino_Unido {
+  width: 30px;
+  height: 30px;
+  background-image: url(./img/reino_unido.svg);
 }
 
-fieldset span {
-  font-size: 1.3rem;
-  font-weight: 900;
-  margin-bottom: 30px;
-  text-align: center;
+#times > * {
+  font-size: 0px;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
 }
 
 .startButton {
@@ -229,26 +148,22 @@ fieldset span {
 
 /************************ SEÇÃO TABULEIRO ***********************/
 
-section.container__tableGame {
-  /* display: none; */
-  display: flex;
+#container__tableGame {
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
 }
-div.tabuleiros {
+
+#tabuleiros {
   display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: space-evenly;
+  align-items: flex-end;
+  justify-content: center;
   width: 100vw;
-  height: 60%;
 }
 
-div.cxDiscos {
-  position: relative;
-  top: 100px;
+#cxDiscos {
   width: 150px;
   height: 110px;
   border: 10px solid var(--border);
@@ -258,12 +173,6 @@ div.cxDiscos {
     rgb(98, 90, 103, 0),
     rgba(98, 90, 103, 0.8)
   );
-}
-.cxLeft {
-  display: none;
-}
-.cxRigth {
-  display: none;
 }
 
 .tableGame {
@@ -300,7 +209,7 @@ div.cxDiscos {
 .tableGame__jogador {
   max-width: 300px;
   border: none;
-  background-color: var(--red);
+  background-color: rgba(93, 93, 94, 0.8);
   color: var(--color);
   margin: 10px 0 20px;
   padding: 10px;
@@ -317,24 +226,34 @@ div.cxDiscos {
   background: none;
 }
 
-.red {
-  border-radius: 100%;
-  width: 30px;
-  height: 30px;
-  background-image: url(./img/brasil.svg);
+.containerTabuleiro {
+  display: flex;
+  flex-direction: column;
 }
-.black {
+
+.containerTargerts {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bola {
+  width: 33px;
+  height: 33px;
   border-radius: 100%;
-  width: 30px;
-  height: 30px;
-  background-image: url(./img/argentina.svg);
+  -webkit-box-shadow: 0px 0px 31px 7px rgba(255, 255, 255, 0.85);
+  -moz-box-shadow: 0px 0px 31px 7px rgba(255, 255, 255, 0.85);
+  box-shadow: 0px 0px 31px 7px rgba(255, 255, 255, 0.85);
+}
+
+.containerTargerts > * {
+  width: 40px;
+  height: 40px;
 }
 
 /*********************** SEÇÃO VITÓRIA **********************/
 
-section.container__vitoria {
+#container__vitoria {
   display: none;
-  /* display: flex; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -343,7 +262,7 @@ section.container__vitoria {
 }
 
 g {
-  fill: var(--red);
+  fill: var(--green);
   stroke: var(--border);
   stroke-width: 5;
   stroke-linecap: round;
@@ -406,6 +325,26 @@ div.btn {
   justify-content: center;
 }
 
+/******************************************************/
+/*********************** FOOTER ***********************/
+/******************************************************/
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 10vh;
+  background-color: rgba(93, 93, 94, 0.438);
+}
+
+h3 {
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 20px 50px;
+  line-height: 1.2rem;
+}
+
 /*********************** MEDIA QUERIES **********************/
 @media screen and (min-width: 768px) {
   .logo {
@@ -427,21 +366,6 @@ div.btn {
     margin-left: 20px;
   }
 
-  .bolaRed {
-    width: 50px;
-    height: 50px;
-  }
-
-  .bolaBlack {
-    width: 50px;
-    height: 50px;
-  }
-
-  fieldset span {
-    font-size: 1.8rem;
-    margin-bottom: 50px;
-  }
-
   .startButton {
     margin: 50px 0;
   }
@@ -450,6 +374,10 @@ div.btn {
 
   div.tabuleiros {
     height: 40%;
+  }
+
+  #cxDiscos {
+    display: flex;
   }
 
   /*********************** SEÇÃO VITÓRIA **********************/
@@ -466,4 +394,29 @@ div.btn {
   span.textoVencedor {
     font-size: 1rem;
   }
+}
+
+.containerTargerts {
+  display: flex;
+  justify-content: space-around;
+}
+
+.containerTargerts > * {
+  width: 40px;
+  height: 40px;
+}
+
+button {
+  background: none;
+  color: var(--color);
+  border: var(--color) 4px solid;
+  margin: 20px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+button:hover {
+  box-shadow: inset 0 0 1em rgb(255, 255, 255), 0 0 1em rgb(82, 79, 79);
 }
