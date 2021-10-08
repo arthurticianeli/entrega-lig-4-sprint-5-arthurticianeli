@@ -13,6 +13,8 @@ const nomeJogador = document.querySelector(".nomeJogador")
 const vencedorText = document.querySelector(".vencedorText")
 const times = document.querySelector("#times")
 const jogadorDiv = document.querySelector("#jogadorDiv")
+const vencedorDiv = document.querySelector(".vencendorDiv")
+
 
 let tableGameJogador = document.querySelector(".tableGame__jogador")
 
@@ -35,18 +37,18 @@ times.addEventListener("click", function(e){
     if(e.target.id !== "times"){
         if (countClick === 0){
             stylePlayer1Selecionado = e.target
-            stylePlayer1Selecionado.style.border = "2px solid black"//trocar estilo do botao selecionado
+            stylePlayer1Selecionado.style.boxShadow = "0px 0px 10px 11px #FFFFFF";
             player.nome = e.target.textContent
             player1Nome = e.target.textContent
             player.time = e.target.id
             player1Id = e.target.id
             countClick++
 
-            jogadorDiv.textContent = "O segundo jogador escolhe:"
+            jogadorDiv.textContent = "Escolha a segunda seleção:"
 
         } else if (countClick === 1 && e.target.textContent  !== player.nome){
             stylePlayer2Selecionado = e.target
-            stylePlayer2Selecionado.style.border = "2px solid red"//trocar estilo do botao selecionado
+            stylePlayer2Selecionado.style.boxShadow = "0px 0px 10px 11px rgba(24,138,31,0.75)";
             player2Id = e.target.id
             player2Nome = e.target.textContent
             countClick++
@@ -69,6 +71,7 @@ let tableGame = [
 ]
 
 function criartableGame() {
+    
   criarBolinhasCaixas()
 
     for(let i = 0; i < tableGame[0].length; i++){
@@ -95,81 +98,85 @@ function criartableGame() {
 
 }
 
-function criarBolinhasCaixas (){
-    let caixas = document.querySelectorAll(".cxDiscos")
-    let caixaEsquerda = document.querySelector(".cxLeft")
-    // caixaEsquerda.style.dragGable = true
-    let caixaDireita = document.querySelector(".cxRigth")
-    caixaEsquerda.id = "left"
-    caixas.forEach(function a(e){
-        if(e.id === "left"){
-            for(let i = 0 ; i < 21 ; i++){
-                let bolinhaVermelha = document.createElement("div")
-                bolinhaVermelha.classList.add("red", "movendo", "bolinha")
-                bolinhaVermelha.style.cursor = 'pointer'
-                bolinhaVermelha.draggable = true
-                caixaEsquerda.prepend(bolinhaVermelha)
-            }
-        }else{
-            for(let i = 0 ; i < 21 ; i++){
-                let bolinhaBlack = document.createElement("div")
-                bolinhaBlack.classList.add("black", "movendo", "bolinha")
-                bolinhaBlack.cursor = 'pointer'
-                bolinhaBlack.draggable = true
-                caixaDireita.prepend(bolinhaBlack)
-            }
+function criarBolinhasCaixas(){
+
+    let caixaEsquerda = document.getElementById("cxLeft")
+    let caixaDireita = document.getElementById("cxRight")
+  
+        for(let i = 0 ; i < 21 ; i++){
+            let bolinhaVermelha = document.createElement("div")
+            bolinhaVermelha.classList.add("movendo", "bolinha")
+            bolinhaVermelha.setAttribute("id", `${player1Id}`)
+            bolinhaVermelha.style.cursor = 'pointer'
+            bolinhaVermelha.draggable = true
+            caixaEsquerda.prepend(bolinhaVermelha)
+     
+            let bolinhaBlack = document.createElement("div")
+            bolinhaBlack.classList.add("movendo", "bolinha")
+            bolinhaBlack.setAttribute("id", `${player2Id}`)
+            bolinhaBlack.cursor = 'pointer'
+            bolinhaBlack.draggable = true
+            caixaDireita.prepend(bolinhaBlack)
+
+            // bolinhaVermelha.addEventListener("dragstart", dragStart)
+            // bolinhaVermelha.addEventListener("dragstart", dragStart)
+            // bolinhaBlack.addEventListener("dragend", dragEnd) 
+            // bolinhaBlack.addEventListener("dragend", dragEnd) 
         }
-    })
+
+
 }
 
 // MOVIMENTO DAS criarBolinhasCaixas
 
-const divsPegar = document.querySelectorAll(".targetColuna") //pegar todas as div de Pegar bolinhas
-divsPegar.forEach(divPegar =>{
-    divPegar.addEventListener("dragenter", dragenter);
-    divPegar.addEventListener("dragover", dragover);
-    divPegar.addEventListener("dragleave", dragleave);
-    divPegar.addEventListener("drop", drop);
-});
+// const divsPegar = document.querySelectorAll(".targetColuna") //pegar todas as div de Pegar bolinhas
 
-//Pegar as bolinhas
-const bolas = document.querySelectorAll(".bolinha") //pegar todas as torres
-bolas.forEach(bola => {
-    bola.addEventListener("dragstart", dragStart) //quando comeca a mover
-    bola.addEventListener("dragend", dragEnd) //quando termina
-  });
+// divsPegar.forEach(divPegar =>{
+    // divPegar.addEventListener("dragenter", dragenter);
+    // divPegar.addEventListener("dragover", dragover);
+    // divPegar.addEventListener("dragleave", dragleave);
+//     divPegar.addEventListener("drop", drop);
+// });
+
   
   //=> dragStart(Iniciando o movimento do disco)
-  function dragStart(e){
-    e.target.classList.add('moving');
-    e.cursor = 'pointer'
-    console.log("PEGOU A BOLINHA!!!")
-  }
-  function dragEnd(e){
-  }
+//   function dragStart(e){
+//     e.target.classList.add('moving');
+//     e.cursor = 'pointer'
+    // console.log(e.target)
+    // console.log("PEGOU A BOLINHA!!!")
+//   }
+
+//   function dragEnd(e){
+    // console.log(e.target)
+//   }
 
   //=> dragenter(Quando ENTRAR na DivPegar)
-function dragenter(e){
-    console.log("ENTROU NA DIV targetColuna!!!")
-  }
+// function dragenter(e){
+//     console.log(e.target)
+
+    // console.log("ENTROU NA DIV targetColuna!!!")
+//   }
   
   //=> dragover(Quando ESTIVER dentro da divPega)
-  function dragover(e){
-      //ENQUANTO ESTIVER NA DIV CurrentTarget pinta de ROSA
-      e.currentTarget.style.background = "pink";
-
-    }
+//   function dragover(e){
+//       //ENQUANTO ESTIVER NA DIV CurrentTarget pinta de ROSA
+//       e.currentTarget.style.background = "pink";
+//       console.log(e.target)
+//     }
   
   //=> dragleave(Quando SAIR da divPega)
-  function dragleave(e){
-      console.log("SAIR DA DIV targetColuna!!!")
-      e.currentTarget.style.background = "none";
-  }
+//   function dragleave(e){
+//       console.log("SAIR DA DIV targetColuna!!!")
+//       e.currentTarget.style.background = "none";
+//     //   console.log(e.target)
+//   }
   
   //=> drop(Quando SOLTA NA divPega)
-  function drop(e){
-      console.log("SOLTOU NA DIV targetColuna!!!")
-  }
+//   function drop(e){
+//     e.preventDefault();
+//     console.log("dropou")
+//   }
 
 
 
@@ -229,7 +236,8 @@ const verificaVitoria = (player) =>{
  else {
     
     mostrarVitoria()
-    vencedorText.textContent = "O jogo terminou empatado!"
+    nomeJogador.textContent = "O jogo terminou empatado!"
+    vencedorDiv.style.visibility = "hidden"
 
 }
 }
@@ -250,12 +258,30 @@ let arrJogadas = []
 function moverDiscos(event){
 
     disableClick()
+
+    const cxLeft = document.querySelector("#cxLeft")
+    const leftBall = cxLeft.querySelectorAll(".movendo")
+    const cxRight = document.querySelector("#cxRight")
+    const rightBall = cxRight.querySelectorAll(".movendo")
+
+
     
     let disco = document.createElement("div")
     disco.setAttribute("id", `${player.time}`)
    
     let colunaClicada = event.currentTarget
     let classeColunaClicada = colunaClicada.className
+    let tamanhoColunaClicada = colunaClicada.querySelectorAll("div")
+
+    console.log(tamanhoColunaClicada.length)
+
+    if (tamanhoColunaClicada.length < 12 ){
+        if (player.Numero === "1") {
+            cxLeft.removeChild(leftBall[0])
+        } else {
+            cxRight.removeChild(rightBall[0])
+        } 
+}
 
     arrJogadas.push(classeColunaClicada)
 
@@ -268,7 +294,7 @@ function moverDiscos(event){
     }
 
     //VARIAVEL PARA ANIMAÇÃO
-        let valAnimate = 260;
+        let valAnimate = 240;
         for(let i = tableGame.length-1 ; i >= 0 ;i--){
             let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
             if(tableGame[i][posicaoArr] === "0"){
@@ -355,7 +381,13 @@ function reset(){
     player.nome = player1Nome
     countClick = 0
 
+    cxLeft.innerHTML= ""
+    cxRight.innerHTML= ""
+
     tabuleiro.innerHTML = ""
+
+    stylePlayer1Selecionado.style.boxShadow = "none"
+    stylePlayer2Selecionado.style.boxShadow = "none"
 
     jogadas = 0
 
@@ -388,7 +420,7 @@ buttonStart.addEventListener("click", function(e){
     criartableGame()
     
     } else {
-        jogadorDiv.textContent = "Por favor! Escolha um time:"
+        jogadorDiv.textContent = "Por favor! Escolha um seleção:"
     }
 })
 // ***************************** LISTENER: BOTÃO JOGAR DE NOVO **************************** //

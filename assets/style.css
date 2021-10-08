@@ -6,7 +6,6 @@
   --color: #ffffff;
 }
 
-
 .containerTabuleiro {
   display: flex;
   flex-direction: column;
@@ -137,10 +136,12 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   margin: 15px;
+  width: 200px;
 }
 
 #times > * {
   cursor: pointer;
+  border-radius: 100%;
 }
 
 #Alemanha {
@@ -206,15 +207,16 @@ main {
   width: 100vw;
 }
 
-
-div.cxDiscos{
+#cxRight,
+#cxLeft {
   display: none;
-  
-  flex-flow: row wrap;
-  justify-content: center;
 
-  width: 150px;
-  height: 110px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  flex-direction: column-reverse;
+
+  width: 105px;
+  height: 225px;
 
   border: 10px solid var(--border);
   border-top: none;
@@ -234,6 +236,7 @@ div.cxDiscos{
 .containerTargerts {
   display: flex;
   justify-content: space-around;
+  margin: 0 4px 0 16px;
 }
 
 .bola {
@@ -299,9 +302,8 @@ div.cxDiscos{
   background: none;
 }
 
-
 /* movimentando item */
-.movendo:hover{
+.movendo:hover {
   opacity: 0.8;
 }
 
@@ -399,6 +401,16 @@ h3 {
 }
 
 /*********************** MEDIA QUERIES **********************/
+@media (max-height: 600px) {
+  #container__vitoria {
+    transform: scale(0.8);
+  }
+  h3 {
+    font-size: 0.5rem;
+    line-height: 0.8rem;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .logo {
     width: 350px;
@@ -425,7 +437,8 @@ h3 {
     height: 40%;
   }
 
-  #cxDiscos {
+  #cxLeft,
+  #cxRight {
     display: flex;
   }
 
