@@ -15,12 +15,6 @@
   display: flex;
   justify-content: space-around;
 }
-.bola {
-  width: 33px;
-  height: 33px;
-  border: 2px solid var(--red);
-  border-radius: 100%;
-}
 
 .containerTargerts > * {
   width: 40px;
@@ -127,7 +121,8 @@ main {
   display: flex;
   align-items: center;
   border: none;
-  padding: 5px;
+  padding: 10px 15px;
+  border-radius: 8px;
   background-color: rgba(39, 38, 38, 0.247);
 }
 
@@ -135,7 +130,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 15px;
+  margin: 25px 0 40px;
   width: 200px;
 }
 
@@ -186,10 +181,6 @@ main {
   margin: 5px;
 }
 
-.startButton {
-  margin: 30px 0;
-}
-
 /************************ SEÇÃO TABULEIRO ***********************/
 
 #container__tableGame {
@@ -218,7 +209,7 @@ main {
   width: 105px;
   height: 225px;
 
-  border: 10px solid var(--border);
+  border: 10px solid var(--color);
   border-top: none;
   background-image: linear-gradient(
     to bottom,
@@ -289,7 +280,7 @@ main {
   color: var(--color);
   margin: 10px 0 20px;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 1.2rem;
   text-align: center;
 }
@@ -371,8 +362,9 @@ g {
 }
 
 span.nomeJogador {
-  font-size: 4rem;
+  font-size: 3.5rem;
   text-align: center;
+  margin: 10px;
 }
 
 span.textoVencedor {
@@ -397,7 +389,6 @@ h3 {
   font-size: 0.8rem;
   text-align: center;
   padding: 20px 50px;
-  line-height: 1.2rem;
 }
 
 /*********************** MEDIA QUERIES **********************/
@@ -412,30 +403,19 @@ h3 {
 }
 
 @media screen and (min-width: 768px) {
+  /*********************** HEADER **********************/
   .logo {
     width: 350px;
   }
 
   /*********************** SEÇÃO JOGADOR **********************/
 
-  section.container__players {
-    min-width: 400px;
-  }
-
   .namesPlayersInput {
     width: 250px;
     margin-left: 20px;
   }
 
-  .startButton {
-    margin: 50px 0;
-  }
-
   /************************ SEÇÃO TABULEIRO ***********************/
-
-  div.tabuleiros {
-    height: 40%;
-  }
 
   #cxLeft,
   #cxRight {
@@ -445,15 +425,20 @@ h3 {
   /*********************** SEÇÃO VITÓRIA **********************/
 
   .vencendorDiv img {
-    width: 80px;
+    width: 100px;
     margin: 40px;
   }
 
   span.nomeJogador {
-    font-size: 2.5rem;
+    font-size: 4.5rem;
   }
 
   span.textoVencedor {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+  }
+
+  .jogarNovamente {
+    margin: 50px 0 20px;
   }
 }
