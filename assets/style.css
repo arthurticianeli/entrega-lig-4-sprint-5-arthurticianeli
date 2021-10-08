@@ -15,7 +15,11 @@
   display: flex;
   justify-content: space-around;
 }
-
+.bolinha{
+  height: 50px;
+  background-color: aqua;
+  border-radius: 100%;
+}
 .containerTargerts > * {
   width: 40px;
   height: 40px;

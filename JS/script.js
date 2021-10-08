@@ -14,10 +14,13 @@ const vencedorText = document.querySelector(".vencedorText")
 const times = document.querySelector("#times")
 const jogadorDiv = document.querySelector("#jogadorDiv")
 const vencedorDiv = document.querySelector(".vencendorDiv")
-
+let containerTargets = document.querySelectorAll(".targetColuna")
 
 let tableGameJogador = document.querySelector(".tableGame__jogador")
 
+document.addEventListener("drag", function(event) {//ativando Drag
+
+}, false);
 
 let player = {
     nome: "",
@@ -75,11 +78,11 @@ function criartableGame() {
   criarBolinhasCaixas()
 
     for(let i = 0; i < tableGame[0].length; i++){
-
+        // let bolinhaAcima = document.createElement("div")
         let coluna = document.createElement("div")
 
         coluna.classList.add(`coluna${i}`)
-        
+        // bolinhaAcima.classList.add(`bolinha`)
         coluna.addEventListener("click", moverDiscos) // Ouvindo todas as colunas para o evento de mover disco
 
         for(let a = 0 ; a < tableGame.length ; a++){
@@ -92,6 +95,7 @@ function criartableGame() {
             
         }
         tabuleiro.appendChild(coluna)
+        // coluna.prepend(bolinhaAcima)
     }
   
       tableGameJogador.textContent = `Posse de bola: ${player.nome}`
@@ -129,54 +133,55 @@ function criarBolinhasCaixas(){
 
 // MOVIMENTO DAS criarBolinhasCaixas
 
-// const divsPegar = document.querySelectorAll(".targetColuna") //pegar todas as div de Pegar bolinhas
+containerTargets.forEach
+    containerTargets.addEventListener("dragenter", dragenter);
+    containerTargets.addEventListener("dragover", dragover);
+    containerTargets.addEventListener("dragleave", dragleave);
+    containerTargets.addEventListener("drop", drop);
 
-// divsPegar.forEach(divPegar =>{
-    // divPegar.addEventListener("dragenter", dragenter);
-    // divPegar.addEventListener("dragover", dragover);
-    // divPegar.addEventListener("dragleave", dragleave);
-//     divPegar.addEventListener("drop", drop);
-// });
 
   
   //=> dragStart(Iniciando o movimento do disco)
-//   function dragStart(e){
-//     e.target.classList.add('moving');
-//     e.cursor = 'pointer'
+  function dragStart(e){
+    e.target.classList.add('moving');
+    e.cursor = 'pointer'
     // console.log(e.target)
     // console.log("PEGOU A BOLINHA!!!")
-//   }
+  }
 
-//   function dragEnd(e){
+  function dragEnd(e){
     // console.log(e.target)
-//   }
+  }
 
-  //=> dragenter(Quando ENTRAR na DivPegar)
-// function dragenter(e){
-//     console.log(e.target)
+ // => dragenter(Quando ENTRAR na containerTargets)
+function dragenter(e){
+    // console.log(e.target)
 
     // console.log("ENTROU NA DIV targetColuna!!!")
-//   }
+  }
   
   //=> dragover(Quando ESTIVER dentro da divPega)
-//   function dragover(e){
-//       //ENQUANTO ESTIVER NA DIV CurrentTarget pinta de ROSA
-//       e.currentTarget.style.background = "pink";
-//       console.log(e.target)
-//     }
+  function dragover(e){
+      //ENQUANTO ESTIVER NA DIV CurrentTarget pinta de ROSA
+      e.currentTarget.style.background = "pink";
+    //   console.log(e.target)
+    }
   
-  //=> dragleave(Quando SAIR da divPega)
-//   function dragleave(e){
-//       console.log("SAIR DA DIV targetColuna!!!")
-//       e.currentTarget.style.background = "none";
-//     //   console.log(e.target)
-//   }
+ // => dragleave(Quando SAIR da divPega)
+  function dragleave(e){
+      console.log("SAIR DA DIV targetColuna!!!")
+      e.currentTarget.style.background = "none";
+    //   console.log(e.target)
+  }
   
   //=> drop(Quando SOLTA NA divPega)
-//   function drop(e){
-//     e.preventDefault();
-//     console.log("dropou")
-//   }
+  function drop(e){
+    // e.preventDefault();
+    if (e.target.className == "targetColuna1") {
+    
+    console.log("dropou")
+    }
+  }
 
 
 
