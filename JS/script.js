@@ -69,6 +69,7 @@ let tableGame = [
 ]
 
 function criartableGame() {
+  criarBolinhasCaixas()
 
     for(let i = 0; i < tableGame[0].length; i++){
 
@@ -89,10 +90,88 @@ function criartableGame() {
         }
         tabuleiro.appendChild(coluna)
     }
-
-    tableGameJogador.textContent = `Posse de bola: ${player.nome}`
+  
+      tableGameJogador.textContent = `Posse de bola: ${player.nome}`
 
 }
+
+function criarBolinhasCaixas (){
+    let caixas = document.querySelectorAll(".cxDiscos")
+    let caixaEsquerda = document.querySelector(".cxLeft")
+    // caixaEsquerda.style.dragGable = true
+    let caixaDireita = document.querySelector(".cxRigth")
+    caixaEsquerda.id = "left"
+    caixas.forEach(function a(e){
+        if(e.id === "left"){
+            for(let i = 0 ; i < 21 ; i++){
+                let bolinhaVermelha = document.createElement("div")
+                bolinhaVermelha.classList.add("red", "movendo", "bolinha")
+                bolinhaVermelha.style.cursor = 'pointer'
+                bolinhaVermelha.draggable = true
+                caixaEsquerda.prepend(bolinhaVermelha)
+            }
+        }else{
+            for(let i = 0 ; i < 21 ; i++){
+                let bolinhaBlack = document.createElement("div")
+                bolinhaBlack.classList.add("black", "movendo", "bolinha")
+                bolinhaBlack.cursor = 'pointer'
+                bolinhaBlack.draggable = true
+                caixaDireita.prepend(bolinhaBlack)
+            }
+        }
+    })
+}
+
+// MOVIMENTO DAS criarBolinhasCaixas
+
+const divsPegar = document.querySelectorAll(".targetColuna") //pegar todas as div de Pegar bolinhas
+divsPegar.forEach(divPegar =>{
+    divPegar.addEventListener("dragenter", dragenter);
+    divPegar.addEventListener("dragover", dragover);
+    divPegar.addEventListener("dragleave", dragleave);
+    divPegar.addEventListener("drop", drop);
+});
+
+//Pegar as bolinhas
+const bolas = document.querySelectorAll(".bolinha") //pegar todas as torres
+bolas.forEach(bola => {
+    bola.addEventListener("dragstart", dragStart) //quando comeca a mover
+    bola.addEventListener("dragend", dragEnd) //quando termina
+  });
+  
+  //=> dragStart(Iniciando o movimento do disco)
+  function dragStart(e){
+    e.target.classList.add('moving');
+    e.cursor = 'pointer'
+    console.log("PEGOU A BOLINHA!!!")
+  }
+  function dragEnd(e){
+  }
+
+  //=> dragenter(Quando ENTRAR na DivPegar)
+function dragenter(e){
+    console.log("ENTROU NA DIV targetColuna!!!")
+  }
+  
+  //=> dragover(Quando ESTIVER dentro da divPega)
+  function dragover(e){
+      //ENQUANTO ESTIVER NA DIV CurrentTarget pinta de ROSA
+      e.currentTarget.style.background = "pink";
+
+    }
+  
+  //=> dragleave(Quando SAIR da divPega)
+  function dragleave(e){
+      console.log("SAIR DA DIV targetColuna!!!")
+      e.currentTarget.style.background = "none";
+  }
+  
+  //=> drop(Quando SOLTA NA divPega)
+  function drop(e){
+      console.log("SOLTOU NA DIV targetColuna!!!")
+  }
+
+
 
 
 // **************************** VERIFICAR VITÓRIA ***************************//

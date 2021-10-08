@@ -6,6 +6,28 @@
   --color: #ffffff;
 }
 
+
+.containerTabuleiro {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerTargerts {
+  display: flex;
+  justify-content: space-around;
+}
+.bola {
+  width: 33px;
+  height: 33px;
+  border: 2px solid var(--red);
+  border-radius: 100%;
+}
+
+.containerTargerts > * {
+  width: 40px;
+  height: 40px;
+}
+
 body {
   height: 100vh;
   overflow: hidden;
@@ -117,6 +139,10 @@ main {
   margin: 15px;
 }
 
+#times > * {
+  cursor: pointer;
+}
+
 #Alemanha {
   width: 30px;
   height: 30px;
@@ -180,10 +206,16 @@ main {
   width: 100vw;
 }
 
-#cxDiscos {
+
+div.cxDiscos{
   display: none;
+  
+  flex-flow: row wrap;
+  justify-content: center;
+
   width: 150px;
   height: 110px;
+
   border: 10px solid var(--border);
   border-top: none;
   background-image: linear-gradient(
@@ -265,6 +297,17 @@ main {
   width: 40px;
   height: 40px;
   background: none;
+}
+
+
+/* movimentando item */
+.movendo:hover{
+  opacity: 0.8;
+}
+
+.containerTargerts > * {
+  width: 40px;
+  height: 40px;
 }
 
 /*********************** SEÇÃO VITÓRIA **********************/
