@@ -11,35 +11,48 @@ const buttonReset = document.querySelector(".tableGame__reset")
 const tabuleiro = document.querySelector(".tableGame")
 const nomeJogador = document.querySelector(".nomeJogador")
 const vencedorText = document.querySelector(".vencedorText")
-// let jogadorRed = document.querySelector(".jogadorRed").value
-// let jogadorBlack = document.querySelector(".jogadorBlack").value
+const times = document.querySelector("#times")
+const jogadorDiv = document.querySelector("#jogadorDiv")
+
 let tableGameJogador = document.querySelector(".tableGame__jogador")
-
-// tela do jogador
-
-// 1 - jogador 1 escolhe o time
-    // eventlisterner por bubbling na div pai dos times
-
-// 2 - a escolha é armazenada
-    // let player1 = time.id
-
-// 3 - armazena o click numa variável
-    // let click = 1
-
-// 4 - jogador 2 escolhe outro time
-    // eventlisterner por bubbling na div pai dos times
-
-// 5 - a escolha é armazenada
-    // let player2 = time.id
-
 
 
 let player = {
-    nome: `${player1}`,
-    time : `${player1}`,
-    Numero : '1'
+    nome: "",
+    time: "",
+    Numero: '1'
 };
 
+// ******************* PEGAR JOGADORES ********************//
+let countClick = 0
+let player1Id= ""
+let player2Id= ""
+let player1Nome= ""
+let player2Nome= ""
+
+
+times.addEventListener("click", function(e){
+
+    if (countClick === 0){
+        player.nome = e.target.textContent
+        player1Nome = e.target.textContent
+        player.time = e.target.id
+        player1Id = e.target.id
+        countClick++
+
+        jogadorDiv.textContent = "O segundo jogador escolhe:"
+
+    } else if (countClick === 1 && e.target.textContent  !== player.nome){
+        player2Id = e.target.id
+        player2Nome = e.target.textContent
+        countClick++
+        jogadorDiv.textContent = "Que comece a partida!"
+    }
+})
+
+
+
+// **************************** CRIAR TABLE **************************** //
 
 let tableGame = [
     "0000000",
@@ -50,11 +63,9 @@ let tableGame = [
     "0000000"
 ]
 
-
-// **************************** CRIAR TABLE **************************** //
-
 function criartableGame() {
-    for(let i = 0 ; i < tableGame[0].length; i++){
+
+    for(let i = 0; i < tableGame[0].length; i++){
 
         let coluna = document.createElement("div")
 
@@ -65,26 +76,18 @@ function criartableGame() {
         for(let a = 0 ; a < tableGame.length ; a++){
 
             let bloco = document.createElement("div")
-            if(tableGame[a][i] === "0"){
-                bloco.classList.add("blocoFilho")
-            }else if(tableGame[a][i] === "1"){
-                bloco.classList.add("red")
-            }else if(tableGame[a][i] === "2"){
-                bloco.classList.add("black")
-            }
+            bloco.classList.add("blocoFilho")
             bloco.id = `${a}0${i}`
+
             coluna.appendChild(bloco)
             
         }
         tabuleiro.appendChild(coluna)
     }
-    verificarNomes()
-    tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
+
+    tableGameJogador.textContent = `Turno: ${player.nome}`
 
 }
-
-
-
 
 
 // **************************** VERIFICAR VITÓRIA ***************************//
@@ -96,10 +99,11 @@ let maximoJogadas = (tableGame.length * tableGame[0].length)
 const verificaVitoria = (player) =>{
 
     jogadas++
-    let condicao = ""
-    let palavraCruzada = ""
-    let palavraCruzadaD = ""
-    let palavraVertical = ""
+    let condicao = "" //codiçao e o codigo necessario para validar a vitoria
+    let palavraCruzada = "" //verificaçao na diagonal esquerda
+    let palavraCruzadaD = ""//verificaçao na diagonal direita
+    let palavraVertical = ""//verificar vertical
+    let horizontal = ""//verifica horizontal
     
         if (player.Numero === '1') {
             condicao = "1111"
@@ -113,15 +117,17 @@ const verificaVitoria = (player) =>{
             for(let a = 0 ; a < tableGame[0].length ; a++){
                 
                 if(a <= 3){
+                    horizontal = tableGame[i][a] + tableGame[i][a+1] + tableGame[i][a+2] + tableGame[i][a+3]
                     if(i <= 2){
                         palavraCruzada = tableGame[i][a] + tableGame[i+1][a+1] + tableGame[i+2][a+2] + tableGame[i+3][a+3] 
                         palavraCruzadaD = tableGame[i][a+3] + tableGame[i+1][a+2] + tableGame[i+2][a+1] + tableGame[i+3][a]
                     }
-                    if(tableGame[i].substr(a, a+4) === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
+                    if(horizontal === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
                         mostrarVitoria()
-                        nomeJogador.textContent = player.nome
-                    }             
+                        nomeJogador.textContent = player.time
+                    }       
                 }
+
                
             }
         }
@@ -131,17 +137,18 @@ const verificaVitoria = (player) =>{
                 palavraVertical = tableGame[i][a] + tableGame[i+1][a] + tableGame[i+2][a] + tableGame[i+3][a]
                 if(palavraVertical === condicao){
                     mostrarVitoria()
-                    nomeJogador.textContent = player.nome
+                    nomeJogador.textContent = player.time
                 } 
             }
         }
-    } else {
+    }
+ else {
     
     mostrarVitoria()
     vencedorText.textContent = "O jogo terminou empatado!"
-    }
-}
 
+}
+}
 
 
 function mostrarVitoria(){
@@ -159,10 +166,10 @@ let arrJogadas = []
 function moverDiscos(event){
 
     disableClick()
-
+    
     let disco = document.createElement("div")
-    disco.classList.add(player.time);
-
+    disco.setAttribute("id", `${player.time}`)
+   
     let colunaClicada = event.currentTarget
     let classeColunaClicada = colunaClicada.className
 
@@ -224,7 +231,7 @@ function disableClick(){
 
 }
 
-// ***************************** ALTERNANDO AS timeES DO PLAYER **************************** //
+// ***************************** ALTERNANDO O PLAYER **************************** //
 
 function TrocarPlayer() {
 
@@ -232,19 +239,17 @@ function TrocarPlayer() {
 
     if (player.Numero === '1') {      
 
-        tableGameJogador.textContent = `Turno do jogador ${jogadorBlack}`
-        player.nome = jogadorBlack
-        player.time = 'black';
+        player.nome = player2Nome;
+        player.time = player2Id;
         player.Numero = '2';
-        tableGameJogador.style.background = "var(--black)"
+        tableGameJogador.textContent = `Turno: ${player.nome}`
 
     } else {
 
-        tableGameJogador.textContent = `Turno do jogador ${jogadorRed}`
-        player.nome = jogadorRed
-        player.time = 'red';
+        player.nome = player1Nome;
+        player.time = player1Id;
         player.Numero = '1';
-        tableGameJogador.style.background = "var(--red)"
+        tableGameJogador.textContent = `Turno: ${player.nome}`
         
     }
 
@@ -253,29 +258,18 @@ function TrocarPlayer() {
 }
 
 
-// ***************************** VERIFICA O CAMPO COM OS NOMES **************************** //
-
-function verificarNomes(){
-
-    if (jogadorBlack === "") {
-        jogadorBlack = "Preto"
-    }
-    if (jogadorRed === "") {
-        jogadorRed = "Vermelho"
-    } 
-}
-
-
-
 
 // ***************************** LISTENER: BOTÃO RESET **************************** //
 
 
 function reset(){
     
-    player.Numero = '1'
-    player.time = 'red'
-    tableGameJogador.style.background = "var(--red)"
+
+    tableGameJogador.textContent = `Turno do jogador ${player.nome}`
+    player.time = player1Id;
+    player.Numero = '1';
+    player.nome = player1Nome
+
     tabuleiro.innerHTML = ""
     jogadas = 0
     tableGame = [
@@ -298,20 +292,14 @@ buttonReset.addEventListener("click", reset)
 
 buttonStart.addEventListener("click", function(e){
 
-    jogadorRed = document.querySelector(".jogadorRed").value
-    jogadorBlack = document.querySelector(".jogadorBlack").value
-
+    if (countClick === 2) {
     container__players.style.display = "none"
     container__tableGame.style.display = "flex"
-
-    e.preventDefault()
-
-    player.Numero = '1'
-    player.time = 'red'
-    tabuleiro.innerHTML = ""
     
     criartableGame()
-    
+    } else {
+        jogadorDiv.textContent = "Por favor! Escolha um time:"
+    }
 })
 // ***************************** LISTENER: BOTÃO JOGAR DE NOVO **************************** //
 

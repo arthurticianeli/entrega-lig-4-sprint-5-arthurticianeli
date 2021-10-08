@@ -14,21 +14,56 @@
   height: 100%;
 }
 
-.times {
+#times {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.times > * {
-  background-color: blueviolet;
+.jogador1 {
+  text-align: center;
+}
+
+#Alemanha {
+  width: 30px;
+  height: 30px;
+  background-image: url(./img/alemanha.svg);
+}
+#Argentina {
+  width: 30px;
+  height: 30px;
+  background-image: url(./img/argentina.svg);
+}
+
+#Brasil {
+  width: 30px;
+  height: 30px;
+  background-image: url(./img/brasil.svg);
+}
+
+#França {
+  width: 30px;
+  height: 30px;
+  background-image: url(./img/franca.svg);
+}
+
+#Portugal {
+  width: 30px;
+  height: 30px;
+  background-image: url(./img/portugal.svg);
+}
+
+#Reino_Unido {
+  width: 30px;
+  height: 30px;
+  background-image: url(./img/reino_unido.svg);
+}
+
+#times > * {
+  font-size: 0px;
   width: 50px;
   height: 50px;
   margin: 5px;
-}
-
-.jogador1 {
-  text-align: center;
 }
 
 body {
@@ -312,21 +347,6 @@ div.cxDiscos {
   background: none;
 }
 
-.red {
-  border-radius: 100%;
-  border: 2px solid var(--black);
-  width: 30px;
-  height: 30px;
-  background-color: var(--red);
-}
-.black {
-  border-radius: 100%;
-  border: 2px solid var(--black);
-  width: 30px;
-  height: 30px;
-  background-color: var(--black);
-}
-
 .containerTabuleiro {
   display: flex;
   flex-direction: column;
@@ -339,7 +359,7 @@ div.cxDiscos {
 .bola {
   width: 33px;
   height: 33px;
-  border: 2px solid var(--red);
+  border: 2px solid var(--black);
   border-radius: 100%;
 }
 
