@@ -15,7 +15,6 @@ const times = document.querySelector("#times")
 const jogadorDiv = document.querySelector("#jogadorDiv")
 const vencedorDiv = document.querySelector(".vencendorDiv")
 let containerTargets = document.querySelectorAll(".targetColuna")
-
 let tableGameJogador = document.querySelector(".tableGame__jogador")
 
 document.addEventListener("drag", function(event) {//ativando Drag
@@ -147,11 +146,14 @@ containerTargets.forEach((a) =>{
   
   //=> dragStart(Iniciando o movimento do disco)
 let bolaJogada
+
 function dragStart(e){
-    bolaJogada = e.target.id
-    e.target.classList.add('moving');
-    e.cursor = 'pointer'
-  }
+        bolaJogada = e.target.id
+        bolaJogadaValidacao = e.currentTarget
+        e.target.classList.add('moving');
+        e.cursor = 'pointer'
+}
+
 
   function dragEnd(e){
     // console.log(e.target)
@@ -168,14 +170,14 @@ function dragenterColuna (e){
     e.currentTarget.style.background = "pink";
 }
   //=> dragover(Quando ESTIVER dentro da divPega)
-  function dragover(e){
+function dragover(e){
       e.preventDefault();
       //ENQUANTO ESTIVER NA DIV CurrentTarget pinta de ROSA
-    }
+}
   
  // => dragleave(Quando SAIR da divPega)
+
   function dragleave(e){
-    //   console.log("SAIR DA DIV targetColuna!!!")
       e.currentTarget.style.background = "";
   }
   let bolaFilha
@@ -269,13 +271,12 @@ let arrJogadas = []
 
 function moverDiscos(event){
     let colunaClicada
-    if (window.matchMedia("(max-width: 767px)").matches) {
+    if (window.matchMedia("(max-width: 769px)").matches) {
         colunaClicada = event.currentTarget
       } else {
         
         colunaClicada = event
       }
-    console.log(event)
     disableClick()
 
     const cxLeft = document.querySelector("#cxLeft")
@@ -292,7 +293,6 @@ function moverDiscos(event){
     let classeColunaClicada = colunaClicada.className
     let tamanhoColunaClicada = colunaClicada.querySelectorAll("div")
 
-    console.log(tamanhoColunaClicada.length)
 
     if (tamanhoColunaClicada.length < 12 ){
         if (player.Numero === "1") {
@@ -371,14 +371,12 @@ function TrocarPlayer() {
     setTimeout(function(){
 
     if (player.Numero === '1') {      
-
         player.nome = player2Nome;
         player.time = player2Id;
         player.Numero = '2';
         tableGameJogador.textContent = `Posse de bola: ${player.nome}`
 
     } else {
-
         player.nome = player1Nome;
         player.time = player1Id;
         player.Numero = '1';
@@ -437,7 +435,7 @@ buttonReset.addEventListener("click", function(){
 
 let DesativarClick = false
 buttonStart.addEventListener("click", function(e){
-    if (window.matchMedia("(min-width: 767px)").matches) {
+    if (window.matchMedia("(min-width: 769px)").matches) {
         DesativarClick = true
       }
     if (countClick === 2) {
