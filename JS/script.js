@@ -16,7 +16,9 @@ const jogadorDiv = document.querySelector("#jogadorDiv")
 const vencedorDiv = document.querySelector(".vencendorDiv")
 let containerTargets = document.querySelectorAll(".targetColuna")
 let tableGameJogador = document.querySelector(".tableGame__jogador")
-
+const audioJogo = document.querySelector(".audioJogo")
+const audioJogada = document.querySelector(".audioJogada")
+const apito = document.querySelector(".apito")
 let limiteEmpate = 0
 
 let jogador = {
@@ -266,6 +268,7 @@ const verificaVitoriaVertical = () =>{
             if(board[i] !== [] && j < 4){ 
             
             if(board[i][j] === board[i][j + 1] && board[i][j] === board[i][j + 2] && board[i][j] === board[i][j + 3]){ 
+                
                 nomeJogador.textContent = board[i][j]
                 mostrarVitoria()
             }
@@ -275,7 +278,7 @@ const verificaVitoriaVertical = () =>{
 }
 
 const verificarVitoriaHorizontal = () => {
-         
+    
     board.forEach(function(e,i) {
                
         if(board[i] !== [] && i < 4){
@@ -332,8 +335,10 @@ const verificaVitoriaDiagonal = () =>{
 }
 
 function mostrarVitoria(){
+    let caminho = `/assets/music/musicPaises/${nomeJogador.textContent}.mp3`
     container__tableGame.style.display = "none"
     container__vitoria.style.display = "flex"
+    audioJogo.setAttribute("src",caminho)
 }
 
 function verificaEmpate() {
@@ -343,6 +348,7 @@ function verificaEmpate() {
     if (limiteEmpate === 42){ 
         nomeJogador.textContent = "O jogo terminou empatado!"
         vencedorDiv.style.visibility = "hidden"
+        audioJogo.setAttribute("src","/assets/music/empate.mp3")
         mostrarVitoria()
     }
     
@@ -355,7 +361,7 @@ function verificaEmpate() {
 function jogada(colunaAlvo){ 
 
     //solta um áudio de gol
-
+    audioJogada.play()
     if (window.matchMedia("(max-width: 769px)").matches) {
         disableClick()
     }
@@ -496,7 +502,7 @@ function reset(){
     vencedorDiv.style.visibility = "visible"
 
     jogadas = 0
-   
+    audioJogo.setAttribute("src","/assets/music/musicaFundo.mp3")
 }
 
 buttonReset.addEventListener("click", function(){
@@ -509,7 +515,9 @@ buttonReset.addEventListener("click", function(){
 
 
 buttonStart.addEventListener("click", function(e){
-
+    audioJogo.play()
+    audioJogo.volume = 0.2
+    apito.play()
     if (countClick === 2) {
 
     container__players.style.display = "none"
