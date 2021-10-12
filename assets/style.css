@@ -1,29 +1,21 @@
 :root {
-  --blue: #1039be;
-  --green: #086308;
   --color_bg: #625a67;
   --border: #b8b6b6;
   --color: #ffffff;
 }
 
-.containerTabuleiro {
-  display: flex;
-  flex-direction: column;
-}
-.targetColuna{
+.targetColuna {
+  width: 40px;
+  height: 40px;
   border-radius: 100%;
-  display: flex;
-  justify-content: center;
+  box-shadow: 0px 0px 31px 7px rgba(255, 255, 255, 0.85);
 }
+
 .containerTargerts {
   display: flex;
   margin: 0 10px;
 }
-.bolinha{
-  height: 50px;
-  background-color: aqua;
-  border-radius: 100%;
-}
+
 .containerTargerts > * {
   width: 40px;
   height: 40px;
@@ -89,25 +81,11 @@ header {
   width: 250px;
 }
 
-@keyframes logoBg {
-  0% {
-    background-color: var(--green);
-  }
-  50% {
-    background-color: var(--blue);
-  }
-
-  100% {
-    background-color: var(--green);
-  }
-}
-
 /******************************************************/
 /*********************** MAIN ***********************/
 /******************************************************/
 
 main {
-  display: flex;
   width: 100vw;
   height: 80vh;
   align-items: center;
@@ -122,10 +100,11 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 70%;
 }
 
 #jogadorDiv {
+  font-weight: 900;
   display: flex;
   align-items: center;
   border: none;
@@ -138,48 +117,8 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 25px 0 40px;
+  margin: 25px 0 10px;
   width: 200px;
-}
-
-#times > * {
-  cursor: pointer;
-  border-radius: 100%;
-}
-
-#Alemanha {
-  width: 30px;
-  height: 30px;
-  background-image: url(./img/alemanha.svg);
-}
-#Argentina {
-  width: 30px;
-  height: 30px;
-  background-image: url(./img/argentina.svg);
-}
-
-#Brasil {
-  width: 30px;
-  height: 30px;
-  background-image: url(./img/brasil.svg);
-}
-
-#França {
-  width: 30px;
-  height: 30px;
-  background-image: url(./img/franca.svg);
-}
-
-#Portugal {
-  width: 30px;
-  height: 30px;
-  background-image: url(./img/portugal.svg);
-}
-
-#Reino_Unido {
-  width: 30px;
-  height: 30px;
-  background-image: url(./img/reino_unido.svg);
 }
 
 #times > * {
@@ -187,6 +126,104 @@ main {
   width: 50px;
   height: 50px;
   margin: 5px;
+  cursor: pointer;
+  border-radius: 100%;
+}
+
+#times > *:hover {
+  animation: pulse 2s infinite;
+}
+
+.Alemanha {
+  background-image: url(./img/alemanha.svg);
+}
+.Argentina {
+  background-image: url(./img/argentina.svg);
+}
+
+.Brasil {
+  background-image: url(./img/brasil.svg);
+}
+
+.França {
+  background-image: url(./img/franca.svg);
+}
+
+.Portugal {
+  background-image: url(./img/portugal.svg);
+}
+
+.Reino_Unido {
+  background-image: url(./img/reino_unido.svg);
+}
+
+.pulse {
+  box-shadow: 0 0 0 rgba(173, 170, 159, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 30px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.fadeIn {
+  animation: fadeIn ease 2s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.jogadorEscolhido1Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 100%;
+  width: 150px;
+
+  position: absolute;
+  left: 10%;
+  top: 70%;
+}
+
+.jogadorEscolhido1 {
+  width: 50px;
+  height: 50px;
+  font-size: 0px;
+  margin: 10px;
+  border-radius: 100%;
+}
+.jogadorEscolhido2Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 100%;
+  width: 150px;
+
+  position: absolute;
+  right: 10%;
+  top: 70%;
+}
+
+.jogadorEscolhido2 {
+  width: 50px;
+  height: 50px;
+  font-size: 0px;
+  margin: 10px;
+  border-radius: 100%;
 }
 
 /************************ SEÇÃO TABULEIRO ***********************/
@@ -226,23 +263,17 @@ main {
   );
 }
 
-.containerTabuleiro {
+#containerPaiTabuleiro {
   display: flex;
   flex-direction: column;
   margin: 50px 20px 0 20px;
+  margin: 20px 20px 0 20px;
 }
 
 .containerTargerts {
   display: flex;
   justify-content: space-around;
   margin: 0 10px;
-}
-
-.bola {
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  box-shadow: 0px 0px 31px 7px rgba(255, 255, 255, 0.85);
 }
 
 .containerTargerts > * {
@@ -265,10 +296,23 @@ main {
   );
 }
 
+/* TIMES MEIO */
 .tableGame > * > * {
+  width: 40px;
+  height: 40px;
+}
+
+/* TIMES LATERAL */
+#cxRight > *,
+#cxLeft > * {
+  width: 30px;
+  height: 30px;
+}
+
+.tableGame > * {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  flex-direction: column-reverse;
+  width: 40px;
   align-items: center;
 }
 
@@ -332,7 +376,6 @@ main {
 
 .vencendorDiv img {
   width: 100px;
-  margin: 20px;
 }
 
 g {
@@ -372,7 +415,6 @@ g {
 span.nomeJogador {
   font-size: 3.5rem;
   text-align: center;
-  margin: 10px;
 }
 
 span.textoVencedor {
@@ -410,8 +452,17 @@ h3 {
   }
 }
 
-@media screen and (min-width: 768px) {
+/************************************************************/
+/************************** DESKTOP *************************/
+/************************************************************/
+
+@media screen and (min-width: 769px) {
   /*********************** HEADER **********************/
+
+  main {
+    display: flex;
+  }
+
   .logo {
     width: 350px;
   }
@@ -423,6 +474,66 @@ h3 {
     margin-left: 20px;
   }
 
+  #container__players {
+    height: 100%;
+  }
+
+  #containerPaiTabuleiro {
+    margin: 50px 20px 0 20px;
+  }
+
+  body span {
+    text-align: center;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background-color: rgba(39, 38, 38, 0.247);
+    font-weight: 900;
+  }
+
+  .jogadorEscolhido1Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 100%;
+    width: 150px;
+
+    position: absolute;
+    left: 22%;
+    top: 40%;
+  }
+
+  .jogadorEscolhido1 {
+    width: 100px;
+    height: 100px;
+    font-size: 0px;
+    margin: 20px;
+    border-radius: 100%;
+  }
+  .jogadorEscolhido2Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 100%;
+    width: 150px;
+
+    position: absolute;
+    right: 22%;
+    top: 40%;
+  }
+
+  .jogadorEscolhido2 {
+    width: 100px;
+    height: 100px;
+    font-size: 0px;
+    margin: 20px;
+    border-radius: 100%;
+  }
+
+  #times {
+    margin: 25px 0 40px;
+  }
+
   /************************ SEÇÃO TABULEIRO ***********************/
 
   #cxLeft,
@@ -431,11 +542,6 @@ h3 {
   }
 
   /*********************** SEÇÃO VITÓRIA **********************/
-
-  .vencendorDiv img {
-    width: 100px;
-    margin: 40px;
-  }
 
   span.nomeJogador {
     font-size: 4.5rem;

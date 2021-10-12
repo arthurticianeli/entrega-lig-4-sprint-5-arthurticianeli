@@ -1,4 +1,4 @@
-// ********************************* DECLARAÇÃO DE VARIÁVEIS ****************************** //
+// ********************************* DECLARAÇÃO DE VARIÁVEIS DO DOM ****************************** //
 
 const container__players = document.querySelector("#container__players")
 const container__tableGame = document.querySelector("#container__tableGame")
@@ -17,389 +17,476 @@ const vencedorDiv = document.querySelector(".vencendorDiv")
 let containerTargets = document.querySelectorAll(".targetColuna")
 let tableGameJogador = document.querySelector(".tableGame__jogador")
 
-document.addEventListener("drag", function(event) {//ativando Drag
+let limiteEmpate = 0
 
-}, false);
-
-let player = {
+let jogador = {
     nome: "",
-    time: "",
-    Numero: '1'
+    numero: '1'
 };
 
-// ******************* PEGAR JOGADORES ********************//
+// ******************* ESCOLHER JOGADORES ********************//
 let countClick = 0
-let player1Id= ""
-let player2Id= ""
-let player1Nome= ""
-let player2Nome= ""
-let stylePlayer1Selecionado = ""
-let stylePlayer2Selecionado = ""
+let jogador1Id= ""
+let jogador2Id= ""
+let stylejogador1Selecionado = ""
+let stylejogador2Selecionado = ""
+
 times.addEventListener("click", function(e){
-    if(e.target.id !== "times"){
-        if (countClick === 0){
-            stylePlayer1Selecionado = e.target
-            stylePlayer1Selecionado.style.boxShadow = "0px 0px 10px 11px #FFFFFF";
-            player.nome = e.target.textContent
-            player1Nome = e.target.textContent
-            player.time = e.target.id
-            player1Id = e.target.id
-            countClick++
 
-            jogadorDiv.textContent = "Escolha a segunda seleção:"
+    if (countClick === 0){
 
-        } else if (countClick === 1 && e.target.textContent  !== player.nome){
-            stylePlayer2Selecionado = e.target
-            stylePlayer2Selecionado.style.boxShadow = "0px 0px 10px 11px rgba(24,138,31,0.75)";
-            player2Id = e.target.id
-            player2Nome = e.target.textContent
-            countClick++
-            jogadorDiv.textContent = "Que comece a partida!"
-        }
+        stylejogador1Selecionado = e.target
+        
+        jogador.nome = e.target.textContent
+        jogador1Id = e.target.classList[0]
+        countClick++   
+        
+        let jogadorEscolhido1 = e.target.cloneNode(true)
+        jogadorEscolhido1.classList.add("jogadorEscolhido1")
+        jogadorEscolhido1.classList.add("pulse")
+
+        let jogadorEscolhido1Container = document.createElement("div")
+        jogadorEscolhido1Container.classList.add("jogadorEscolhido1Container")
+        jogadorEscolhido1Container.classList.add("fadeIn")
+
+        let jogadorEscolhido1Text = document.createElement("span")
+        jogadorEscolhido1Text.innerText = "Jogador 1"
+
+        let jogadorEscolhido1Time = document.createElement("span")
+        jogadorEscolhido1Time.innerText = `${jogador1Id}`
+
+        jogadorEscolhido1Container.appendChild(jogadorEscolhido1Text)
+        jogadorEscolhido1Container.appendChild(jogadorEscolhido1)
+        jogadorEscolhido1Container.appendChild(jogadorEscolhido1Time)
+
+        document.body.appendChild(jogadorEscolhido1Container)
+        
+        jogadorDiv.textContent = "Escolha a segunda seleção:"
+
+    } else if (countClick === 1 && e.target.textContent !== jogador.nome){
+
+        stylejogador2Selecionado = e.target
+  
+        jogador2Id = e.target.classList[0]
+
+        countClick++
+
+
+        let jogadorEscolhido2 = e.target.cloneNode(true)
+        jogadorEscolhido2.classList.add("jogadorEscolhido2")
+        jogadorEscolhido2.classList.add("pulse")
+
+        let jogadorEscolhido2Container = document.createElement("div")
+        jogadorEscolhido2Container.classList.add("jogadorEscolhido2Container")
+        jogadorEscolhido2Container.classList.add("fadeIn")
+
+        let jogadorEscolhido2Text = document.createElement("span")
+        jogadorEscolhido2Text.innerText = "Jogador 2"
+
+        let jogadorEscolhido2Time = document.createElement("span")
+        jogadorEscolhido2Time.innerText = `${jogador2Id}`
+
+        jogadorEscolhido2Container.appendChild(jogadorEscolhido2Text)
+        jogadorEscolhido2Container.appendChild(jogadorEscolhido2)
+        jogadorEscolhido2Container.appendChild(jogadorEscolhido2Time)
+
+        document.body.appendChild(jogadorEscolhido2Container)
+        
+        jogadorDiv.textContent = "Escolha a segunda seleção:"
+
+        jogadorDiv.textContent = "Aperte start para começar!"
     }
 })
 
 
 
+
 // **************************** CRIAR TABLE **************************** //
 
-let tableGame = [
-    "0000000",
-    "0000000",
-    "0000000",
-    "0000000",
-    "0000000",
-    "0000000"
-]
-
-function criartableGame() {
+function criarTabuleiro() {
     
-  criarBolinhasCaixas()
-
-    for(let i = 0; i < tableGame[0].length; i++){
-        // let bolinhaAcima = document.createElement("div")
-        
+    for(let i = 1; i <= 7; i++){
 
         let coluna = document.createElement("div")
-
-        coluna.classList.add(`coluna${i}`)
-        // bolinhaAcima.classList.add(`bolinha`)
-        if(DesativarClick === false){
-            coluna.addEventListener("click", moverDiscos) // Ouvindo todas as colunas para o evento de mover disco
-        }
-        for(let a = 0 ; a < tableGame.length ; a++){
-
-            let bloco = document.createElement("div")
-            bloco.classList.add("blocoFilho")
-            bloco.id = `${a}0${i}`
-
-            coluna.appendChild(bloco)
-            
-        }
+        coluna.classList.add(`coluna${i}`)      
         tabuleiro.appendChild(coluna)
-        // coluna.prepend(bolinhaAcima)
+
     }
   
-      tableGameJogador.textContent = `Posse de bola: ${player.nome}`
+    tableGameJogador.textContent = `Posse de bola: ${jogador.nome}`
+    
+    caixasLaterais()
+    arrastar()
 
 }
 
-function criarBolinhasCaixas(){
+function caixasLaterais(){
 
     let caixaEsquerda = document.getElementById("cxLeft")
     let caixaDireita = document.getElementById("cxRight")
   
         for(let i = 0 ; i < 21 ; i++){
-            let bolinhaVermelha = document.createElement("div")
-            bolinhaVermelha.classList.add("movendo", "bolinha")
-            bolinhaVermelha.setAttribute("id", `${player1Id}`)
-            bolinhaVermelha.style.cursor = 'pointer'
-            bolinhaVermelha.draggable = true
-            caixaEsquerda.prepend(bolinhaVermelha)
-     
-            let bolinhaBlack = document.createElement("div")
-            bolinhaBlack.classList.add("movendo", "bolinha")
-            bolinhaBlack.setAttribute("id", `${player2Id}`)
-            bolinhaBlack.cursor = 'pointer'
-            bolinhaBlack.draggable = true
-            caixaDireita.prepend(bolinhaBlack)
 
-            bolinhaVermelha.addEventListener("dragstart", dragStart)
-            bolinhaVermelha.addEventListener("dragend", dragEnd)
-            bolinhaBlack.addEventListener("dragstart", dragStart) 
-            bolinhaBlack.addEventListener("dragend", dragEnd) 
+            let jogador1 = document.createElement("div")
+           
+                jogador1.classList.add(`${jogador1Id}`)
+                jogador1.style.cursor = 'pointer'
+                jogador1.draggable = true
+                
+                let jogador2 = document.createElement("div")
+                
+                jogador2.classList.add(`${jogador2Id}`)
+                jogador2.cursor = 'pointer'
+
+            
+            caixaEsquerda.appendChild(jogador1)
+            caixaDireita.appendChild(jogador2)
+
         }
 
-
-}
-
-// MOVIMENTO DAS criarBolinhasCaixas
-
-containerTargets.forEach((a) =>{
-    // a.addEventListener("dragstart", dragStart);
-    a.addEventListener("dragenter", dragenterColuna);
-    a.addEventListener("dragover", dragover);
-    a.addEventListener("dragleave", dragleave);
-    a.addEventListener("drop", drop);
-});
-
-  
-  //=> dragStart(Iniciando o movimento do disco)
-let bolaJogada
-
-function dragStart(e){
-        bolaJogada = e.target.id
-        bolaJogadaValidacao = e.currentTarget
-        e.target.classList.add('moving');
-        e.cursor = 'pointer'
 }
 
 
-  function dragEnd(e){
-    // console.log(e.target)
-  }
+// ********************************* DND *********************************** //
 
- // => dragenter(Quando ENTRAR na containerTargets)
-function dragenter(e){
-    // console.log(e.target)
+function arrastar() {
     
-  }
-let resetStyleDiv
-function dragenterColuna (e){
-    resetStyleDiv = e.currentTarget
-    e.currentTarget.style.background = "pink";
-}
-  //=> dragover(Quando ESTIVER dentro da divPega)
-function dragover(e){
-      e.preventDefault();
-      //ENQUANTO ESTIVER NA DIV CurrentTarget pinta de ROSA
-}
-  
- // => dragleave(Quando SAIR da divPega)
+    let jogadorAtual
 
-  function dragleave(e){
-      e.currentTarget.style.background = "";
-  }
-  let bolaFilha
-  let colunaClick
-  function drop(e){
-    if(player.time === bolaJogada){
+    document.addEventListener("drag", function(event) {
+    }, false);
+
+    document.addEventListener("dragstart", function(event) {
+       
+        jogadorAtual = event.target.className
+        event.target.style.opacity = .5;
         
-        bolaFilha = e.currentTarget.id
-        colunaClick = document.querySelector(`.coluna${bolaFilha}`)
-        moverDiscos(colunaClick)
+    }, false);
+
+    document.addEventListener("dragend", function(event) {
+        event.target.style.opacity = "";    
+        event.target.style.boxShadow = "";
+    }, false);
+
+    document.addEventListener("dragover", function(event) {
+        event.preventDefault();
+    }, false);
+
+    document.addEventListener("dragenter", function(event) {
+
+        if (event.target.className == "targetColuna") {
+            event.target.style.background = "white";
+        }
+
+    }, false);
+
+    document.addEventListener("dragleave", function(event) {
+
+        if (event.target.className == "targetColuna") {
+            event.target.style.background = "";
+        }
+
+    }, false);
+
+    document.addEventListener("drop", function(event) {
+
+        event.preventDefault();
+
+        if (event.target.className == "targetColuna" && jogadorAtual === jogador.nome) {
+            event.target.style.background = "";
+            let colunaAlvo = document.querySelector(`.coluna${event.target.id}`)
+            jogada(colunaAlvo)
+        }
+
+    }, false);
+}
+
+function arrastavel() {
+
+    if(jogador.nome === jogador1Id) {
+
+        cxLeft.childNodes.forEach(function(e) {
+        e.draggable = true
+        e.style.cursor = 'pointer'
+        })
+
+        cxRight.childNodes.forEach(function(e) {
+        e.draggable = false
+        e.style.cursor = ""
+        })
+            
+
+    } else {
+
+        cxLeft.childNodes.forEach(function(e) {
+        e.draggable = false
+        e.style.cursor = ""
+        })
+
+        cxRight.childNodes.forEach(function(e) {
+        e.draggable = true
+        e.style.cursor = 'pointer'
+        })
+
     }
-    resetStyleDiv.style.background = ""
-  }
 
 
+}
 
 
 // **************************** VERIFICAR VITÓRIA ***************************//
 
+let board = [[], [] ,[], [], [], [], []]
+const imprimeTabuleiro = () => {
 
-let jogadas = 0
-let maximoJogadas = (tableGame.length * tableGame[0].length)
+    tabuleiro.childNodes.forEach(function(e, i){
 
-const verificaVitoria = (player) =>{
+        let filhos = e.childNodes
+        
+        filhos.forEach(function(e,j){
+            
+            if (filhos[j] !== undefined){
 
-    jogadas++
-    let condicao = "" //codiçao e o codigo necessario para validar a vitoria
-    let palavraCruzada = "" //verificaçao na diagonal esquerda
-    let palavraCruzadaD = ""//verificaçao na diagonal direita
-    let palavraVertical = ""//verificar vertical
-    let horizontal = ""//verifica horizontal
-    
-        if (player.Numero === '1') {
-            condicao = "1111"
-        } else {
-            condicao = "2222"
-        }
-    
-    if(jogadas < maximoJogadas){
-        /*Verifica Horizontais e diagonais*/
-        for(let i = 0 ; i < tableGame.length; i++){
-            for(let a = 0 ; a < tableGame[0].length ; a++){
+            board[i].push(filhos[j].className)
+            }
+
+        })
                 
-                if(a <= 3){
-                    horizontal = tableGame[i][a] + tableGame[i][a+1] + tableGame[i][a+2] + tableGame[i][a+3]
-                    if(i <= 2){
-                        palavraCruzada = tableGame[i][a] + tableGame[i+1][a+1] + tableGame[i+2][a+2] + tableGame[i+3][a+3] 
-                        palavraCruzadaD = tableGame[i][a+3] + tableGame[i+1][a+2] + tableGame[i+2][a+1] + tableGame[i+3][a]
-                    }
-                    if(horizontal === condicao || palavraCruzada === condicao || palavraCruzadaD === condicao){
-                        mostrarVitoria()
-                        nomeJogador.textContent = player.time
-                    }       
-                }
+    })
 
+}
+
+const verificaVitoriaVertical = () =>{
+
+    board.forEach(function(e,i) { // passa nas colunas
+         
+        e.forEach(function(e,j) { // passa nos filhos
+        
+            if(board[i] !== [] && j < 4){ 
+            
+            if(board[i][j] === board[i][j + 1] && board[i][j] === board[i][j + 2] && board[i][j] === board[i][j + 3]){ 
+                nomeJogador.textContent = board[i][j]
+                mostrarVitoria()
+            }
+           }   
+        })     
+    })
+}
+
+const verificarVitoriaHorizontal = () => {
+         
+    board.forEach(function(e,i) {
                
-            }
-        }
-        //Verificaçao Vertical
-        for(let i = 0 ; i < 3 ; i++){
-            for(let a = 0 ; a < tableGame[0].length ; a++){
-                palavraVertical = tableGame[i][a] + tableGame[i+1][a] + tableGame[i+2][a] + tableGame[i+3][a]
-                if(palavraVertical === condicao){
+        if(board[i] !== [] && i < 4){
+
+        e.forEach(function(e,j) {
+
+                if (board[i][j] === board[i+1][j] && board[i][j] === board[i+2][j] && board[i][j] === board[i+3][j]){
+                    nomeJogador.textContent = board[i][j]
                     mostrarVitoria()
-                    nomeJogador.textContent = player.time
-                } 
-            }
+                }   
+                
+            })        
         }
-    }
- else {
+            
+    })
+
+}
+
+const verificaVitoriaDiagonal = () =>{ 
     
-    mostrarVitoria()
-    nomeJogador.textContent = "O jogo terminou empatado!"
-    vencedorDiv.style.visibility = "hidden"
+    board.forEach(function(e,i) {
+        
+        e.forEach(function(e,j) {
+            
+            // diagonal para a direita 
+
+            if(board[i] !== [] && i < 5 && j < 4){ 
+
+            if(board[i][j] === board[i+1][j + 1] && board[i][j] === board[i+2][j+2] && board[i][j] === board[i+3][j+3]){ 
+
+                nomeJogador.textContent = board[i][j]
+                mostrarVitoria()
+                
+            }
+           }   
+
+        // diagonal para para esquerda
+
+            if(i < 4 && j > 2){ 
+            
+            if(board[i][j] === board[i+1][j-1] && board[i][j] === board[i+2][j-2] && board[i][j] === board[i+3][j-3]){ 
+
+                nomeJogador.textContent = board[i][j]
+                mostrarVitoria()
+
+            }
+            }
+           
+        })
+            
+    })
+
 
 }
-}
-
 
 function mostrarVitoria(){
     container__tableGame.style.display = "none"
     container__vitoria.style.display = "flex"
 }
 
+function verificaEmpate() {
 
+    limiteEmpate++
 
-
-// *************************** MOVER DISCOS **********************************//
-
-let arrJogadas = []
-
-function moverDiscos(event){
-    let colunaClicada
-    if (window.matchMedia("(max-width: 769px)").matches) {
-        colunaClicada = event.currentTarget
-      } else {
-        
-        colunaClicada = event
-      }
-    disableClick()
-
-    const cxLeft = document.querySelector("#cxLeft")
-    const leftBall = cxLeft.querySelectorAll(".movendo")
-    const cxRight = document.querySelector("#cxRight")
-    const rightBall = cxRight.querySelectorAll(".movendo")
-
-
-    
-    let disco = document.createElement("div")
-    disco.setAttribute("id", `${player.time}`)
-    
-    
-    let classeColunaClicada = colunaClicada.className
-    let tamanhoColunaClicada = colunaClicada.querySelectorAll("div")
-
-
-    if (tamanhoColunaClicada.length < 12 ){
-        if (player.Numero === "1") {
-            cxLeft.removeChild(leftBall[0])
-        } else {
-            cxRight.removeChild(rightBall[0])
-        } 
-}
-
-    arrJogadas.push(classeColunaClicada)
-
-    let posicaoArr = Number(classeColunaClicada[classeColunaClicada.length-1])
-
-    String.prototype.replaceAt=function(index, replacement) {
-
-        return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
-
+    if (limiteEmpate === 42){ 
+        nomeJogador.textContent = "O jogo terminou empatado!"
+        vencedorDiv.style.visibility = "hidden"
+        mostrarVitoria()
     }
-
-    //VARIAVEL PARA ANIMAÇÃO
-        let valAnimate = 240;
-        for(let i = tableGame.length-1 ; i >= 0 ;i--){
-            let blocoPai = document.getElementById(`${i}0${posicaoArr}`)
-            if(tableGame[i][posicaoArr] === "0"){
-                tableGame[i] = tableGame[i].replaceAt(posicaoArr, player.Numero) // ficar alternando timees
-                //ANIMAÇÃO NO DISCO =========
-                disco.animate([
-                    // movimento
-                    { transform: 'translateY(-'+valAnimate+'px)' },
-                    { transform: 'translateY(0px)' }
-                ], {
-                    // tempo
-                    duration: 1000,
-                });
-                // ==========================
-
-                blocoPai.appendChild(disco)
-                // verificaVitoria(player)
-                TrocarPlayer()
-                i=0
-            }
-            //VARIAVEL PARA ANIMAÇÃO
-            valAnimate -= 40
-        }
+    
 }
+
+
+
+// ******************************* JOGADA **********************************//
+
+function jogada(colunaAlvo){ 
+
+    if (window.matchMedia("(max-width: 769px)").matches) {
+        disableClick()
+    }
+ 
+    const cxLeft = document.querySelector("#cxLeft")
+    const leftBall = cxLeft.querySelectorAll(`.${jogador.nome}`)
+
+    const cxRight = document.querySelector("#cxRight")
+    const rightBall = cxRight.querySelectorAll(`.${jogador.nome}`)
+
+    if (colunaAlvo.childNodes.length < 12 ){
+
+        if (jogador.numero === "1") {
+
+            cxLeft.removeChild(leftBall[0])
+
+        } else {
+
+            cxRight.removeChild(rightBall[0])
+
+        } 
+    }
+ 
+    let disco = document.createElement("div")
+    disco.classList.add(jogador.nome)
+    
+  
+    //ANIMAÇÃO NO DISCO =========
+
+    let valAnimate = 240
+    let tempoAnimacao = 1200
+
+    valAnimate = (valAnimate - ([...colunaAlvo.childNodes].length * 40))
+    tempoAnimacao = tempoAnimacao -([...colunaAlvo.childNodes].length * 200)
+    
+    disco.animate([
+        { transform: 'translateY(-'+valAnimate+'px)' },
+        { transform: 'translateY(0px)' }
+    ], {duration: tempoAnimacao});
+    
+    
+
+    colunaAlvo.appendChild(disco)
+
+    
+    trocarJogador()    
+    arrastavel()
+
+    setTimeout(() => {
+
+        imprimeTabuleiro()
+        verificaVitoriaVertical()
+        verificarVitoriaHorizontal()
+        verificaVitoriaDiagonal()
+        verificaEmpate()
+        
+        board = [[], [] ,[], [], [], [], []]
+        
+    }, 1000);
+
+}
+
+// ***************************** LISTENER: JOGADA MOBILE **************************** //
+
+let listerner = function(e) {  
+        
+    let colunaAlvo = document.querySelector(`.${e.target.className}`)
+    
+    jogada(colunaAlvo)  
+        
+}
+
+tabuleiro.addEventListener("click", listerner)
+
+
+setInterval(() => {
+
+    // console.log("está ouvindo")
+    if (window.matchMedia("(min-width: 769px)").matches) {
+
+        console.log("desktop")
+        
+        tabuleiro.removeEventListener("click", listerner)
+        
+    } else {
+        console.log("mobile")
+
+        tabuleiro.addEventListener("click", listerner)
+    }
+}, 1);
+
 
 // ****************************** DESABILITAR CLICK ***********************************//
-function disableClick(){
-    if(DesativarClick === false){
-        let coluna = document.querySelector(".coluna0")
-        
-        for(let a = 0 ; a <= tableGame.length ; a++){
-            coluna = document.querySelector(`.coluna${a}`)
-            coluna.removeEventListener("click", moverDiscos)
-        }
 
-        setTimeout(() => {
-            for(let a = 0 ; a <= tableGame.length ; a++){
-                coluna = document.querySelector(`.coluna${a}`)
-                coluna.addEventListener("click", moverDiscos)
-            }
-            verificaVitoria(player)
-        }, 1000);
-    }else{
-        setTimeout(() => {
-            verificaVitoria(player)
-        },1000)
-    }
+function disableClick(){
+    
+    tabuleiro.removeEventListener("click", listerner)
+    
+    setTimeout(() => {
+
+    tabuleiro.addEventListener("click", listerner)
+    }, 1000);
 
 }
 
-// ***************************** ALTERNANDO O PLAYER **************************** //
+// ***************************** ALTERNANDO O jogador **************************** //
 
-function TrocarPlayer() {
+function trocarJogador() {
 
-    setTimeout(function(){
+    if (jogador.numero === '1') {      
 
-    if (player.Numero === '1') {      
-        player.nome = player2Nome;
-        player.time = player2Id;
-        player.Numero = '2';
-        tableGameJogador.textContent = `Posse de bola: ${player.nome}`
+        jogador.nome = jogador2Id;
+        jogador.numero = '2';
+        tableGameJogador.textContent = `Posse de bola: ${jogador.nome}`
 
     } else {
-        player.nome = player1Nome;
-        player.time = player1Id;
-        player.Numero = '1';
-        tableGameJogador.textContent = `Posse de bola: ${player.nome}`
+
+        jogador.nome = jogador1Id;
+        jogador.numero = '1';
+        tableGameJogador.textContent = `Posse de bola: ${jogador.nome}`
         
     }
 
-}, 1000)
-
 }
-
 
 
 // ***************************** LISTENER: BOTÃO RESET **************************** //
 
-
 function reset(){
     
     jogadorDiv.textContent = "O primeiro jogador escolhe:"
-    tableGameJogador.textContent = `Posse de bola do jogador ${player.nome}`
-    player.time = player1Id;
-    player.Numero = '1';
-    player.nome = player1Nome
+    tableGameJogador.textContent = `Posse de bola do jogador ${jogador.nome}`
+    jogador.nome = jogador1Id;
+    jogador.numero = '1';
     countClick = 0
 
     cxLeft.innerHTML= ""
@@ -407,84 +494,73 @@ function reset(){
 
     tabuleiro.innerHTML = ""
 
-    stylePlayer1Selecionado.style.boxShadow = "none"
-    stylePlayer2Selecionado.style.boxShadow = "none"
+    stylejogador1Selecionado.style.boxShadow = "none"
+    stylejogador2Selecionado.style.boxShadow = "none"
 
     vencedorDiv.style.visibility = "visible"
 
     jogadas = 0
-
-    tableGame = [
-        "0000000",
-        "0000000",
-        "0000000",
-        "0000000",
-        "0000000",
-        "0000000"
-    ]
    
 }
 
 buttonReset.addEventListener("click", function(){
     reset()
-    criartableGame()
+    criarTabuleiro()
 })
 
 
 // ***************************** LISTENER: BOTÃO START **************************** //
 
-let DesativarClick = false
+
 buttonStart.addEventListener("click", function(e){
-    if (window.matchMedia("(min-width: 769px)").matches) {
-        DesativarClick = true
-      }
+
     if (countClick === 2) {
+
     container__players.style.display = "none"
     container__tableGame.style.display = "flex"
+
+    let jogador1 = document.querySelector(".jogadorEscolhido1Container")
+    let jogador2 = document.querySelector(".jogadorEscolhido2Container")
+
+    document.body.removeChild(jogador1)
+    document.body.removeChild(jogador2)
     
-    criartableGame()
+    criarTabuleiro()
     
     } else {
-        jogadorDiv.textContent = "Por favor! Escolha um seleção:"
+        jogadorDiv.textContent = "Por favor! Escolha uma seleção:"
     }
 })
 // ***************************** LISTENER: BOTÃO JOGAR DE NOVO **************************** //
 
 
 buttonJogarNovamente.addEventListener("click", function(e){
-    // stylePlayer1Selecionado.style.border = "none"
-    // stylePlayer2Selecionado.style.border = "none"
+
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "flex"
 
     reset()
-    criartableGame()
+    criarTabuleiro()
 })
 
 // ***************************** LISTENER: ESCOLHER NOVOS JOGADORES **************************** //
 
-
-
 buttonEscolherJogadores.addEventListener("click", function(){
-    stylePlayer1Selecionado.style.border = "none"//resetar estilo
-    stylePlayer2Selecionado.style.border = "none"
+    stylejogador1Selecionado.style.border = "none"//resetar estilo
+    stylejogador2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
-    container__players.style.display = "flex"
+    container__jogadors.style.display = "flex"
     
     reset()
 })
 
 buttonEscolherJogadoresVitoria.addEventListener("click", function(){
-    stylePlayer1Selecionado.style.border = "none"//resetar estilo
-    stylePlayer2Selecionado.style.border = "none"
+    stylejogador1Selecionado.style.border = "none"//resetar estilo
+    stylejogador2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
-    container__players.style.display = "flex"
+    container__jogadors.style.display = "flex"
     
     reset()
 })
-
-
-
-
