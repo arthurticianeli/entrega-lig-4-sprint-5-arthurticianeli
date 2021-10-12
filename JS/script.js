@@ -162,13 +162,11 @@ function arrastar() {
     document.addEventListener("dragstart", function(event) {
        
         jogadorAtual = event.target.className
-        event.target.style.opacity = .5;
         
     }, false);
 
     document.addEventListener("dragend", function(event) {
-        event.target.style.opacity = "";    
-        event.target.style.boxShadow = "";
+   
     }, false);
 
     document.addEventListener("dragover", function(event) {
@@ -356,6 +354,8 @@ function verificaEmpate() {
 
 function jogada(colunaAlvo){ 
 
+    //solta um áudio de gol
+
     if (window.matchMedia("(max-width: 769px)").matches) {
         disableClick()
     }
@@ -388,7 +388,7 @@ function jogada(colunaAlvo){
     let valAnimate = 240
     let tempoAnimacao = 1200
 
-    valAnimate = (valAnimate - ([...colunaAlvo.childNodes].length * 40))
+    valAnimate = valAnimate - ([...colunaAlvo.childNodes].length * 40)
     tempoAnimacao = tempoAnimacao -([...colunaAlvo.childNodes].length * 200)
     
     disco.animate([
@@ -427,9 +427,6 @@ let listerner = function(e) {
     jogada(colunaAlvo)  
         
 }
-
-tabuleiro.addEventListener("click", listerner)
-
 
 // ***************************** LISTENER: MUDANÇA DE TELA **************************** //
 
@@ -549,7 +546,7 @@ buttonEscolherJogadores.addEventListener("click", function(){
     stylejogador2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
-    container__jogadors.style.display = "flex"
+    container__players.style.display = "flex"
     
     reset()
 })
@@ -559,7 +556,7 @@ buttonEscolherJogadoresVitoria.addEventListener("click", function(){
     stylejogador2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
-    container__jogadors.style.display = "flex"
+    container__players.style.display = "flex"
     
     reset()
 })
