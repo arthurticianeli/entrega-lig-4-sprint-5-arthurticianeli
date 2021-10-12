@@ -33,7 +33,10 @@ let stylejogador2Selecionado = ""
 
 times.addEventListener("click", function(e){
 
-    if (countClick === 0){
+    let containerTimes = [...times.childNodes]
+
+
+    if (countClick === 0 && containerTimes.includes(e.target)){
 
         stylejogador1Selecionado = e.target
         
@@ -63,7 +66,7 @@ times.addEventListener("click", function(e){
         
         jogadorDiv.textContent = "Escolha a segunda seleção:"
 
-    } else if (countClick === 1 && e.target.textContent !== jogador.nome){
+    } else if (countClick === 1 && e.target.textContent !== jogador.nome && containerTimes.includes(e.target)){
 
         stylejogador2Selecionado = e.target
   
@@ -428,20 +431,17 @@ let listerner = function(e) {
 tabuleiro.addEventListener("click", listerner)
 
 
-setInterval(() => {
+// ***************************** LISTENER: MUDANÇA DE TELA **************************** //
 
-    if (window.matchMedia("(min-width: 769px)").matches) {
-
-        console.log("desktop")
-        
-        tabuleiro.removeEventListener("click", listerner)
-        
-    } else {
-        console.log("mobile")
-
+window.onresize = function() {
+    var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    if (w < 769) {
         tabuleiro.addEventListener("click", listerner)
+    } else {
+        tabuleiro.removeEventListener("click", listerner)
     }
-}, 1);
+}
+
 
 
 // ****************************** DESABILITAR CLICK ***********************************//
