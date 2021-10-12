@@ -430,7 +430,6 @@ tabuleiro.addEventListener("click", listerner)
 
 setInterval(() => {
 
-    // console.log("está ouvindo")
     if (window.matchMedia("(min-width: 769px)").matches) {
 
         console.log("desktop")
