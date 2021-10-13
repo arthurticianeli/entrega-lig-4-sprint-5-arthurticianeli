@@ -336,7 +336,7 @@ const verificaVitoriaDiagonal = () =>{
 
 function mostrarVitoria(){
     console.log(nomeJogador.textContent)
-    let caminho = `/assets/music/musicPaises/${nomeJogador.textContent}.mp3`
+    let caminho = `./assets/music/musicPaises/${nomeJogador.textContent}.mp3`
     container__tableGame.style.display = "none"
     container__vitoria.style.display = "flex"
     nomeJogador.textContent = nomeJogador.textContent.replace("_", " ")
@@ -350,7 +350,7 @@ function verificaEmpate() {
     if (limiteEmpate === 42){ 
         nomeJogador.textContent = "O jogo terminou empatado!"
         vencedorDiv.style.visibility = "hidden"
-        audioJogo.setAttribute("src","/assets/music/empate.mp3")
+        audioJogo.setAttribute("src","./assets/music/empate.mp3")
         mostrarVitoria()
     }
     
@@ -504,7 +504,7 @@ function reset(){
     vencedorDiv.style.visibility = "visible"
 
     jogadas = 0
-    audioJogo.setAttribute("src","/assets/music/musicaFundo.mp3")
+    audioJogo.setAttribute("src","./assets/music/musicaFundo.mp3")
 }
 
 buttonReset.addEventListener("click", function(){
