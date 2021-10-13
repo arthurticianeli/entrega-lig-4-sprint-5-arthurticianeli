@@ -164,9 +164,9 @@ function msgDesktop(){
 
     tabuleiros.appendChild(msg)
 
-    setTimeout(function() {
-        tabuleiros.removeChild(msg)
-    },5000)
+    // setTimeout(function() {
+    //     tabuleiros.removeChild(msg)
+    // },5000)
    
 
 }
@@ -179,9 +179,9 @@ function msgMobile(){
 
     tabuleiros.appendChild(msg)
 
-    setTimeout(function() {
-        tabuleiros.removeChild(msg)
-    },5000)
+    // setTimeout(function() {
+    //     tabuleiros.removeChild(msg)
+    // },5000)
 
 }
 

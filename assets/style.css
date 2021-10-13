@@ -357,8 +357,9 @@ main {
 .msg {
   display: flex;
   position: absolute;
-  left: 23.5vw;
-  top: 14vh;
+  top: 17vh;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -708,10 +709,5 @@ h3 {
 
   .jogarNovamente {
     margin: 50px 0 20px;
-  }
-
-  .msg {
-    left: 41.6vw;
-    top: 30vh;
   }
 }
