@@ -123,7 +123,6 @@ main {
 }
 
 #times > * {
-  font-size: 0px;
   width: 50px;
   height: 50px;
   margin: 5px;
@@ -241,7 +240,6 @@ main {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  width: 100vw;
 }
 
 #cxRight,
@@ -356,6 +354,20 @@ main {
   height: 40px;
 }
 
+.msg {
+  display: flex;
+  position: absolute;
+  left: 23.5vw;
+  top: 14vh;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: fit-content;
+  background-color: rgba(93, 93, 94, 0.4);
+  color: var(--color);
+  font-size: 1.2rem;
+}
 /*********************** SEÇÃO VITÓRIA **********************/
 
 #container__vitoria {
@@ -696,5 +708,10 @@ h3 {
 
   .jogarNovamente {
     margin: 50px 0 20px;
+  }
+
+  .msg {
+    left: 41.6vw;
+    top: 30vh;
   }
 }

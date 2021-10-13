@@ -23,27 +23,33 @@ let limiteEmpate = 0
 
 let jogador = {
     nome: "",
-    numero: '1'
 };
+
 
 // ******************* ESCOLHER JOGADORES ********************//
 let countClick = 0
-let jogador1Id= ""
-let jogador2Id= ""
-let stylejogador1Selecionado = ""
-let stylejogador2Selecionado = ""
+let jogador1Class = ""
+let jogador2Class = ""
+let nomeExibir = ""
+
+function trocarExibir(jogadorNome) {
+
+    nomeExibir = jogadorNome.replace("_", " ")
+    
+}
 
 times.addEventListener("click", function(e){
 
+    
     let containerTimes = [...times.childNodes]
-
-
+    
     if (countClick === 0 && containerTimes.includes(e.target)){
-
-        stylejogador1Selecionado = e.target
         
-        jogador.nome = e.target.textContent
-        jogador1Id = e.target.className
+        jogador.nome = e.target.className
+        jogador1Class = e.target.className
+        trocarExibir(e.target.className)
+
+        tableGameJogador.innerText = `Posse de bola: ${nomeExibir}`
         countClick++   
         
         let jogadorEscolhido1 = e.target.cloneNode(true)
@@ -58,7 +64,7 @@ times.addEventListener("click", function(e){
         jogadorEscolhido1Text.innerText = "Jogador 1"
 
         let jogadorEscolhido1Time = document.createElement("span")
-        jogadorEscolhido1Time.innerText = `${jogador1Id}`
+        jogadorEscolhido1Time.innerText = `${nomeExibir}`
 
         jogadorEscolhido1Container.appendChild(jogadorEscolhido1Text)
         jogadorEscolhido1Container.appendChild(jogadorEscolhido1)
@@ -66,16 +72,14 @@ times.addEventListener("click", function(e){
 
         document.body.appendChild(jogadorEscolhido1Container)
         
-        jogadorDiv.textContent = "Escolha a segunda seleção:"
+        jogadorDiv.className = "Escolha a segunda seleção:"
 
-    } else if (countClick === 1 && e.target.textContent !== jogador.nome && containerTimes.includes(e.target)){
+    } else if (countClick === 1 && e.target.className !== jogador.nome && containerTimes.includes(e.target)){
 
-        stylejogador2Selecionado = e.target
-
-        jogador2Id = e.target.className
+        jogador2Class = e.target.className
+        trocarExibir(e.target.className)
 
         countClick++
-
 
         let jogadorEscolhido2 = e.target.cloneNode(true)
         jogadorEscolhido2.classList.add("jogadorEscolhido2")
@@ -89,7 +93,7 @@ times.addEventListener("click", function(e){
         jogadorEscolhido2Text.innerText = "Jogador 2"
 
         let jogadorEscolhido2Time = document.createElement("span")
-        jogadorEscolhido2Time.innerText = `${jogador2Id}`
+        jogadorEscolhido2Time.innerText = `${nomeExibir}`
 
         jogadorEscolhido2Container.appendChild(jogadorEscolhido2Text)
         jogadorEscolhido2Container.appendChild(jogadorEscolhido2)
@@ -97,16 +101,17 @@ times.addEventListener("click", function(e){
 
         document.body.appendChild(jogadorEscolhido2Container)
         
-        jogadorDiv.textContent = "Escolha a segunda seleção:"
+        jogadorDiv.className = "Escolha a segunda seleção:"
 
-        jogadorDiv.textContent = "Aperte start para começar!"
+        jogadorDiv.className = "Aperte start para começar!"
     }
 })
 
 
 
-
 // **************************** CRIAR TABLE **************************** //
+
+
 
 function criarTabuleiro() {
     
@@ -117,12 +122,8 @@ function criarTabuleiro() {
         tabuleiro.appendChild(coluna)
 
     }
-  
-    tableGameJogador.textContent = `Posse de bola: ${jogador.nome}`
     
     caixasLaterais()
-    arrastar()
-
 }
 
 function caixasLaterais(){
@@ -134,13 +135,13 @@ function caixasLaterais(){
 
             let jogador1 = document.createElement("div")
            
-                jogador1.classList.add(`${jogador1Id}`)
+                jogador1.classList.add(`${jogador1Class}`)
                 jogador1.style.cursor = 'pointer'
                 jogador1.draggable = true
                 
                 let jogador2 = document.createElement("div")
                 
-                jogador2.classList.add(`${jogador2Id}`)
+                jogador2.classList.add(`${jogador2Class}`)
                 jogador2.cursor = 'pointer'
 
             
@@ -151,6 +152,38 @@ function caixasLaterais(){
 
 }
 
+/******************************* INSTRUÇÃO JOGADA ********************/
+
+
+function msgDesktop(){
+
+    let tabuleiros = document.querySelector("#tabuleiros")
+    let msg = document.createElement("span")
+    msg.textContent = "Arraste a bola da sua seleção para um dos alvos acima!"
+    msg.classList.add("msg")
+
+    tabuleiros.appendChild(msg)
+
+    setTimeout(function() {
+        tabuleiros.removeChild(msg)
+    },5000)
+   
+
+}
+
+function msgMobile(){
+    
+    let msg = document.createElement("span")
+    msg.textContent = "Toque abaixo dos alvos para jogar!"
+    msg.classList.add("msg")
+
+    tabuleiros.appendChild(msg)
+
+    setTimeout(function() {
+        tabuleiros.removeChild(msg)
+    },5000)
+
+}
 
 // ********************************* DND *********************************** //
 
@@ -196,17 +229,23 @@ function arrastar() {
         event.preventDefault();
 
         if (event.target.className == "targetColuna" && jogadorAtual === jogador.nome) {
+
             event.target.style.background = "";
+
             let colunaAlvo = document.querySelector(`.coluna${event.target.id}`)
+
+            console.log(colunaAlvo)
+
             jogada(colunaAlvo)
         }
 
     }, false);
 }
 
+
 function arrastavel() {
 
-    if(jogador.nome === jogador1Id) {
+    if(jogador.nome === jogador1Class) {
 
         cxLeft.childNodes.forEach(function(e) {
         e.draggable = true
@@ -240,6 +279,7 @@ function arrastavel() {
 // **************************** VERIFICAR VITÓRIA ***************************//
 
 let board = [[], [] ,[], [], [], [], []]
+
 const imprimeTabuleiro = () => {
 
     tabuleiro.childNodes.forEach(function(e, i){
@@ -251,6 +291,7 @@ const imprimeTabuleiro = () => {
             if (filhos[j] !== undefined){
 
             board[i].push(filhos[j].className)
+
             }
 
         })
@@ -269,7 +310,7 @@ const verificaVitoriaVertical = () =>{
             
             if(board[i][j] === board[i][j + 1] && board[i][j] === board[i][j + 2] && board[i][j] === board[i][j + 3]){ 
                 
-                nomeJogador.textContent = board[i][j]
+                trocarExibir(board[i][j])
                 mostrarVitoria()
             }
            }   
@@ -286,7 +327,7 @@ const verificarVitoriaHorizontal = () => {
         e.forEach(function(e,j) {
 
                 if (board[i][j] === board[i+1][j] && board[i][j] === board[i+2][j] && board[i][j] === board[i+3][j]){
-                    nomeJogador.textContent = board[i][j]
+                    trocarExibir(board[i][j])
                     mostrarVitoria()
                 }   
                 
@@ -309,7 +350,7 @@ const verificaVitoriaDiagonal = () =>{
 
             if(board[i][j] === board[i+1][j + 1] && board[i][j] === board[i+2][j+2] && board[i][j] === board[i+3][j+3]){ 
 
-                nomeJogador.textContent = board[i][j]
+                trocarExibir(board[i][j])
                 mostrarVitoria()
                 
             }
@@ -321,7 +362,7 @@ const verificaVitoriaDiagonal = () =>{
             
             if(board[i][j] === board[i+1][j-1] && board[i][j] === board[i+2][j-2] && board[i][j] === board[i+3][j-3]){ 
 
-                nomeJogador.textContent = board[i][j]
+                trocarExibir(board[i][j])
                 mostrarVitoria()
 
             }
@@ -331,16 +372,17 @@ const verificaVitoriaDiagonal = () =>{
             
     })
 
-
 }
 
 function mostrarVitoria(){
-    console.log(nomeJogador.textContent)
-    let caminho = `./assets/music/musicPaises/${nomeJogador.textContent}.mp3`
+
+    nomeJogador.textContent = nomeExibir
+
     container__tableGame.style.display = "none"
     container__vitoria.style.display = "flex"
-    nomeJogador.textContent = nomeJogador.textContent.replace("_", " ")
-    audioJogo.setAttribute("src",caminho)
+
+    audioJogo.setAttribute("src",`./assets/music/musicPaises/${nomeExibir}.mp3`)
+
 }
 
 function verificaEmpate() {
@@ -348,7 +390,7 @@ function verificaEmpate() {
     limiteEmpate++
 
     if (limiteEmpate === 42){ 
-        nomeJogador.textContent = "O jogo terminou empatado!"
+        nomeJogador.className = "O jogo terminou empatado!"
         vencedorDiv.style.visibility = "hidden"
         audioJogo.setAttribute("src","./assets/music/empate.mp3")
         mostrarVitoria()
@@ -362,21 +404,20 @@ function verificaEmpate() {
 
 function jogada(colunaAlvo){ 
 
-    //solta um áudio de gol
     audioJogada.play()
     if (window.matchMedia("(max-width: 769px)").matches) {
         disableClick()
     }
  
     const cxLeft = document.querySelector("#cxLeft")
-    const leftBall = cxLeft.querySelectorAll(`.${jogador.nome}`)
+    const leftBall = cxLeft.querySelectorAll(`.${jogador1Class}`)
 
     const cxRight = document.querySelector("#cxRight")
-    const rightBall = cxRight.querySelectorAll(`.${jogador.nome}`)
-
+    const rightBall = cxRight.querySelectorAll(`.${jogador2Class}`)
+    
     if (colunaAlvo.childNodes.length < 12 ){
 
-        if (jogador.numero === "1") {
+        if (jogador.nome === jogador1Class) {
 
             cxLeft.removeChild(leftBall[0])
 
@@ -428,25 +469,30 @@ function jogada(colunaAlvo){
 
 // ***************************** LISTENER: JOGADA MOBILE **************************** //
 
-let listerner = function(e) {  
-        
-    let colunaAlvo = document.querySelector(`.${e.target.className}`)
+let listerner = function(event) {  
+   
+     if (event.target.tagName == "DIV") {
+
+        jogada(event.target)
+    }
+}
+
+let w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     
-    jogada(colunaAlvo)  
-        
+if (w < 769) {
+    tabuleiro.addEventListener("click", listerner)
 }
 
 // ***************************** LISTENER: MUDANÇA DE TELA **************************** //
 
 window.onresize = function() {
-    var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     if (w < 769) {
         tabuleiro.addEventListener("click", listerner)
     } else {
         tabuleiro.removeEventListener("click", listerner)
     }
 }
-
 
 
 // ****************************** DESABILITAR CLICK ***********************************//
@@ -458,25 +504,26 @@ function disableClick(){
     setTimeout(() => {
 
     tabuleiro.addEventListener("click", listerner)
-    }, 1000);
+    }, 1200);
 
 }
 
-// ***************************** ALTERNANDO O jogador **************************** //
+// ***************************** TROCA O JOGADOR **************************** //
 
 function trocarJogador() {
 
-    if (jogador.numero === '1') {      
 
-        jogador.nome = jogador2Id;
-        jogador.numero = '2';
-        tableGameJogador.textContent = `Posse de bola: ${jogador.nome}`
+    if (jogador.nome === jogador1Class) {      
+
+        jogador.nome = jogador2Class;
+        trocarExibir(jogador.nome)
+        tableGameJogador.innerText = `Posse de bola: ${nomeExibir}`
 
     } else {
 
-        jogador.nome = jogador1Id;
-        jogador.numero = '1';
-        tableGameJogador.textContent = `Posse de bola: ${jogador.nome}`
+        jogador.nome = jogador1Class;
+        trocarExibir(jogador.nome)
+        tableGameJogador.innerText = `Posse de bola: ${nomeExibir}`
         
     }
 
@@ -487,10 +534,9 @@ function trocarJogador() {
 
 function reset(){
     
-    jogadorDiv.textContent = "O primeiro jogador escolhe:"
-    tableGameJogador.textContent = `Posse de bola do jogador ${jogador.nome}`
-    jogador.nome = jogador1Id;
-    jogador.numero = '1';
+    jogadorDiv.innerText = "O primeiro jogador escolhe:"
+    trocarExibir(jogador1Class)
+    tableGameJogador.innerText = `Posse de bola: ${nomeExibir}`
     countClick = 0
 
     cxLeft.innerHTML= ""
@@ -498,13 +544,11 @@ function reset(){
 
     tabuleiro.innerHTML = ""
 
-    stylejogador1Selecionado.style.boxShadow = "none"
-    stylejogador2Selecionado.style.boxShadow = "none"
-
     vencedorDiv.style.visibility = "visible"
 
     jogadas = 0
     audioJogo.setAttribute("src","./assets/music/musicaFundo.mp3")
+
 }
 
 buttonReset.addEventListener("click", function(){
@@ -517,6 +561,18 @@ buttonReset.addEventListener("click", function(){
 
 
 buttonStart.addEventListener("click", function(e){
+
+    if (w < 769) {
+
+        msgMobile()
+
+    } else {
+        
+        msgDesktop()
+
+    }
+    
+
     if (countClick === 2) {
         audioJogo.play()
         audioJogo.volume = 0.2
@@ -532,9 +588,10 @@ buttonStart.addEventListener("click", function(e){
     document.body.removeChild(jogador2)
     
     criarTabuleiro()
+    arrastar()
     
     } else {
-        jogadorDiv.textContent = "Por favor! Escolha uma seleção:"
+        jogadorDiv.className = "Por favor! Escolha uma seleção:"
     }
 })
 // ***************************** LISTENER: BOTÃO JOGAR DE NOVO **************************** //
@@ -552,8 +609,6 @@ buttonJogarNovamente.addEventListener("click", function(e){
 // ***************************** LISTENER: ESCOLHER NOVOS JOGADORES **************************** //
 
 buttonEscolherJogadores.addEventListener("click", function(){
-    stylejogador1Selecionado.style.border = "none"//resetar estilo
-    stylejogador2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
     container__players.style.display = "flex"
@@ -562,11 +617,11 @@ buttonEscolherJogadores.addEventListener("click", function(){
 })
 
 buttonEscolherJogadoresVitoria.addEventListener("click", function(){
-    stylejogador1Selecionado.style.border = "none"//resetar estilo
-    stylejogador2Selecionado.style.border = "none"
     container__vitoria.style.display = "none"
     container__tableGame.style.display = "none"
     container__players.style.display = "flex"
     
     reset()
 })
+
+
