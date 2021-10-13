@@ -43,7 +43,7 @@ times.addEventListener("click", function(e){
         stylejogador1Selecionado = e.target
         
         jogador.nome = e.target.textContent
-        jogador1Id = e.target.classList[0]
+        jogador1Id = e.target.className
         countClick++   
         
         let jogadorEscolhido1 = e.target.cloneNode(true)
@@ -71,8 +71,8 @@ times.addEventListener("click", function(e){
     } else if (countClick === 1 && e.target.textContent !== jogador.nome && containerTimes.includes(e.target)){
 
         stylejogador2Selecionado = e.target
-  
-        jogador2Id = e.target.classList[0]
+
+        jogador2Id = e.target.className
 
         countClick++
 
@@ -335,9 +335,11 @@ const verificaVitoriaDiagonal = () =>{
 }
 
 function mostrarVitoria(){
+    console.log(nomeJogador.textContent)
     let caminho = `/assets/music/musicPaises/${nomeJogador.textContent}.mp3`
     container__tableGame.style.display = "none"
     container__vitoria.style.display = "flex"
+    nomeJogador.textContent = nomeJogador.textContent.replace("_", " ")
     audioJogo.setAttribute("src",caminho)
 }
 
@@ -515,10 +517,10 @@ buttonReset.addEventListener("click", function(){
 
 
 buttonStart.addEventListener("click", function(e){
-    audioJogo.play()
-    audioJogo.volume = 0.2
-    apito.play()
     if (countClick === 2) {
+        audioJogo.play()
+        audioJogo.volume = 0.2
+        apito.play()
 
     container__players.style.display = "none"
     container__tableGame.style.display = "flex"

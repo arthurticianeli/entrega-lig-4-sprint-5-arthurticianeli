@@ -54,6 +54,7 @@ button {
   border-radius: 50px;
   font-size: 1rem;
   font-weight: 600;
+  z-index: 101;
 }
 
 button:hover {
@@ -430,7 +431,7 @@ span.textoVencedor {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 1000;
+  z-index: 100;
 }
 .confetti-piece {
   position: absolute;
