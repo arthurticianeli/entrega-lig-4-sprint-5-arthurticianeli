@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./assets/reset.css" />
+  <link rel="stylesheet" href="./assets/style.css" />
+  <title>Lig-4</title>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <!-- LOGO -->
+    <div class="logo">
+    <img src="./assets/img/logo2.svg" alt="Logo Lig-4 Copa do Mundo" />
+    </div>
+  </header>
+  <!-- HEADER -->
+
+  <!-- MAIN -->
+  <main>
+  <!-- TELA JOGADOR (Tela 1) -->
+    <section id="container__players">
+
+        <span id="jogadorDiv">Escolha a primeira seleção:</span>
+
+        <div id="times">
+          <div class="Alemanha"></div>
+          <div class="Argentina"></div>
+          <div class="Brasil"></div>
+          <div class="França"></div>
+          <div class="Portugal"></div>
+          <div class="Reino_Unido"></div>      
+        </div>
+
+
+        <!-- Botão iniciar jogo -->
+        <button id="startButton">Start</button>
+      
+    </section>
+    <!-- JOGADOR -->
+
+    <!-- TELA TABULEIRO (Tela 2) -->
+
+    <section id="container__tableGame">
+
+      <!-- Div para alinhamento das caixas direita, esquerda e o tabuleiro -->
+      <div id="tabuleiros">
+
+      <!-- Caixa de discos da esquerda -->
+      <div id="cxLeft"></div>
+
+        <!-- Tabuleiro -->
+      <div id="containerPaiTabuleiro">
+        <div class="containerTargerts">
+          <div class="targetColuna" id="1">
+          </div>
+          <div class="targetColuna" id="2">
+          </div>
+          <div class="targetColuna" id="3">
+          </div>
+          <div class="targetColuna" id="4">
+          </div>
+          <div class="targetColuna" id="5">
+          </div>
+          <div class="targetColuna" id="6">
+          </div>
+          <div class="targetColuna" id="7">
+          </div>
+        </div>
+        <div class="tableGame"></div>
+      </div>
+
+      <!-- Caixa de discos da direita -->
+      <div id="cxRight"></div>
+      </div>
+
+      <!-- Div de informação do atual Jogado -->
+      <div class="tableGame__jogador"></div>
+
+      <!-- Botão para resetar o jogo -->
+      <button class="tableGame__reset">Reset</button>
+      <!-- Botão para voltar e escolher outros jogadores -->
+      <button class="escolherJogadores">Escolher jogadores</button>
+
+    </section>
+
+
+  <!-- TELA VITÓRIA (Tela 3) -->
+
+    <section id="container__vitoria">
+      <div class="vencendorDiv">
+        <img src="./assets/img/trofeu.svg" alt="Trofeu vencedor" />
+      </div>
+      <!-- Div informaçōes -->
+      <div class="vencendorText">
+        <!-- Span Nome do jogador -->
+        <span class="nomeJogador"></span>
+        <!-- Span texto vencedor -->
+        <span class="textoVencedor">VENCEDOR(A)</span>
+      </div>
+
+          <!-- Botão Jogar novamente -->
+          <button class="jogarNovamente btnVitoria">Jogar novamente</button>
+
+          <!-- Botão Escolher times -->
+          <button class="escolherJogadoresVitoria btnVitoria"> Escolher times </button>
+      </div>
+
+      <div class="confetti">
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+    </div>
+    </section>
+    <audio class="audioJogo" src="./assets/music/musicaFundo.mp3" autoplay volume="0.1" loop></audio>
+    <audio class="audioJogada" src="./assets/music/chute.mp3"></audio> 
+    <audio class="apito" src="./assets/music/apito.mp3"></audio> 
+  <!-- VITÓRIA -->
+  </main>
+  <!-- MAIN -->
+
+  <!-- FOOTER -->
+  <footer>
+  <!-- Direito Autorais -->
+  <h3>
+  Projeto criado por Júlio Pereira, Erick Paiva, Arthur Ticianeli e
+  Luciana Nunes
+  </h3>
+  </footer>
+  <!-- FOOTER -->
+  </div>
+
+  <script src="./JS/script.js"></script>
+</body>
+</html>
+
